@@ -1,0 +1,244 @@
+﻿@{
+    var branch = @ViewBag.Branchs as HtmlString;
+}
+<div class="modal-dialog" id="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">添加菜单栏</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label for="Title" class="control-label">栏目名称</label>
+
+                        <input type="text" class="form-control" id="Title" placeholder="" data-bind="value:addbranch.Title, uniqueName: true">
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label for="level" class="control-label">类型</label>
+
+                        <select class="form-control" data-bind="value: addbranch.Level, uniqueName: true" id="level">
+                            <option value="1">1级菜单</option>
+                            <option value="2">2级菜单</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group" data-bind="style: {  display: addbranch.Level() == 2 ?'inline' :'none'} ">
+                        <label for="PreBranchID" class="control-label" data-bind="">
+                            主菜单
+                        </label>
+
+                        <select class="form-control" id="PreBranchID" data-bind="options:firstBranchs,optionsText:'Title',optionsValue:'ID',value:addbranch.PreBranch, uniqueName: true">
+                            @*<option data-bind="text:Title,value:ID"></option>*@
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        <label for="AreaName" class="control-label">区域名称</label>
+
+                        <input type="text" class="form-control" id="AreaName" placeholder="" data-bind="enable: addbranch.Level() == 1, uniqueName: true,value: addbranch.AreaName">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        <label for="ActionName" class="control-label">控制器名称</label>
+
+                        <input type="text" class="form-control" id="ActionName" placeholder="" data-bind="enable: addbranch.Level() == 2, uniqueName: true,value: addbranch.ActionName">
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="logo" class="control-label">图标</label>
+                    <select class="form-control" id="logo" data-bind="enable: addbranch.Level() == 1, uniqueName: true,value: addbranch.Logo">
+
+                        <option value="linecons-music">linecons-music</option>
+
+                        <option value="linecons-search">linecons-search</option>
+
+                        <option value="linecons-mail">linecons-mail</option>
+
+                        <option value="linecons-heart">linecons-heart</option>
+
+                        <option value="linecons-star">linecons-star</option>
+
+                        <option value="linecons-user">linecons-user</option>
+
+                        <option value="linecons-videocam">linecons-videocam</option>
+
+                        <option value="linecons-camera">linecons-camera</option>
+
+                        <option value="linecons-photo">linecons-photo</option>
+
+                        <option value="linecons-attach">linecons-attach</option>
+
+                        <option value="linecons-lock">linecons-lock</option>
+
+                        <option value="linecons-eye">linecons-eye</option>
+
+                        <option value="linecons-tag">linecons-tag</option>
+
+                        <option value="linecons-thumbs-up">linecons-thumbs-up</option>
+
+                        <option value="linecons-pencil">linecons-pencil</option>
+
+                        <option value="linecons-comment">linecons-comment</option>
+
+                        <option value="linecons-location">linecons-location</option>
+
+                        <option value="linecons-cup">linecons-cup</option>
+
+                        <option value="linecons-trash">linecons-trash</option>
+
+                        <option value="linecons-doc">linecons-doc</option>
+
+                        <option value="linecons-note">linecons-note</option>
+
+                        <option value="linecons-cog">linecons-cog</option>
+
+                        <option value="linecons-params">linecons-params</option>
+
+                        <option value="linecons-calendar">linecons-calendar</option>
+
+                        <option value="linecons-sound">linecons-sound</option>
+
+                        <option value="linecons-clock">linecons-clock</option>
+
+                        <option value="linecons-lightbulb">linecons-lightbulb</option>
+
+                        <option value="linecons-tv">linecons-tv</option>
+
+                        <option value="linecons-desktop">linecons-desktop</option>
+
+                        <option value="linecons-mobile">linecons-mobile</option>
+
+                        <option value="linecons-cd">linecons-cd</option>
+
+                        <option value="linecons-inbox">linecons-inbox</option>
+
+                        <option value="linecons-globe">linecons-globe</option>
+
+                        <option value="linecons-cloud">linecons-cloud</option>
+
+                        <option value="linecons-paper-plane">linecons-paper-plane</option>
+
+                        <option value="linecons-fire">linecons-fire</option>
+
+                        <option value="linecons-graduation-cap">linecons-graduation-cap</option>
+
+                        <option value="linecons-megaphone">linecons-megaphone</option>
+
+                        <option value="linecons-database">linecons-database</option>
+
+                        <option value="linecons-key">linecons-key</option>
+
+                        <option value="linecons-beaker">linecons-beaker</option>
+
+                        <option value="linecons-truck">linecons-truck</option>
+
+                        <option value="linecons-money">linecons-money</option>
+
+                        <option value="linecons-food">linecons-food</option>
+
+                        <option value="linecons-shop">linecons-shop</option>
+
+                        <option value="linecons-diamond">linecons-diamond</option>
+
+                        <option value="linecons-t-shirt">linecons-t-shirt</option>
+
+                        <option value="linecons-wallet">linecons-wallet</option>
+
+
+                    </select>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group no-margin">
+                        <label for="Description" class="control-label">描述</label>
+
+                        <textarea class="form-control autogrow" id="Description" placeholder="Write something about yourself" data-bind="value: addbranch.Description, uniqueName: true"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info" data-bind="click: SaveData">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/select2/select2.min.js"></script>
+<link href="~/Scripts/select2/select2.css" rel="stylesheet" />
+<link href="~/Scripts/select2/select2-bootstrap.css" rel="stylesheet"/>
+
+<script>
+    var branchbody = {
+        addbranch: {
+            ID: ko.observable(''),
+            Title: ko.observable(''),
+            Enble: ko.observable('false'),
+            PreBranch: ko.observable(''),
+            SortID: ko.observable(''),
+            Logo: ko.observable(''),
+            AreaName: ko.observable(''),
+            Level: ko.observable(1),
+            ActionName: ko.observable(''),
+            Description: ko.observable(''),
+        },
+        firstBranchs: ko.mapping.fromJS(@branch),
+        SaveData: function () {
+            var path = window.mainModel.map() + '/Edit';
+            $.post(path, branchbody.addbranch, function (result) {
+                window.mainModel.Alert(result);
+            });
+        }
+    };
+
+    //var firstBranchs = ko.mapping.fromJS(@branch);
+    $(document).ready(function () {
+
+        $("#logo").select2({
+            placeholder: 'Select country...',
+            allowClear: true,
+            minimumResultsForSearch: -1, // Hide the search bar
+            formatResult: function (state) {
+                return '<i class="' + state.text + '"></i><span>' + state.text + '</span>';
+            }
+        }).on('select2-open', function () {
+            // Adding Custom Scrollbar
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        ko.applyBindings(branchbody, $("#modal-dialog")[0]);
+    });
+</script>
