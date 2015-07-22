@@ -29,6 +29,6 @@ namespace Eagle.Model
 
         public string Description { get; set; }
 
-        public List<ActionButton> ActionButtons { get; set; }
+        public string ActionButtons { get; set; }
     }
 }

@@ -22,10 +22,13 @@
 
     var sysbtnClick = function (mainbody, branch, btn) {
         var randomNum = Math.random();
-        var path = mainbody.map() + '/' + btn.ActionName() + '?r=' + randomNum;
+        var path = mainbody.map() + '/' + btn.ActionName + '?r=' + randomNum;
         var callBack = function (data) {
-            if (data.Flag || !btn.Callback()) {
+            if (data.Flag || !btn.Callback) {
                 alertClass.Alert(data);
+                if (btn.Reload) {
+                    window.mainModel.ReloadBranch();
+                }
                 return;
             }
             mainbody.dialog(data);
@@ -34,8 +37,8 @@
 
         var inputlist = $("#MainPart tbody div[class*='cbr-checked'] input");
         var id = null;
-        if (btn.ParamNum() < 0 || btn.ParamNum() > 1) {
-            if (inputlist == null || (btn.ParamNum() !== inputlist.length && btn.ParamNum() > 1)) {
+        if (btn.ParamNum < 0 || btn.ParamNum > 1) {
+            if (inputlist == null || (btn.ParamNum !== inputlist.length && btn.ParamNum > 1)) {
                 alertClass.AlertError("请至少选择一条要操作的数据");
                 return;
             }
@@ -43,8 +46,8 @@
             inputlist.each(function (index) {
                 id[index] = $(this).val();
             });
-        } else if (btn.ParamNum() === 1) {
-            if (inputlist == null) {
+        } else if (btn.ParamNum === 1) {
+            if (inputlist.length != 1) {
                 alertClass.AlertError("请选择一条要操作的数据");
                 return;
             }
@@ -54,7 +57,7 @@
         $.ajax({
             url: path,
             data: { id: id },
-            type: btn.Post() ? 'POST' : 'GET',
+            type: btn.Post ? 'POST' : 'GET',
             success: function (data) {
                 callBack(data);
             }
@@ -66,9 +69,9 @@
         checkFun: require('checkTable').checkFun,
         sysbtnClick: sysbtnClick,
         alert: alertClass.Alert,
+        buttons: require('systemButton').buttons
     }
 });
-
 
 
 define('checkTable', ['/Scripts/jquery-2.1.4.min'], function () {
@@ -85,7 +88,6 @@ define('checkTable', ['/Scripts/jquery-2.1.4.min'], function () {
         // Script to select all checkboxes
         $state.on('change', function (ev) {
             var $chcks = $("#" + tableName + " tbody input[type='checkbox']");
-
             if ($state.is(':checked')) {
                 $chcks.prop('checked', true).trigger('change');
             }
@@ -131,5 +133,28 @@ define('Alert', [], function (require) {
     return {
         Alert: showMessageBox,
         AlertError: showError,
+    }
+});
+
+
+define('systemButton', [], function (require) {
+    function actionButton(name, actionName, post, dialog, callback, paramNum, reload) {
+        this.Name = name;
+        this.ActionName = actionName;
+        this.Post = post;
+        this.Dialog = dialog;
+        this.Callback = callback;
+        this.ParamNum = paramNum;
+        this.Reload = reload;
+    };
+
+    var buttonList = [
+        new actionButton("新增", "Create", false, 1, true, 0, false),
+        new actionButton("修改", "Create", false, 1, true, 1, false),
+        new actionButton("删除", "Delete", true, 0, false, -1, true)
+    ];
+
+    return {
+        buttons: buttonList
     }
 });

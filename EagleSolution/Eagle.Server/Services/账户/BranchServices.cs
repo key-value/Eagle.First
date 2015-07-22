@@ -33,7 +33,7 @@ namespace Eagle.Server.Services
                     branch.Branches = new List<Branch>();
                     foreach (var branch1 in allBranch[branch.ID])
                     {
-                        branch1.ActionButtons = _actionButtons.ToList();
+                        branch1.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
                         branch.Branches.Add(branch1);
                     }
                 }
@@ -41,7 +41,7 @@ namespace Eagle.Server.Services
                 {
                     branch.Branches = new List<Branch>();
                 }
-                branch.ActionButtons = _actionButtons.ToList();
+                branch.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
                 resultBranch.Add(branch);
             }
             Flag = true;
@@ -73,6 +73,7 @@ namespace Eagle.Server.Services
             updateBranch.AreaName = branch.AreaName;
             updateBranch.ActionName = branch.ActionName;
             updateBranch.Description = branch.Description;
+            updateBranch.SortID = branch.SortID;
             return updateBranch;
         }
 
@@ -124,7 +125,8 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             }
             else
             {
-                updateBranch.AreaName = updateBranch.AreaName;
+                updateBranch.AreaName = parentBranch.AreaName;
+                updateBranch.Logo = string.Empty;
             }
             if (updateBranch.ID == Guid.Empty)
             {
@@ -152,6 +154,7 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             branch.Description = updateBranch.Description;
             using (var context = new DefaultContext())
             {
+                branch.SortID = context.Branches.Max(x => x.SortID) + 1;
                 context.Branches.Add(branch);
                 context.SaveChanges();
             }

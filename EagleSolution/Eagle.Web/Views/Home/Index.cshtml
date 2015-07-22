@@ -192,7 +192,7 @@
                         </a>
                         <ul data-bind="foreach: {data:Branches ,as: 'two'}">
                             <li>
-                                <a href="#" class="actionBtn" data-bind="click: function(event){ mainModel.branchAction(event,one,two)}">
+                                <a href="#" class="actionBtn" data-bind="click: function(event){ mainModel.branchAction(event,two)}">
                                     <span class="title" data-bind="text: Title"></span>
                                 </a>
                             </li>
@@ -700,21 +700,37 @@
                 description: ko.observable("什么都没留下 =_="),
                 branchs: ko.mapping.fromJS(@show),
                 selectBranch: null,
+                selectBtns: null,
                 details: ko.observable(),
                 dialog: ko.observable(),
                 map: ko.observable(),
                 checkTable: main.checkFun,
                 sysbtnClick: main.sysbtnClick,
                 Alert: main.alert,
-                branchAction: function (ev, one, two) {
+                buttons: main.buttons,
+                branchAction: function (ev, two) {
                     mainModel.title(two.Title());
                     mainModel.description(two.Description() || '什么都没留下 =_=');
                     mainModel.selectBranch = two;
-                    mainModel.map('/' + one.AreaName() + '/' + two.ActionName());
+                    var pageBtns = JSON.parse(two.ActionButtons());
+                    mainModel.selectBtns = new Array();
+                    var i = 0;
+                    while (i < pageBtns.length) {
+                        mainModel.selectBtns.push(mainModel.buttons[pageBtns[i]]);
+                        i++;
+                    }
+
+
+                    mainModel.map('/' + two.AreaName() + '/' + two.ActionName());
                     $.post(mainModel.map() + '/index', function (data) {
                         mainModel.details(data);
                     });
-                }
+                },
+                ReloadBranch: function () {
+                    $.post(mainModel.map() + '/index', function (data) {
+                        mainModel.details(data);
+                    });
+                },
             };
             ko.applyBindings(mainModel);
         });
@@ -725,11 +741,11 @@
         <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
             <span class="fa-wrench"></span> Action
         </button>
-        <ul class="dropdown-menu" role="menu" data-bind="template:{name:'sysbtn-template', foreach: mainModel.selectBranch.ActionButtons}"></ul>
+        <ul class="dropdown-menu" role="menu" data-bind="template:{name:'sysbtn-template', foreach: mainModel.selectBtns}"></ul>
     </script>
     <script type="text/html" id="sysbtn-template">
         <li>
-            <a href="javascript:;" data-bind="text: Name, click:function(){mainModel.sysbtnClick(mainModel, mainModel.selectBranch,$data)}">Install </a>
+            <a href="javascript:;" data-bind="text:Name, click:function(){ mainModel.sysbtnClick(mainModel, mainModel.selectBranch,$data)}">Install </a>
         </li>
     </script>
 </body>
