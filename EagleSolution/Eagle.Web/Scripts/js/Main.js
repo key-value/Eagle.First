@@ -1,8 +1,8 @@
 ﻿define(['/Scripts/jquery-2.1.4.min', '/Scripts/bootstrap.min', '/Scripts/TweenMax.min', '/Scripts/resizeable', '/Scripts/joinable', '/Scripts/xenon-api', '/Scripts/xenon-toggles', '/Scripts/xenon-custom', '/Scripts/xenon-notes', '/Scripts/xenon-widgets', '/Scripts/knockout.mapping-latest', '/Scripts/jquery.tmpl.min', 'checkTable'], function (require) {
+    var alertClass = require('Alert');
 
     // Here is just a sample how to open chat conversation box
     $(document).ready(function ($) {
-
 
         var $chatConversation = $(".chat-conversation");
 
@@ -24,25 +24,48 @@
         var randomNum = Math.random();
         var path = mainbody.map() + '/' + btn.ActionName() + '?r=' + randomNum;
         var callBack = function (data) {
+            if (data.Flag || !btn.Callback()) {
+                alertClass.Alert(data);
+                return;
+            }
             mainbody.dialog(data);
             jQuery('#system-dialog').modal('show', { backdrop: 'static' });
         };
 
-        if (btn.Post) {
-            var id = new Array();
-            $("#MainPart tbody div[class*='cbr-checked'] input").each(function () {
-                id.push($(this).val());
+        var inputlist = $("#MainPart tbody div[class*='cbr-checked'] input");
+        var id = null;
+        if (btn.ParamNum() < 0 || btn.ParamNum() > 1) {
+            if (inputlist == null || (btn.ParamNum() !== inputlist.length && btn.ParamNum() > 1)) {
+                alertClass.AlertError("请至少选择一条要操作的数据");
+                return;
+            }
+            id = new Array();
+            inputlist.each(function (index) {
+                id[index] = $(this).val();
             });
-            $.post(path, { id: JSON.stringify(id) }, function (data) { callBack(data) });
-        } else {
-            $.get(path, callBack(data));
+        } else if (btn.ParamNum() === 1) {
+            if (inputlist == null) {
+                alertClass.AlertError("请选择一条要操作的数据");
+                return;
+            }
+            id = inputlist.val();
         }
+
+        $.ajax({
+            url: path,
+            data: { id: id },
+            type: btn.Post() ? 'POST' : 'GET',
+            success: function (data) {
+                callBack(data);
+            }
+        });
+
     }
 
     return {
         checkFun: require('checkTable').checkFun,
         sysbtnClick: sysbtnClick,
-        alert: require('Alert').Alert,
+        alert: alertClass.Alert,
     }
 });
 
@@ -79,30 +102,34 @@ define('checkTable', ['/Scripts/jquery-2.1.4.min'], function () {
 
 define('Alert', [], function (require) {
 
+    var opts = {
+        "closeButton": true,
+        "debug": false,
+        "positionClass": "toast-bottom-center",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 
     var showMessageBox = function (result) {
-        var opts = {
-            "closeButton": true,
-            "debug": false,
-            "positionClass": "toast-bottom-center",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
         if (result.Flag) {
-            toastr.success(result.Message || "成功", opts);
+            toastr.success(result.Message || '提交成功', opts);
         } else {
-            toastr.error(result.Message || "失败", opts);
+            toastr.error(result.Message || '操作失败', opts);
         }
+    }
+    var showError = function (message) {
+        toastr.error(message || '操作失败', opts);
     }
 
     return {
-        Alert: showMessageBox
+        Alert: showMessageBox,
+        AlertError: showError,
     }
 });

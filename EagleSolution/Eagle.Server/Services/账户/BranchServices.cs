@@ -6,7 +6,7 @@ using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Model;
 using Eagle.Server.Interface;
-using Eagle.ViewModel.账户体系;
+using Eagle.ViewModel;
 
 namespace Eagle.Server.Services
 {
@@ -48,6 +48,35 @@ namespace Eagle.Server.Services
             return resultBranch;
         }
 
+
+        public UpdateBranch GetBranches(Guid id)
+        {
+            var branch = new Branch();
+            if (id != Guid.Empty)
+            {
+                using (var context = new DefaultContext())
+                {
+                    branch = context.Branches.AsNoTracking().FirstOrDefault(x => x.ID == id);
+                    if (branch.Null())
+                    {
+                        return new UpdateBranch();
+                    }
+                }
+            }
+            var updateBranch = new UpdateBranch();
+            updateBranch.ID = branch.ID;
+            updateBranch.Title = branch.Title;
+            updateBranch.Enble = branch.Enble;
+            updateBranch.Level = branch.Level;
+            updateBranch.PreBranch = branch.PreBranch;
+            updateBranch.Logo = branch.Logo;
+            updateBranch.AreaName = branch.AreaName;
+            updateBranch.ActionName = branch.ActionName;
+            updateBranch.Description = branch.Description;
+            return updateBranch;
+        }
+
+
         public List<Branch> GetBranches(int pageNum)
         {
             Flag = true;
@@ -73,9 +102,9 @@ namespace Eagle.Server.Services
 
         private readonly List<ActionButton> _actionButtons = new List<ActionButton>()
                                                    {
-new ActionButton(){ActionName = "Create",Name = "新增",Dialog = 1,Post = false},
-new ActionButton(){ActionName = "Edit",Name = "修改",Dialog = 1,Post = false},
-new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true},
+new ActionButton(){ActionName = "Create",Name = "新增",Dialog = 1,Post = false,Callback = true,ParamNum =  0},
+new ActionButton(){ActionName = "Create",Name = "修改",Dialog = 1,Post = false,Callback = true,ParamNum = 1},
+new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,Callback = false,ParamNum = -1},
                                                    };
 
         public void Update(UpdateBranch updateBranch)
@@ -149,6 +178,24 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true}
                 context.ModifiedModel(editBranch);
                 context.SaveChanges();
             }
+        }
+
+
+        public void Delete(List<Guid> branchIdList)
+        {
+
+            using (var context = new DefaultContext())
+            {
+                var branchList = context.Branches.Where(x => branchIdList.Contains(x.ID)).ToList();
+                if (!branchList.Any())
+                {
+                    Message = "请选择正确的数据";
+                    return;
+                }
+                context.Branches.RemoveRange(branchList);
+                context.SaveChanges();
+            }
+            Flag = true;
         }
     }
 }

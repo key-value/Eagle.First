@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Eagle.ViewModel.账户体系
+namespace Eagle.ViewModel
 {
     public class UpdateBranch
     {
@@ -24,4 +24,5 @@ namespace Eagle.ViewModel.账户体系
 
         public string Description { get; set; }
     }
+
 }

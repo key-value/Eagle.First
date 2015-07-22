@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2012 Igor Vaynberg
 
 Version: 3.5.1 Timestamp: Tue Jul 22 18:58:56 EDT 2014
@@ -799,7 +799,7 @@ the specific language governing permissions and limitations under the Apache Lic
             search.on("blur", function () { search.removeClass("select2-focused");});
 
             this.dropdown.on("mouseup", resultsSelector, this.bind(function (e) {
-                if ($(e.target).closest(".select2-Flag-selectable").length > 0) {
+                if ($(e.target).closest(".select2-result-selectable").length > 0) {
                     this.highlightUnderEvent(e);
                     this.selectHighlighted(e);
                 }
@@ -951,7 +951,7 @@ the specific language governing permissions and limitations under the Apache Lic
                             node=$("<li></li>");
                             node.addClass("select2-results-dept-"+depth);
                             node.addClass("select2-result");
-                            node.addClass(selectable ? "select2-Flag-selectable" : "select2-Flag-unselectable");
+                            node.addClass(selectable ? "select2-result-selectable" : "select2-result-unselectable");
                             if (disabled) { node.addClass("select2-disabled"); }
                             if (compound) { node.addClass("select2-result-with-children"); }
                             node.addClass(self.opts.formatResultCssClass(result));
@@ -959,7 +959,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
                             label=$(document.createElement("div"));
                             label.addClass("select2-result-label");
-                            label.attr("id", "select2-Flag-label-" + nextUid());
+                            label.attr("id", "select2-result-label-" + nextUid());
                             label.attr("role", "option");
 
                             formatted=opts.formatResult(result, label, query, self.opts.escapeMarkup);
@@ -1509,7 +1509,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 return;
             }
 
-            children = this.findHighlightableChoices().find('.select2-Flag-label');
+            children = this.findHighlightableChoices().find('.select2-result-label');
 
             child = $(children[index]);
 
@@ -1539,7 +1539,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // abstract
         findHighlightableChoices: function() {
-            return this.results.find(".select2-Flag-selectable:not(.select2-disabled):not(.select2-selected)");
+            return this.results.find(".select2-result-selectable:not(.select2-disabled):not(.select2-selected)");
         },
 
         // abstract
@@ -1576,7 +1576,7 @@ the specific language governing permissions and limitations under the Apache Lic
             choice.addClass("select2-highlighted");
 
             // ensure assistive technology can determine the active choice
-            this.search.attr("aria-activedescendant", choice.find(".select2-Flag-label").attr("id"));
+            this.search.attr("aria-activedescendant", choice.find(".select2-result-label").attr("id"));
 
             this.ensureHighlightVisible();
 
@@ -1607,7 +1607,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // abstract
         highlightUnderEvent: function (event) {
-            var el = $(event.target).closest(".select2-Flag-selectable");
+            var el = $(event.target).closest(".select2-result-selectable");
             if (el.length > 0 && !el.is(".select2-highlighted")) {
                 var choices = this.findHighlightableChoices();
                 this.highlight(choices.index(el));
@@ -1701,7 +1701,7 @@ the specific language governing permissions and limitations under the Apache Lic
                     self.liveRegion.text(results.text());
                 }
                 else {
-                    self.liveRegion.text(self.opts.formatMatches(results.find('.select2-Flag-selectable').length));
+                    self.liveRegion.text(self.opts.formatMatches(results.find('.select2-result-selectable').length));
                 }
             }
 
@@ -1850,7 +1850,7 @@ the specific language governing permissions and limitations under the Apache Lic
             }
             var index=this.highlight(),
                 highlighted=this.results.find(".select2-highlighted"),
-                data = highlighted.closest('.select2-Flag').data("select2-data");
+                data = highlighted.closest('.select2-result').data("select2-data");
 
             if (data) {
                 this.highlight(index);
@@ -2381,7 +2381,7 @@ the specific language governing permissions and limitations under the Apache Lic
         postprocessResults: function (data, initial, noHighlightUpdate) {
             var selected = 0, self = this, showSearchInput = true;
 
-            // find the selected element in the Flag list
+            // find the selected element in the result list
 
             this.findHighlightableChoices().each2(function (i, elm) {
                 if (equal(self.id(elm.data("select2-data")), self.opts.element.val())) {
@@ -2998,7 +2998,7 @@ the specific language governing permissions and limitations under the Apache Lic
                         // are replaced with the max selection reached message
                         this.updateResults(true);
                     } else {
-                        // initializes search's value with nextSearchTerm and update search Flag
+                        // initializes search's value with nextSearchTerm and update search result
                         if(this.nextSearchTerm != undefined){
                             this.search.val(this.nextSearchTerm);
                             this.updateResults();
@@ -3123,8 +3123,8 @@ the specific language governing permissions and limitations under the Apache Lic
         // multi
         postprocessResults: function (data, initial, noHighlightUpdate) {
             var val = this.getVal(),
-                choices = this.results.find(".select2-Flag"),
-                compound = this.results.find(".select2-Flag-with-children"),
+                choices = this.results.find(".select2-result"),
+                compound = this.results.find(".select2-result-with-children"),
                 self = this;
 
             choices.each2(function (i, choice) {
@@ -3132,14 +3132,14 @@ the specific language governing permissions and limitations under the Apache Lic
                 if (indexOf(id, val) >= 0) {
                     choice.addClass("select2-selected");
                     // mark all children of the selected parent as selected
-                    choice.find(".select2-Flag-selectable").addClass("select2-selected");
+                    choice.find(".select2-result-selectable").addClass("select2-selected");
                 }
             });
 
             compound.each2(function(i, choice) {
                 // hide an optgroup if it doesn't have any selectable children
-                if (!choice.is('.select2-Flag-selectable')
-                    && choice.find(".select2-Flag-selectable:not(.select2-selected)").length === 0) {
+                if (!choice.is('.select2-result-selectable')
+                    && choice.find(".select2-result-selectable:not(.select2-selected)").length === 0) {
                     choice.addClass("select2-selected");
                 }
             });
@@ -3149,7 +3149,7 @@ the specific language governing permissions and limitations under the Apache Lic
             }
 
             //If all results are chosen render formatNoMatches
-            if(!this.opts.createSearchChoice && !choices.filter('.select2-Flag:not(.select2-selected)').length > 0){
+            if(!this.opts.createSearchChoice && !choices.filter('.select2-result:not(.select2-selected)').length > 0){
                 if(!data || data && !data.more && this.results.find(".select2-no-results").length === 0) {
                     if (checkFormatter(self.opts.formatNoMatches, "formatNoMatches")) {
                         this.results.append("<li class='select2-no-results'>" + evaluate(self.opts.formatNoMatches, self.opts.element, self.search.val()) + "</li>");
@@ -3466,7 +3466,7 @@ the specific language governing permissions and limitations under the Apache Lic
     $.fn.select2.locales = [];
 
     $.fn.select2.locales['en'] = {
-         formatMatches: function (matches) { if (matches === 1) { return "One Flag is available, press enter to select it."; } return matches + " results are available, use up and down arrow keys to navigate."; },
+         formatMatches: function (matches) { if (matches === 1) { return "One result is available, press enter to select it."; } return matches + " results are available, use up and down arrow keys to navigate."; },
          formatNoMatches: function () { return "No matches found"; },
          formatAjaxError: function (jqXHR, textStatus, errorThrown) { return "Loading failed"; },
          formatInputTooShort: function (input, min) { var n = min - input.length; return "Please enter " + n + " or more character" + (n == 1 ? "" : "s"); },

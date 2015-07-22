@@ -350,7 +350,7 @@ html[dir="rtl"] .select2-dropdown-open .select2-choice .select2-arrow b {
     width: 1px;
 }
 
-/* Flags */
+/* results */
 .select2-results {
     max-height: 200px;
     padding: 0 0 0 4px;
@@ -432,7 +432,7 @@ html[dir="rtl"] .select2-results {
 }
 
 /*
-disabled look for disabled choices in the Flags dropdown
+disabled look for disabled choices in the results dropdown
 */
 .select2-results .select2-disabled.select2-highlighted {
     color: #666;

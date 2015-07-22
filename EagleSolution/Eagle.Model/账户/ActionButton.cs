@@ -10,5 +10,9 @@
         public bool Post { get; set; }
 
         public int Dialog { get; set; }
+
+        public bool Callback { get; set; }
+
+        public int  ParamNum { get; set; }
     }
 }

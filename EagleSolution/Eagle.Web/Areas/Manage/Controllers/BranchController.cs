@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Eagle.Infrastructrue.Aop.Locator;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Server.Interface;
-using Eagle.ViewModel.账户体系;
+using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.Manage.Controllers
 {
@@ -27,11 +27,17 @@ namespace Eagle.Web.Areas.Manage.Controllers
         }
 
         // GET: Manage/Branch/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid? id)
         {
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             var branchList = branchServices.GetFirstBranches();
             ViewBag.Branchs = new HtmlString(branchList.ToJson());
+            var branchs = new UpdateBranch();
+            if (id.HasValue)
+            {
+                branchs = branchServices.GetBranches(id.Value);
+            }
+            ViewBag.UpdateBranch = new HtmlString(branchs.ToJson());
             return PartialView();
         }
 
@@ -67,8 +73,8 @@ namespace Eagle.Web.Areas.Manage.Controllers
                 var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
                 if (branch.Title.Null())
                 {
-                    var fault = branchServices.GetResult();
-                    return Json(fault);
+                    var failt = branchServices.GetResult();
+                    return Json(failt);
                 }
                 branchServices.Update(branch);
                 var result = branchServices.GetResult();
@@ -88,17 +94,41 @@ namespace Eagle.Web.Areas.Manage.Controllers
 
         // POST: Manage/Branch/Delete/5
         [HttpPost]
-        public ActionResult Delete(List<string> id)
+        public ActionResult Delete(string[] id)
         {
+            var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
+
+            var failt = branchServices.GetResult();
             try
             {
+                if (id.Null() || !id.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
+                List<Guid> branchIdList = new List<Guid>();
+                foreach (var bid in id)
+                {
+                    Guid brID;
+                    if (!Guid.TryParse(bid, out  brID))
+                    {
+                        continue;
+                    }
+                    branchIdList.Add(brID);
+                }
+                if (!branchIdList.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                branchServices.Delete(branchIdList);
+                var result = branchServices.GetResult();
+                return Json(result);
             }
             catch
             {
-                return View();
+                return Json(failt);
             }
         }
     }

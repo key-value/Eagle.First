@@ -1,6 +1,30 @@
 ﻿@{
-    var branch = @ViewBag.Branchs as HtmlString;
+    var branchs = @ViewBag.Branchs as HtmlString;
+    var updateBranch = @ViewBag.UpdateBranch as HtmlString;
 }
+@*<link rel="stylesheet" href="~/Content/Css/fonts/linecons/css/linecons.css">
+<link rel="stylesheet" href="~/Content/css/fonts/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Content/css/bootstrap.css">
+<link rel="stylesheet" href="~/Content/css/xenon-core.css">
+<link rel="stylesheet" href="~/Content/css/xenon-forms.css">
+<link rel="stylesheet" href="~/Content/css/xenon-components.css">
+<link rel="stylesheet" href="~/Content/css/xenon-skins.css">
+<link rel="stylesheet" href="~/Content/css/custom.css">
+<link href="~/Scripts/datatables/dataTables.bootstrap.css" rel="stylesheet"/>
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/TweenMax.min.js"></script>
+<script src="~/Scripts/resizeable.js"></script>
+<script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
+<script src="~/Scripts/joinable.js"></script>
+<script src="~/Scripts/xenon-api.js"></script>
+<script src="~/Scripts/xenon-toggles.js"></script>*@
+
+
+<link href="~/Scripts/select2/select2.css" rel="stylesheet" />
+<link href="~/Scripts/select2/select2-bootstrap.css" rel="stylesheet" />
 <div class="modal-dialog" id="modal-dialog">
     <div class="modal-content">
 
@@ -198,24 +222,25 @@
 </div>
 
 <script src="~/Scripts/select2/select2.min.js"></script>
-<link href="~/Scripts/select2/select2.css" rel="stylesheet" />
-<link href="~/Scripts/select2/select2-bootstrap.css" rel="stylesheet"/>
+
+
 
 <script>
     var branchbody = {
-        addbranch: {
-            ID: ko.observable(''),
-            Title: ko.observable(''),
-            Enble: ko.observable('false'),
-            PreBranch: ko.observable(''),
-            SortID: ko.observable(''),
-            Logo: ko.observable(''),
-            AreaName: ko.observable(''),
-            Level: ko.observable(1),
-            ActionName: ko.observable(''),
-            Description: ko.observable(''),
-        },
-        firstBranchs: ko.mapping.fromJS(@branch),
+        addbranch: ko.mapping.fromJS(@updateBranch),
+        //    {
+        //    ID: ko.observable(''),
+        //    Title: ko.observable(''),
+        //    Enble: ko.observable('false'),
+        //    PreBranch: ko.observable(''),
+        //    SortID: ko.observable(''),
+        //    Logo: ko.observable(''),
+        //    AreaName: ko.observable(''),
+        //    Level: ko.observable(1),
+        //    ActionName: ko.observable(''),
+        //    Description: ko.observable(''),
+        //},
+        firstBranchs: ko.mapping.fromJS(@branchs),
         SaveData: function () {
             var path = window.mainModel.map() + '/Edit';
             $.post(path, branchbody.addbranch, function (result) {
@@ -224,7 +249,7 @@
         }
     };
 
-    //var firstBranchs = ko.mapping.fromJS(@branch);
+    //var firstBranchs = ko.mapping.fromJS(@branchs);
     $(document).ready(function () {
 
         $("#logo").select2({

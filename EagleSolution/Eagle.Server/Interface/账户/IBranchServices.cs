@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Eagle.Model;
-using Eagle.ViewModel.账户体系;
+using Eagle.ViewModel;
 
 namespace Eagle.Server.Interface
 {
@@ -10,5 +11,7 @@ namespace Eagle.Server.Interface
         List<Branch> GetBranches(int pageNum);
         List<Branch> GetFirstBranches();
         void Update(UpdateBranch updateBranch);
+        void Delete(List<Guid> branchIdList);
+        UpdateBranch GetBranches(Guid id);
     }
 }

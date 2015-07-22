@@ -1,1 +1,105 @@
 ﻿
+
+<link rel="stylesheet" href="~/Content/css/bootstrap.css">
+<link rel="stylesheet" href="~/Content/css/xenon-core.css">
+<link rel="stylesheet" href="~/Content/css/xenon-forms.css">
+<link rel="stylesheet" href="~/Content/css/xenon-components.css">
+<link rel="stylesheet" href="~/Content/css/xenon-skins.css">
+<link rel="stylesheet" href="~/Content/css/custom.css">
+@*<link href="~/Scripts/datatables/dataTables.bootstrap.css" rel="stylesheet" />*@
+
+<link rel="stylesheet" href="~/Scripts/select2/select2.css">
+<link rel="stylesheet" href="~/Scripts/select2/select2-bootstrap.css">
+
+<script src="~/Scripts/jquery.js"></script>
+@*<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>*@
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="~/Scripts/TweenMax.min.js"></script>*@
+@*<script src="~/Scripts/resizeable.js"></script>*@
+@*<script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>*@
+<script src="~/Scripts/joinable.js"></script>
+@*<script src="~/Scripts/xenon-api.js"></script>*@
+@*<script src="~/Scripts/xenon-toggles.js"></script>*@
+
+<link href="~/Scripts/select2/select2.css" rel="stylesheet" />
+<link href="~/Scripts/select2/select2-bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/select2/select2.min.js"></script>
+@*<script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>*@
+@*<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>*@
+
+
+<div class="form-group">
+    <label class="control-label">Templating</label>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $("#s2example-3").select2({
+                placeholder: 'Select country...',
+                allowClear: true,
+                minimumResultsForSearch: -1, // Hide the search bar
+                formatResult: function(state) {
+                    return '<div style="background:url(http://www.geonames.org/flags/x/' + state.id + '.gif) no-repeat center center;background-size:100%;display:inline-block;position:relative;width:20px;height:15px;margin-right: 10px;top:2px;"></div>'
+                        + state.text;
+                }
+            }).on('select2-open', function() {
+                // Adding Custom Scrollbar
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+            });
+        });
+    </script>
+
+    <select class="form-control" id="s2example-3">
+        <option></option>
+        <option value="al">Albania</option>
+        <option value="au">Australia</option>
+        <option value="bd">Bandgladesh</option>
+        <option value="br">Brasil</option>
+        <option value="ca">Canada</option>
+        <option value="cn">China</option>
+        <option value="de">Germany</option>
+        <option value="fr">France</option>
+        <option value="gr">Greece</option>
+        <option value="jp">Japan</option>
+        <option value="xk">Kosovo</option>
+        <option value="nl">Netherlands</option>
+        <option value="no">Norway</option>
+        <option value="ru">Russia</option>
+        <option value="se">Sweden</option>
+        <option value="tr">Turkey</option>
+        <option value="uk">United Kingdom</option>
+        <option value="us">United States</option>
+    </select>
+
+</div>
+<!-- Imported styles on this page -->
+@*
+
+<!-- Bottom Scripts -->
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/TweenMax.min.js"></script>
+<script src="~/Scripts/resizeable.js"></script>
+<script src="~/Scripts/joinable.js"></script>
+<script src="~/Scripts/xenon-api.js"></script>
+<script src="~/Scripts/xenon-toggles.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+
+
+<!-- Imported scripts on this page -->
+<script src="~/Scripts/daterangepicker/daterangepicker.js"></script>
+<script src="~/Scripts/datepicker/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="~/Scripts/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="~/Scripts/select2/select2.min.js"></script>
+<script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>
+<script src="~/Scripts/tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="~/Scripts/typeahead.bundle.js"></script>
+<script src="~/Scripts/handlebars.min.js"></script>
+<script src="~/Scripts/multiselect/js/jquery.multi-select.js"></script>
+
+
+<!-- JavaScripts initializations and stuff -->
+    *@
+
+<script src="~/Scripts/xenon-custom.js"></script>
