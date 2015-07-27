@@ -53,6 +53,7 @@
     <Compile Include="Interface\账户\IBranchServices.cs" />
     <Compile Include="Interface\账户\IAccountServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\服务器管理\JournalServices.cs" />
     <Compile Include="Services\账户\BranchServices.cs" />
     <Compile Include="Services\账户\AccountServices.cs" />
   </ItemGroup>
@@ -82,7 +83,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interface\服务器管理\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

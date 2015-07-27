@@ -13,6 +13,7 @@ namespace Eagle.Domain.EF.Map
             this.HasKey(x => x.ID);
             this.Ignore(x => x.Branches);
             this.Ignore(x => x.ActionButtons);
+
         }
     }
 }
