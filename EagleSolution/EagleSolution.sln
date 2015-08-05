@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eagle.Infrastructrue", "Eag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eagle.ViewModel", "Eagle.ViewModel\Eagle.ViewModel.csproj", "{245C5A24-EF6D-417D-AB0F-80DC77845845}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eagle.Server.Interface", "Eagle.Server.Interface\Eagle.Server.Interface.csproj", "{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{245C5A24-EF6D-417D-AB0F-80DC77845845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{245C5A24-EF6D-417D-AB0F-80DC77845845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{245C5A24-EF6D-417D-AB0F-80DC77845845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{89375F78-F9DA-4924-A4E7-D42A1CBE330D} = {031806FD-AFDF-4E85-A39F-7F0127C85AC2}
 		{9C9E3D38-C206-418B-BBD0-FEF70B8523C9} = {E4D9169C-3565-4992-A7F2-129135AEB5D9}
 		{245C5A24-EF6D-417D-AB0F-80DC77845845} = {76F7A474-5FE3-4DE1-BEF6-4DAF9418C839}
+		{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7} = {76F7A474-5FE3-4DE1-BEF6-4DAF9418C839}
 	EndGlobalSection
 EndGlobal

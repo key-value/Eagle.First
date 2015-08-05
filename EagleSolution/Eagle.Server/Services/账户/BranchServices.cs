@@ -13,7 +13,7 @@ namespace Eagle.Server.Services
     [Injection(typeof(IBranchServices))]
     public class BranchServices : ApplicationServices, IBranchServices
     {
-        public List<Branch> GetBranches()
+        public List<ShowBranch> GetBranches()
         {
             Dictionary<Guid, List<Branch>> allBranch;
             using (var context = new DefaultContext())
@@ -22,27 +22,28 @@ namespace Eagle.Server.Services
             }
             if (!allBranch.Any() || !allBranch.ContainsKey(Guid.Empty))
             {
-                return new List<Branch>();
+                return new List<ShowBranch>();
             }
             var firstBranch = allBranch[Guid.Empty].ToList();
-            var resultBranch = new List<Branch>();
+            var resultBranch = new List<ShowBranch>();
             foreach (var branch in firstBranch)
             {
+                var dataBranch = ShowBranch.CreateShowBranch(branch);
                 if (allBranch.ContainsKey(branch.ID))
                 {
-                    branch.Branches = new List<Branch>();
+                    dataBranch.Branches = new List<ShowBranch>();
                     foreach (var branch1 in allBranch[branch.ID])
                     {
                         branch1.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
-                        branch.Branches.Add(branch1);
+                        dataBranch.Branches.Add(ShowBranch.CreateShowBranch(branch1));
                     }
                 }
                 else
                 {
-                    branch.Branches = new List<Branch>();
+                    dataBranch.Branches = new List<ShowBranch>();
                 }
-                branch.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
-                resultBranch.Add(branch);
+                dataBranch.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
+                resultBranch.Add(dataBranch);
             }
             Flag = true;
             return resultBranch;
@@ -78,24 +79,40 @@ namespace Eagle.Server.Services
         }
 
 
-        public List<Branch> GetBranches(int pageNum)
+        public List<ShowBranch> GetBranches(int pageNum)
         {
             Flag = true;
-            List<Branch> allBranch;
+            List<ShowBranch> allBranch = new List<ShowBranch>();
             using (var context = new DefaultContext())
             {
-                allBranch = context.Branches.AsNoTracking().OrderBy(x => x.SortID).Pageing(pageNum, PageSize, ref _pageCount).ToList();
+                var dataBranch = context.Branches.AsNoTracking().OrderBy(x => x.SortID).Pageing(pageNum, PageSize, ref _pageCount).ToList();
+                if (dataBranch.Null())
+                {
+                    return new List<ShowBranch>();
+                }
+                foreach (var branch in dataBranch)
+                {
+                    allBranch.Add(ShowBranch.CreateShowBranch(branch));
+                }
             }
             return allBranch;
         }
 
-        public List<Branch> GetFirstBranches()
+        public List<ShowBranch> GetFirstBranches()
         {
             Flag = true;
-            List<Branch> allBranch;
+            List<ShowBranch> allBranch = new List<ShowBranch>();
             using (var context = new DefaultContext())
             {
-                allBranch = context.Branches.AsNoTracking().Where(x => x.Level == 1).OrderBy(x => x.SortID).ToList();
+                var dataBranch = context.Branches.AsNoTracking().Where(x => x.Level == 1).OrderBy(x => x.SortID).ToList();
+                if (dataBranch.Null())
+                {
+                    return new List<ShowBranch>();
+                }
+                foreach (var branch in dataBranch)
+                {
+                    allBranch.Add(ShowBranch.CreateShowBranch(branch));
+                }
             }
             return allBranch;
         }

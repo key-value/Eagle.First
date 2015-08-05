@@ -43,9 +43,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="服务器管理\GetJournal.cs" />
     <Compile Include="服务器管理\UpdateJournal.cs" />
+    <Compile Include="账户体系\ShowBranch.cs" />
     <Compile Include="账户体系\UpdateBranch.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">
+      <Project>{CC457441-804F-4F71-9C8B-A0479EBDD273}</Project>
+      <Name>Eagle.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eagle.Model\Eagle.Model.csproj">
+      <Project>{89375F78-F9DA-4924-A4E7-D42A1CBE330D}</Project>
+      <Name>Eagle.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

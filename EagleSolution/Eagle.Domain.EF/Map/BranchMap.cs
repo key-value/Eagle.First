@@ -11,7 +11,6 @@ namespace Eagle.Domain.EF.Map
         public BranchMap()
         {
             this.HasKey(x => x.ID);
-            this.Ignore(x => x.Branches);
             this.Ignore(x => x.ActionButtons);
 
         }

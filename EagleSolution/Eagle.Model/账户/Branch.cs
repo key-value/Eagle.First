@@ -19,8 +19,6 @@ namespace Eagle.Model
 
         public int SortID { get; set; }
 
-        public List<Branch> Branches { get; set; }
-
         public string Logo { get; set; }
 
         public string AreaName { get; set; }

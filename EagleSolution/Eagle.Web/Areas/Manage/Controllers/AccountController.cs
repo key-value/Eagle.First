@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Eagle.Infrastructrue.Aop.Locator;
-using Eagle.Server.Interface;
 
 namespace Eagle.Web.Areas.Manage.Controllers
 {

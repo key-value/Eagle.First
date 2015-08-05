@@ -7,6 +7,7 @@ using Eagle.Infrastructrue.Aop.Locator;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Server.Interface;
 
+
 namespace Eagle.Web.Controllers
 {
     public class HomeController : Controller

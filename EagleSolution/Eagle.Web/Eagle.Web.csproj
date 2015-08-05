@@ -1283,6 +1283,10 @@
       <Project>{89375F78-F9DA-4924-A4E7-D42A1CBE330D}</Project>
       <Name>Eagle.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eagle.Server.Interface\Eagle.Server.Interface.csproj">
+      <Project>{FDA0BCEE-8891-48CE-BB08-F1593F42EAD7}</Project>
+      <Name>Eagle.Server.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eagle.Server\Eagle.Server.csproj">
       <Project>{09B9EA4C-79D1-4953-8CDC-480EA39D74B8}</Project>
       <Name>Eagle.Server</Name>
