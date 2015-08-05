@@ -53,6 +53,7 @@
     <Compile Include="Services\服务器管理\JournalServices.cs" />
     <Compile Include="Services\账户\BranchServices.cs" />
     <Compile Include="Services\账户\AccountServices.cs" />
+    <Compile Include="Services\通信记录\LetterServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">

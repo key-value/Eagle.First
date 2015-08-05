@@ -45,6 +45,7 @@
     <Compile Include="服务器管理\UpdateJournal.cs" />
     <Compile Include="账户体系\ShowBranch.cs" />
     <Compile Include="账户体系\UpdateBranch.cs" />
+    <Compile Include="通信记录\UpdateLetter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">

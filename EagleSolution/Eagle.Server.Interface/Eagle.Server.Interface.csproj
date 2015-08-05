@@ -44,6 +44,7 @@
     <Compile Include="服务器管理\IJournalServices.cs" />
     <Compile Include="账户\IAccountServices.cs" />
     <Compile Include="账户\IBranchServices.cs" />
+    <Compile Include="通信记录\ILetterServices.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

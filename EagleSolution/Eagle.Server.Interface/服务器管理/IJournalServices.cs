@@ -1,7 +1,9 @@
-﻿namespace Eagle.Server.服务器管理
+﻿using System.Collections.Generic;
+
+namespace Eagle.Server
 {
     public interface IJournalServices
     {
-
+        List<string> GetJournal();
     }
 }

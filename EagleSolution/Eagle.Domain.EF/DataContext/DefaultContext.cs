@@ -57,5 +57,7 @@ namespace Eagle.Domain.EF.DataContext
         public DbSet<Account> Accounts { get; set; }
 
         public DbSet<Branch> Branches { get; set; }
+
+        public DbSet<Letter> Letters { get; set; }
     }
 }

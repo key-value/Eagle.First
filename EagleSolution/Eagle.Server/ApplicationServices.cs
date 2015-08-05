@@ -1,8 +1,9 @@
-﻿using Eagle.ViewModel;
+﻿using Eagle.Domain.Core.Model;
+using Eagle.ViewModel;
 
 namespace Eagle.Server
 {
-    public abstract class ApplicationServices
+    public abstract class ApplicationServices : DisposableObject
     {
         /// <summary>
         /// 初始化 <see cref="T:System.Object"/> 类的新实例。
@@ -27,6 +28,10 @@ namespace Eagle.Server
         public Cells GetResult()
         {
             return new Cells(Flag, Message, Code);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
         }
     }
 }
