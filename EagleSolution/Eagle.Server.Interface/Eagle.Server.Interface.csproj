@@ -41,12 +41,11 @@
   <ItemGroup>
     <Compile Include="IAppServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="服务器管理\IJournalServices.cs" />
     <Compile Include="账户\IAccountServices.cs" />
     <Compile Include="账户\IBranchServices.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="服务器管理\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Eagle.ViewModel\Eagle.ViewModel.csproj">
       <Project>{245C5A24-EF6D-417D-AB0F-80DC77845845}</Project>

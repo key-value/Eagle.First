@@ -1,0 +1,90 @@
+﻿@{
+    var journals = @ViewBag.Journals as HtmlString;
+    var updateJournal = @ViewBag.UpdateJournal as HtmlString;
+}
+
+<div class="modal-dialog" id="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">标题</h4>
+        </div>
+
+        <div class="modal-body">
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group no-margin">
+                        <label for="ID" class="control-label">ID</label>
+                    </div>
+
+                </div> <div class="col-md-8">
+                    <div class="form-group no-margin">
+                        <textarea class="form-control autogrow" id="ID" placeholder="Write something about yourself" data-bind="value: addJournal.ID, uniqueName: true"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group no-margin">
+                        <label for="ProjectName" class="control-label">ProjectName</label>
+                    </div>
+
+                </div> <div class="col-md-8">
+                    <div class="form-group no-margin">
+                        <textarea class="form-control autogrow" id="ProjectName" placeholder="Write something about yourself" data-bind="value: addJournal.ProjectName, uniqueName: true"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group no-margin">
+                        <label for="Path" class="control-label">Path</label>
+                    </div>
+
+                </div> <div class="col-md-8">
+                    <div class="form-group no-margin">
+                        <textarea class="form-control autogrow" id="Path" placeholder="Write something about yourself" data-bind="value: addJournal.Path, uniqueName: true"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info" data-bind="click: SaveData">Save changes</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var Journalbody = {
+        addJournal: ko.mapping.fromJS(@updateJournal),
+        firstJournals: ko.mapping.fromJS(@journals),
+        SaveData: function () {
+            var path = window.mainModel.map() + '/Edit';
+            $.post(path, ko.mapping.toJS(Journalbody.addJournal), function (result) {
+                window.mainModel.Alert(result);
+                jQuery('#system-dialog').modal('hide');
+                window.mainModel.ReloadBranch();
+            });
+        }
+    };
+
+    $(document).ready(function () {
+
+        ko.applyBindings(Journalbody, $("#modal-dialog")[0]);
+    });
+
+
+
+</script>

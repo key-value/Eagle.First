@@ -552,6 +552,9 @@
     <Content Include="Scripts\dropzone\css\stylus\dropzone.styl" />
     <Content Include="Scripts\icheck\.DS_Store" />
     <Content Include="Scripts\inputmask\.DS_Store" />
+    <Content Include="Areas\Architecture\Views\web.config" />
+    <Content Include="Areas\Architecture\Views\Journal\Create.cshtml" />
+    <Content Include="Areas\Architecture\Views\Journal\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datatables\css\jquery.dataTables.css" />
@@ -1155,6 +1158,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Architecture\ArchitectureAreaRegistration.cs" />
+    <Compile Include="Areas\Architecture\Controllers\JournalController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\BranchController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
@@ -1255,6 +1260,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Architecture\Models\" />
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
