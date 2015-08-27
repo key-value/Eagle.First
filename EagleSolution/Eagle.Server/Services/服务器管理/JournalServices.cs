@@ -1,18 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Eagle.Domain.EF.DataContext;
+using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
+using Eagle.ViewModel;
 
 namespace Eagle.Server.Services
 {
-    public class JournalServices : IJournalServices
+    [Injection(typeof(IJournalServices))]
+    public class JournalServices : ApplicationServices, IJournalServices
     {
-        public List<string> GetJournal()
+        public List<ShowJournal> GetJournals(int pageNum)
         {
-            var resString = HttpWebResponseUtility.CreateGetHttpResponse("http://second.eagle.com/api/Message", 3000, null, null);
+            var showJournals = new List<ShowJournal>();
+            using (var content = new DefaultContext())
+            {
+                var journals = content.Journals.AsNoTracking().OrderByDescending(x => x.CreateTime).Pageing(pageNum, PageSize, ref _pageCount).ToList();
 
-            var result = resString.ToDeserialize<List<string>>() ?? new List<string>();
-
-            return result;
+                foreach (var journal in journals)
+                {
+                    showJournals.Add(ShowJournal.CreateShowJournal(journal));
+                }
+            }
+            return showJournals;
         }
     }
 }

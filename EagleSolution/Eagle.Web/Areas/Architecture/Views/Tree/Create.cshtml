@@ -1,0 +1,82 @@
+﻿
+
+
+@{
+    var Trees = @ViewBag.Trees as HtmlString;
+    var updateTree = @ViewBag.UpdateTree as HtmlString;
+}
+
+<div class="modal-dialog" id="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">标题</h4>
+        </div>
+
+        <div class="modal-body">
+
+      <div class="form-horizontal">
+                <div class="row">
+     
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label">Name</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="Name" data-bind="value: addTree.Name, uniqueName: true">
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+     
+                    <div class="form-group">
+                        <label for="Description" class="col-sm-3 control-label">Description</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="Description" data-bind="value: addTree.Description, uniqueName: true">
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+     
+                    <div class="form-group">
+                        <label for="CreateTime" class="col-sm-3 control-label">CreateTime</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="CreateTime" data-bind="value: addTree.CreateTime, uniqueName: true">
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+</div>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info" data-bind="click: SaveData">Save changes</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var Treebody = {
+        addTree: ko.mapping.fromJS(@updateTree),
+        firstTrees: ko.mapping.fromJS(@Tree),
+        SaveData: function () {
+            var path = window.mainModel.map() + '/Edit';
+            $.post(path, ko.mapping.toJS(Treebody.addTree), function (result) {
+                window.mainModel.Alert(result);
+                jQuery('#system-dialog').modal('hide');
+                window.mainModel.ReloadBranch();
+            });
+        }
+    };
+
+    $(document).ready(function () {
+
+        ko.applyBindings(Treebody, $("#modal-dialog")[0]);
+    });
+
+
+
+</script>

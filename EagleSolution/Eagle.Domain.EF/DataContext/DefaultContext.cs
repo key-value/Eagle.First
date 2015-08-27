@@ -54,10 +54,11 @@ namespace Eagle.Domain.EF.DataContext
 
         #endregion
 
-        public DbSet<Account> Accounts { get; set; }
-
-        public DbSet<Branch> Branches { get; set; }
 
         public DbSet<Letter> Letters { get; set; }
+
+        public DbSet<Journal> Journals { get; set; }
+
+
     }
 }

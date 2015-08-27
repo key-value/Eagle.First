@@ -17,6 +17,7 @@ namespace Eagle.Web.Areas.Manage.Controllers
         {
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             var branchList = branchServices.GetBranches(pageNum);
+            ViewBag.totalPage = branchServices.PageCount;
             return PartialView(model: new HtmlString(branchList.ToJson()));
         }
 

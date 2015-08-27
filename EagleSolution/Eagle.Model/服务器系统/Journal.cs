@@ -12,5 +12,7 @@ namespace Eagle.Model
 
         public string Path { get; set; }
 
+        public DateTime CreateTime { get; set; }
+
     }
 }

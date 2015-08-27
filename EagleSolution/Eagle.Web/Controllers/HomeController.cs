@@ -18,7 +18,7 @@ namespace Eagle.Web.Controllers
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             var resultBranch = branchServices.GetBranches();
             ViewBag.show = new HtmlString(resultBranch.ToJson());
-            return View(resultBranch);
+            return View();
         }
 
         // GET: Home/Details/5

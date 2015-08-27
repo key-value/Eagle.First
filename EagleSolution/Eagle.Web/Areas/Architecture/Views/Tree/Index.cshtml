@@ -1,0 +1,67 @@
+﻿
+
+@model HtmlString
+
+<script>
+
+
+    var TreeBody;
+    $(document).ready(function ($) {
+
+        TreeBody = {
+            TreeList: ko.mapping.fromJS(@Model),
+            getIndex: function (index) { return index + 1 }
+        }
+        ko.applyBindings(TreeBody, $("#Tree-part")[0]);
+
+        window.mainModel.checkTable('TreeTable');
+    });
+
+
+</script>
+
+
+
+<div id="Tree-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="TreeTable" class="table ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="cbr">
+                                </th>
+                                <th>#</th>
+                              <th>ID</th>  
+                              <th>Name</th>  
+                              <th>Description</th>  
+                              <th>CreateTime</th>  
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: TreeBody.TreeList">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-bind="value: ID" class="cbr">
+                                </td>
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:ID"></td>
+                                <td data-bind="text:Name"></td>
+                                <td data-bind="text:Description"></td>
+                                <td data-bind="text:CreateTime"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

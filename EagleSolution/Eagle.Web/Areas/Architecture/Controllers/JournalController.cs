@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Eagle.Infrastructrue.Aop.Locator;
+using Eagle.Infrastructrue.Utility;
+using Eagle.Server;
 
 namespace Eagle.Web.Areas.Architecture.Controllers
 {
     public class JournalController : Controller
     {
         // GET: Architecture/Journal
-        public ActionResult Index()
+        public ActionResult Index(int pageNum)
         {
-            return View();
+            var journalServices = ServiceLocator.Instance.GetService<IJournalServices>();
+            var journalList = journalServices.GetJournals(pageNum);
+            return PartialView(model: new HtmlString(journalList.ToJson()));
         }
 
         // GET: Architecture/Journal/Details/5

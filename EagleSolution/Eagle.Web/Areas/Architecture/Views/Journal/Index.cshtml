@@ -12,9 +12,9 @@
             JournalList: ko.mapping.fromJS(@Model),
             getIndex: function (index) { return index + 1 }
         }
-        ko.applyBindings(JournalBody, $("#Branch-part")[0]);
+        ko.applyBindings(JournalBody, $("#Journal-part")[0]);
 
-        window.mainModel.checkTable('branchTable');
+        window.mainModel.checkTable('JournalTable');
     });
 
 
@@ -39,9 +39,9 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
-                              <th>ID</th>  
-                              <th>ProjectName</th>  
-                              <th>Path</th>  
+                              <th>ID</th>
+                              <th>ProjectName</th>
+                              <th>Path</th>
                             </tr>
                         </thead>
                         <tbody class="middle-align" data-bind="foreach: JournalBody.JournalList">

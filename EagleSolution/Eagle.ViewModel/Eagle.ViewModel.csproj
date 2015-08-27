@@ -41,10 +41,16 @@
   <ItemGroup>
     <Compile Include="Cells.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="服务器管理\GetJournal.cs" />
+    <Compile Include="服务器管理\HeartbeatBody.cs" />
+    <Compile Include="服务器管理\ShowJournal.cs" />
+    <Compile Include="服务器管理\ShowTree.cs" />
     <Compile Include="服务器管理\UpdateJournal.cs" />
+    <Compile Include="服务器管理\UpdateTree.cs" />
+    <Compile Include="账户体系\ShowAccount.cs" />
     <Compile Include="账户体系\ShowBranch.cs" />
+    <Compile Include="账户体系\UpdateAccount.cs" />
     <Compile Include="账户体系\UpdateBranch.cs" />
+    <Compile Include="通信记录\ShowLetter.cs" />
     <Compile Include="通信记录\UpdateLetter.cs" />
   </ItemGroup>
   <ItemGroup>

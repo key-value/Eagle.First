@@ -2,7 +2,8 @@
   "SingleProjectMode": 0,
   "SingleProjectMruCount": 5,
   "MRU": [
-    "Eagle.Web"
+    "Eagle.Web",
+    "Eagle.Cmd"
   ],
   "MultiProjectConfigurations": {},
   "ActivateCommandLineArguments": false,

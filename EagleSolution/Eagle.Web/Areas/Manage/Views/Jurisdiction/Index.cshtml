@@ -1,0 +1,162 @@
+﻿@model HtmlString
+
+<script>
+
+    var AccountBody;
+
+    $(document).ready(function ($) {
+
+        AccountBody = {
+            AccountList: ko.mapping.fromJS(@Model),
+            BranchList: ko.mapping.fromJS(@ViewBag.branchs),
+            jurisdcList: ko.observableArray(new Array()),
+            AddBranchList: [],
+            DelBranchList: [],
+            selectAccountid: '',
+            Distribution: function () {
+                if (AccountBody.selectAccountid === '') {
+                    window.mainModel.Alert("请选择要分配的账号");
+                    return;
+                }
+                var path = window.mainModel.map() + '/Distribution';
+                var param = {
+                    accountId: AccountBody.selectAccountid,
+                    addList: AccountBody.AddBranchList,
+                    delList: AccountBody.DelBranchList,
+                }
+                $.post(path, param, function (data) {
+                    window.mainModel.Alert(data);
+                });
+            },
+            SelectAccount: function (id) {
+                AccountBody.selectAccountid = id;
+                var path = window.mainModel.map() + '/Details';
+                $('.branchCheck:checked').each(function (index) {
+                    //$(this).checked = false;
+                    //$(this).parent().parent().attr("class", 'cbr-replaced');
+                    $(this).prop('checked', false).trigger('change');
+                });
+
+                $.post(path, { accountId: AccountBody.selectAccountid }, function (data) {
+                    var checkList = JSON.parse(data);
+                    for (cid in checkList) {
+                        if (checkList.hasOwnProperty(cid)) {
+                            var checkbody = $('#' + checkList[cid])[0];
+                            //checkbody.checked = true;
+                            //$(checkbody).parent().parent().attr("class", 'cbr-replaced cbr-checked');
+                            $(checkbody).prop('checked', true).trigger('change');
+                        }
+                    }
+                    ///AccountBody.jurisdcList(list);
+
+                    //console.log(AccountBody.jurisdcList());
+                });
+            }
+
+        }
+        ko.applyBindings(AccountBody, $("#Account-part")[0]);
+
+        //window.mainModel.checkTable('AccountTable');
+
+        $('.checkbox').on('click', function () {
+            var id = this.value;
+            var exit = false;
+            if (this.checked) {
+
+                AccountBody.DelBranchList = $.grep(AccountBody.DelBranchList, function (n, i) {
+                    exit = ((n === id) || exit);
+                    return n !== id;
+                });
+                if (!exit) {
+                    AccountBody.AddBranchList.push(id);
+                }
+            } else {
+                AccountBody.AddBranchList = $.grep(AccountBody.AddBranchList, function (n, i) {
+                    exit = ((n === id) || exit);
+                    return n !== id;
+                });
+                if (!exit) {
+                    AccountBody.DelBranchList.push(id);
+                }
+            }
+
+        });
+    });
+
+
+</script>
+<div class="row" id="Account-part">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                用户列表
+                <div class=" pull-right"><button data-bind="click:AccountBody.Distribution" class="btn btn-black">保存</button></div>
+            </div>
+            <div class="panel-body">
+                <table id="AccountTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>LoginID</th>
+                            <th>Name</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody class="middle-align" data-bind="foreach: AccountBody.AccountList">
+                        <tr data-bind=" click: function(data, event) { AccountBody.SelectAccount(ID())}">
+                            <td data-bind="text:$index()+1"></td>
+                            <td data-bind="text:LoginID"></td>
+                            <td data-bind="text:Name"></td>
+                            <td>
+                                <div data-bind="text:State() ? '启用' :  '禁用' ,attr:{class:State()?'label label-secondary':'label label-red'}"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        @*<div class="panel panel-default">
+                <div class="panel-body">
+                    <button data-bind="click:AccountBody.Distribution" class="btn btn-secondary">保存</button>
+                </div>
+            </div>*@
+
+        <div class="panel-group panel-group-joined" data-bind='foreach: AccountBody.BranchList'>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion-test" class="" data-bind="html:Title,attr:{ href: '#collapseOne'+$index() ,class: $index() == 0 ? '':'collapsed'}">
+                        </a>
+                    </h4>
+                </div>
+                <div data-bind="attr:{ id:'collapseOne'+$index(),class: $index() == 0 ? 'panel-collapse collapse in':'panel-collapse collapse'}">
+                    <div class="panel-body">
+                        <label>
+                            <input type="checkbox" class="cbr branchCheck checkbox" data-bind="value:ID,attr:{id:ID}">
+                            <a data-bind="text:Title"> Default checkbox</a>
+                        </label>
+                        <blockquote>
+                            <div data-bind="foreach: Branches">
+                                <div>
+                                    <label>
+                                        <input type="checkbox" class="cbr branchCheck checkbox" data-bind="value:ID,attr:{id:ID}">
+                                        <a data-bind="text:Title"> Default checkbox</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

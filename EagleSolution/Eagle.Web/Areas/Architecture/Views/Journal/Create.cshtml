@@ -1,5 +1,8 @@
-﻿@{
-    var journals = @ViewBag.Journals as HtmlString;
+﻿
+
+
+@{
+    var Journals = @ViewBag.Journals as HtmlString;
     var updateJournal = @ViewBag.UpdateJournal as HtmlString;
 }
 
@@ -13,47 +16,27 @@
 
         <div class="modal-body">
 
+      <div class="form-horizontal">
+                <div class="row">
+     
+                    <div class="form-group">
+                        <label for="ProjectName" class="col-sm-3 control-label">ProjectName</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="ProjectName" data-bind="value: addJournal.ProjectName, uniqueName: true">
+                        </div>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group no-margin">
-                        <label for="ID" class="control-label">ID</label>
                     </div>
+                    <div class="form-group-separator"></div>
+     
+                    <div class="form-group">
+                        <label for="Path" class="col-sm-3 control-label">Path</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="Path" data-bind="value: addJournal.Path, uniqueName: true">
+                        </div>
 
-                </div> <div class="col-md-8">
-                    <div class="form-group no-margin">
-                        <textarea class="form-control autogrow" id="ID" placeholder="Write something about yourself" data-bind="value: addJournal.ID, uniqueName: true"></textarea>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group no-margin">
-                        <label for="ProjectName" class="control-label">ProjectName</label>
-                    </div>
-
-                </div> <div class="col-md-8">
-                    <div class="form-group no-margin">
-                        <textarea class="form-control autogrow" id="ProjectName" placeholder="Write something about yourself" data-bind="value: addJournal.ProjectName, uniqueName: true"></textarea>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group no-margin">
-                        <label for="Path" class="control-label">Path</label>
-                    </div>
-
-                </div> <div class="col-md-8">
-                    <div class="form-group no-margin">
-                        <textarea class="form-control autogrow" id="Path" placeholder="Write something about yourself" data-bind="value: addJournal.Path, uniqueName: true"></textarea>
-                    </div>
-
-                </div>
+                    <div class="form-group-separator"></div>
+</div>
             </div>
         </div>
 
@@ -69,7 +52,7 @@
 <script>
     var Journalbody = {
         addJournal: ko.mapping.fromJS(@updateJournal),
-        firstJournals: ko.mapping.fromJS(@journals),
+        firstJournals: ko.mapping.fromJS(@Journal),
         SaveData: function () {
             var path = window.mainModel.map() + '/Edit';
             $.post(path, ko.mapping.toJS(Journalbody.addJournal), function (result) {

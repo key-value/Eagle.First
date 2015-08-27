@@ -708,7 +708,10 @@
                 sysbtnClick: main.sysbtnClick,
                 Alert: main.alert,
                 buttons: main.buttons,
+                pageNum: ko.observable(1),
+                totalPage: 1,
                 branchAction: function (ev, two) {
+                    mainModel.pageNum(1);
                     mainModel.title(two.Title());
                     mainModel.description(two.Description() || '什么都没留下 =_=');
                     mainModel.selectBranch = two;
@@ -720,14 +723,19 @@
                         i++;
                     }
 
-
+                    mainModel.details('');
                     mainModel.map('/' + two.AreaName() + '/' + two.ActionName());
-                    $.post(mainModel.map() + '/index', function (data) {
+
+                    $.get(mainModel.map() + '/index', { pageNum: mainModel.pageNum }, function (data) {
                         mainModel.details(data);
                     });
                 },
-                ReloadBranch: function () {
-                    $.post(mainModel.map() + '/index', function (data) {
+                ReloadBranch: function (pageNum) {
+                    if (pageNum == null) {
+                        pageNum = mainModel.pageNum;
+                    }
+                    mainModel.details('');
+                    $.get(mainModel.map() + '/index', { pageNum: pageNum }, function (data) {
                         mainModel.details(data);
                     });
                 },
@@ -747,6 +755,20 @@
         <li>
             <a href="javascript:;" data-bind="text:Name, click:function(){ mainModel.sysbtnClick(mainModel, mainModel.selectBranch,$data)}">Install </a>
         </li>
+    </script>
+
+    <script type="text/html" id="page-template">
+        <ul class="pagination">
+            <li data-bind="attr:{class:mainModel.pageNum() > 1? '':'disabled'}"><a href="#"><i class="fa-angle-left"></i></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 3 ?'inline' :'none'}"><a href="#">...</a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 2 ?'inline' :'none'} "><a data-bind="html:mainModel.pageNum() - 2" href="#"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 1 ?'inline' :'none'} "><a data-bind="html:mainModel.pageNum() - 1" href="#"></a></li>
+            <li class="active"><a href="#" data-bind="html:mainModel.pageNum"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 1 > mainModel.TotalPage?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 1" href="#"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 2 > mainModel.TotalPage?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 2" href="#"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 3 > mainModel.TotalPage?'inline' :'none'} "><a href="#">...</a></li>
+            <li data-bind="attr:{class:mainModel.pageNum() + 1 > mainModel.TotalPage ? '':'disabled'}"><a href="#"><i class="fa-angle-right"></i></a></li>
+        </ul>
     </script>
 </body>
 </html>

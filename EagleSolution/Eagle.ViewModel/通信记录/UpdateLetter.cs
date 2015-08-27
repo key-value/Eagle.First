@@ -24,5 +24,7 @@ namespace Eagle.ViewModel
             letter.Message = Message;
             return letter;
         }
+
+
     }
 }

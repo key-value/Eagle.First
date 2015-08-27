@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Eagle.ViewModel;
 
 namespace Eagle.Server
 {
-    public interface IAppServices
+    public interface IAppServices : IDisposable
     {
         int Code { get; }
 

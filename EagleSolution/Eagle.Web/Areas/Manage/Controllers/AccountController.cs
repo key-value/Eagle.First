@@ -4,15 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Eagle.Infrastructrue.Aop.Locator;
+using Eagle.Infrastructrue.Utility;
+using Eagle.Server.Interface;
+using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.Manage.Controllers
 {
     public class AccountController : Controller
     {
         // GET: Manage/Account
-        public ActionResult Index()
+        public ActionResult Index(int pageNum = 1)
         {
-            return View();
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            var accountList = accountServices.GetAccounts(pageNum);
+            return View(model: new HtmlString(accountList.ToJson()));
         }
 
         // GET: Manage/Account/Details/5
@@ -22,18 +27,26 @@ namespace Eagle.Web.Areas.Manage.Controllers
         }
 
         // GET: Manage/Account/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid? id)
         {
-            return View();
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            var updateAccount = new UpdateAccount();
+            if (id.HasValue)
+            {
+                updateAccount = accountServices.GetAccount(id.Value);
+            }
+            ViewBag.UpdateAccount = new HtmlString(updateAccount.ToJson());
+            return PartialView();
         }
 
         // POST: Manage/Account/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Guid id)
         {
             try
             {
                 // TODO: Add insert logic here
+
 
                 return RedirectToAction("Index");
             }
@@ -51,13 +64,15 @@ namespace Eagle.Web.Areas.Manage.Controllers
 
         // POST: Manage/Account/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UpdateAccount updateAccount)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+                accountServices.Update(updateAccount);
+                var result = accountServices.GetResult();
+                return Json(result);
             }
             catch
             {
@@ -73,17 +88,41 @@ namespace Eagle.Web.Areas.Manage.Controllers
 
         // POST: Manage/Account/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string[] id)
         {
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            var failt = accountServices.GetResult();
             try
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                if (id.Null() || !id.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
+                List<Guid> accountIdList = new List<Guid>();
+                foreach (var aid in id)
+                {
+                    Guid accountId;
+                    if (!Guid.TryParse(aid, out accountId))
+                    {
+                        continue;
+                    }
+                    accountIdList.Add(accountId);
+                }
+                if (!accountIdList.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
+                accountServices.Delete(accountIdList);
+                var result = accountServices.GetResult();
+                return Json(failt);
             }
             catch
             {
-                return View();
+                return Json(failt);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eagle.Domain.EF;
 using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
@@ -16,7 +17,7 @@ namespace Eagle.Server.Services
         public List<ShowBranch> GetBranches()
         {
             Dictionary<Guid, List<Branch>> allBranch;
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 allBranch = context.Branches.AsNoTracking().Where(x => x.Enble).GroupBy(x => x.PreBranch).ToDictionary(x => x.Key, x => x.OrderBy(y => y.SortID).ToList());
             }
@@ -55,7 +56,7 @@ namespace Eagle.Server.Services
             var branch = new Branch();
             if (id != Guid.Empty)
             {
-                using (var context = new DefaultContext())
+                using (var context = new AccountContext())
                 {
                     branch = context.Branches.AsNoTracking().FirstOrDefault(x => x.ID == id);
                     if (branch.Null())
@@ -83,7 +84,7 @@ namespace Eagle.Server.Services
         {
             Flag = true;
             List<ShowBranch> allBranch = new List<ShowBranch>();
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 var dataBranch = context.Branches.AsNoTracking().OrderBy(x => x.SortID).Pageing(pageNum, PageSize, ref _pageCount).ToList();
                 if (dataBranch.Null())
@@ -102,7 +103,7 @@ namespace Eagle.Server.Services
         {
             Flag = true;
             List<ShowBranch> allBranch = new List<ShowBranch>();
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 var dataBranch = context.Branches.AsNoTracking().Where(x => x.Level == 1).OrderBy(x => x.SortID).ToList();
                 if (dataBranch.Null())
@@ -130,7 +131,7 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             Branch parentBranch = null;
             if (updateBranch.Level == 2 && updateBranch.PreBranch != Guid.Empty)
             {
-                using (var context = new DefaultContext())
+                using (var context = new AccountContext())
                 {
                     parentBranch = context.Branches.AsNoTracking().FirstOrDefault(x => x.ID == updateBranch.PreBranch);
                 }
@@ -169,7 +170,7 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             branch.ActionName = updateBranch.ActionName;
             branch.AreaName = updateBranch.AreaName;
             branch.Description = updateBranch.Description;
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 branch.SortID = context.Branches.Max(x => x.SortID) + 1;
                 context.Branches.Add(branch);
@@ -179,7 +180,7 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
 
         private void Edit(UpdateBranch updateBranch)
         {
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 var editBranch = context.Branches.FirstOrDefault(x => x.ID == updateBranch.ID);
                 if (editBranch.Null())
@@ -204,7 +205,7 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
         public void Delete(List<Guid> branchIdList)
         {
 
-            using (var context = new DefaultContext())
+            using (var context = new AccountContext())
             {
                 var branchList = context.Branches.Where(x => branchIdList.Contains(x.ID)).ToList();
                 if (!branchList.Any())

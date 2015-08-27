@@ -13,6 +13,8 @@ namespace Eagle.Model
 
         public string Password { get; set; }
 
+        public string Name { get; set; }
+
         public DateTime CreateTime { get; set; }
 
         public DateTime LastLoginTime { get; set; }

@@ -1,0 +1,71 @@
+﻿
+
+@model HtmlString
+
+<script>
+
+
+    var LetterBody;
+    $(document).ready(function ($) {
+
+        LetterBody = {
+            LetterList: ko.mapping.fromJS(@Model),
+            getIndex: function (index) { return index + 1 }
+        }
+        ko.applyBindings(LetterBody, $("#Letter-part")[0]);
+
+        window.mainModel.checkTable('LetterTable');
+    });
+
+
+</script>
+
+
+
+<div id="Letter-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="LetterTable" class="table ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="cbr">
+                                </th>
+                                <th>#</th>
+                              <th>ID</th>
+                              <th>Title</th>
+                              <th>Message</th>
+                              <th>CreateTime</th>
+                              <th>Reply</th>
+                              <th>ReplyTime</th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: LetterBody.LetterList">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-bind="value: ID" class="cbr">
+                                </td>
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:ID"></td>
+                                <td data-bind="text:Title"></td>
+                                <td data-bind="text:Message"></td>
+                                <td data-bind="text:CreateTime"></td>
+                                <td data-bind="text:Reply"></td>
+                                <td data-bind="text:ReplyTime"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

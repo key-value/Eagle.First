@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Eagle.ViewModel;
 
 namespace Eagle.Server
 {
-    public interface IJournalServices
+    public interface IJournalServices : IAppServices
     {
-        List<string> GetJournal();
+        List<ShowJournal> GetJournals(int pageNum);
     }
 }

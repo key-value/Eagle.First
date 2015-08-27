@@ -1,7 +1,7 @@
-﻿namespace Eagle.ViewModel.服务器管理
+﻿namespace Eagle.ViewModel
 {
     public class UpdateJournal
     {
-         
+
     }
 }

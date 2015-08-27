@@ -41,10 +41,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="信件记录\Letter.cs" />
+    <Compile Include="服务器系统\Heartbeat.cs" />
     <Compile Include="服务器系统\Journal.cs" />
+    <Compile Include="服务器系统\Tree.cs" />
     <Compile Include="账户\ActionButton.cs" />
     <Compile Include="账户\Branch.cs" />
     <Compile Include="账户\Account.cs" />
+    <Compile Include="账户\Jurisdiction.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">

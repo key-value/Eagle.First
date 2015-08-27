@@ -4,7 +4,7 @@
 using System.Data.Entity.ModelConfiguration;
 using Eagle.Model;
 
-namespace Carving.Domain.Repository.EF.Map
+namespace Eagle.Domain.EF.Map
 {
     public class LetterMap : EntityTypeConfiguration<Letter>
     {

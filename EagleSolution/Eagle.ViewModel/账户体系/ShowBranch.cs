@@ -29,7 +29,7 @@ namespace Eagle.ViewModel
         public static ShowBranch CreateShowBranch(Branch branch)
         {
             var showBranch = new ShowBranch();
-            showBranch.ID = Guid.NewGuid();
+            showBranch.ID = branch.ID;
             showBranch.Title = branch.Title;
             showBranch.Logo = branch.Logo;
             showBranch.AreaName = branch.AreaName;
