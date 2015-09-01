@@ -74,8 +74,8 @@ namespace Eagle.Web.Areas.Manage.Controllers
                 var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
                 if (branch.Title.Null())
                 {
-                    var failt = branchServices.GetResult();
-                    return Json(failt);
+                    var failure = branchServices.GetResult();
+                    return Json(failure);
                 }
                 branchServices.Update(branch);
                 var result = branchServices.GetResult();

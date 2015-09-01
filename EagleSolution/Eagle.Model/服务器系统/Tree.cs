@@ -13,5 +13,6 @@ namespace Eagle.Model
 
         public DateTime CreateTime { get; set; }
 
+        public string IpAddr { get; set; }
     }
 }

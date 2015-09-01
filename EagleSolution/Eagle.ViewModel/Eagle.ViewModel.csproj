@@ -42,6 +42,7 @@
     <Compile Include="Cells.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="服务器管理\HeartbeatBody.cs" />
+    <Compile Include="服务器管理\ShowCpuChart.cs" />
     <Compile Include="服务器管理\ShowJournal.cs" />
     <Compile Include="服务器管理\ShowTree.cs" />
     <Compile Include="服务器管理\UpdateJournal.cs" />

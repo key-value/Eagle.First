@@ -1,6 +1,4 @@
-﻿
-
-@model HtmlString
+﻿@model HtmlString
 
 <script>
 
@@ -39,9 +37,9 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
-                              <th>ID</th>
-                              <th>ProjectName</th>
-                              <th>Path</th>
+                                <th>ProjectName</th>
+                                <th>Path</th>
+                                <th>CreateTime</th>
                             </tr>
                         </thead>
                         <tbody class="middle-align" data-bind="foreach: JournalBody.JournalList">
@@ -50,12 +48,16 @@
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
                                 <td data-bind="text:$index()+1"></td>
-                                <td data-bind="text:ID"></td>
                                 <td data-bind="text:ProjectName"></td>
                                 <td data-bind="text:Path"></td>
+                                <td data-bind="text:CreateTime"></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

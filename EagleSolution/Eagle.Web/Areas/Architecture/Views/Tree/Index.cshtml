@@ -1,6 +1,4 @@
-﻿
-
-@model HtmlString
+﻿@model HtmlString
 
 <script>
 
@@ -39,10 +37,10 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
-                              <th>ID</th>  
-                              <th>Name</th>  
-                              <th>Description</th>  
-                              <th>CreateTime</th>  
+                                <th>Name</th>
+                                <th>CreateTime</th>
+                                <th>IpAddr</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody class="middle-align" data-bind="foreach: TreeBody.TreeList">
@@ -50,14 +48,18 @@
                                 <td>
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
-                                <td data-bind="text:$index()+1"></td>
-                                <td data-bind="text:ID"></td>
+                                <td data-bind="text:$index()+1"><input type="hidden" data-bind="value:ID">/td>
                                 <td data-bind="text:Name"></td>
-                                <td data-bind="text:Description"></td>
                                 <td data-bind="text:CreateTime"></td>
+                                <td data-bind="text:IpAddr"></td>
+                                <td data-bind="text:Description"></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

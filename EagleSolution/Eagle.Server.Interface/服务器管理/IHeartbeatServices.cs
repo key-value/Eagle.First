@@ -7,5 +7,6 @@ namespace Eagle.Server
     public interface IHeartbeatServices : IAppServices
     {
         void Add(List<HeartbeatBody> heartbeatBodys, Guid machineId);
+        List<ShowCpuChart> GetHeartbeatList(DateTime day, Guid treeId);
     }
 }

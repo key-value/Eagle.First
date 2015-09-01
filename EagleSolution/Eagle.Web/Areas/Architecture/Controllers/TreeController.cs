@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Eagle.Infrastructrue.Aop.Locator;
+using Eagle.Infrastructrue.Utility;
+using Eagle.Server;
+using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.Architecture.Controllers
 {
     public class TreeController : Controller
     {
         // GET: Architecture/Tree
-        public ActionResult Index()
+        public ActionResult Index(int pageNum = 1)
         {
-            return View();
+            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
+            var treelist = treeServices.Get(pageNum);
+            ViewBag.totalPage = treeServices.PageCount;
+            return PartialView(model: new HtmlString(treelist.ToJson()));
         }
 
         // GET: Architecture/Tree/Details/5
@@ -21,9 +28,16 @@ namespace Eagle.Web.Areas.Architecture.Controllers
         }
 
         // GET: Architecture/Tree/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid? id)
         {
-            return View();
+            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
+            var tree = new UpdateTree();
+            if (id.HasValue)
+            {
+                tree = treeServices.Get(id.GetValueOrDefault());
+            }
+            ViewBag.UpdateTree = new HtmlString(tree.ToJson());
+            return PartialView();
         }
 
         // POST: Architecture/Tree/Create
@@ -50,17 +64,24 @@ namespace Eagle.Web.Areas.Architecture.Controllers
 
         // POST: Architecture/Tree/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UpdateTree updateTree)
         {
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
+                if (updateTree.Null())
+                {
+                    var failure = treeServices.GetResult();
+                    return Json(failure);
+                }
+                treeServices.Update(updateTree);
+                var result = treeServices.GetResult();
+                return Json(result);
             }
             catch
             {
-                return View();
+                return Json(1);
             }
         }
 
@@ -72,17 +93,42 @@ namespace Eagle.Web.Areas.Architecture.Controllers
 
         // POST: Architecture/Tree/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string[] id)
         {
+
+            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
+            var failt = treeServices.GetResult();
+
             try
             {
-                // TODO: Add delete logic here
+                if (id.Null() || !id.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
+                List<Guid> branchIdList = new List<Guid>();
+                foreach (var bid in id)
+                {
+                    Guid brID;
+                    if (!Guid.TryParse(bid, out  brID))
+                    {
+                        continue;
+                    }
+                    branchIdList.Add(brID);
+                }
+                if (!branchIdList.Any())
+                {
+                    failt.Message = "请选择要操作的数据";
+                    return Json(failt);
+                }
 
-                return RedirectToAction("Index");
+                treeServices.Delete(branchIdList);
+                var result = treeServices.GetResult();
+                return Json(result);
             }
             catch
             {
-                return View();
+                return Json(failt);
             }
         }
     }

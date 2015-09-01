@@ -16,7 +16,7 @@ namespace Eagle.ViewModel
         public static ShowJournal CreateShowJournal(Journal journal)
         {
             var showJournal = new ShowJournal();
-            showJournal.ID = Guid.NewGuid();
+            showJournal.ID = journal.ID;
             showJournal.Path = journal.Path;
             showJournal.ProjectName = journal.ProjectName;
             showJournal.CreateTime = journal.CreateTime;

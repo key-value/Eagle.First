@@ -57,8 +57,6 @@ namespace Eagle.Domain.EF.DataContext
 
         public DbSet<Letter> Letters { get; set; }
 
-        public DbSet<Journal> Journals { get; set; }
-
 
     }
 }

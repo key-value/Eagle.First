@@ -1,8 +1,4 @@
-﻿
-
-
-@{
-    var Trees = @ViewBag.Trees as HtmlString;
+﻿@{
     var updateTree = @ViewBag.UpdateTree as HtmlString;
 }
 
@@ -16,9 +12,9 @@
 
         <div class="modal-body">
 
-      <div class="form-horizontal">
+            <div class="form-horizontal">
                 <div class="row">
-     
+
                     <div class="form-group">
                         <label for="Name" class="col-sm-3 control-label">Name</label>
                         <div class="col-md-9">
@@ -27,7 +23,16 @@
 
                     </div>
                     <div class="form-group-separator"></div>
-     
+
+                    <div class="form-group">
+                        <label for="IpAddr" class="col-sm-3 control-label">IpAddr</label>
+                        <div class="col-md-9">
+                            <input class="form-control autogrow" id="IpAddr" data-bind="value: addTree.IpAddr, uniqueName: true">
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+
                     <div class="form-group">
                         <label for="Description" class="col-sm-3 control-label">Description</label>
                         <div class="col-md-9">
@@ -36,16 +41,7 @@
 
                     </div>
                     <div class="form-group-separator"></div>
-     
-                    <div class="form-group">
-                        <label for="CreateTime" class="col-sm-3 control-label">CreateTime</label>
-                        <div class="col-md-9">
-                            <input class="form-control autogrow" id="CreateTime" data-bind="value: addTree.CreateTime, uniqueName: true">
-                        </div>
-
-                    </div>
-                    <div class="form-group-separator"></div>
-</div>
+                </div>
             </div>
         </div>
 
@@ -61,7 +57,6 @@
 <script>
     var Treebody = {
         addTree: ko.mapping.fromJS(@updateTree),
-        firstTrees: ko.mapping.fromJS(@Tree),
         SaveData: function () {
             var path = window.mainModel.map() + '/Edit';
             $.post(path, ko.mapping.toJS(Treebody.addTree), function (result) {

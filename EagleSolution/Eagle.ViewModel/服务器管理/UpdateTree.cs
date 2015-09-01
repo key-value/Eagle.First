@@ -10,5 +10,7 @@ namespace Eagle.ViewModel
 
         public string Description { get; set; }
 
+        public string IpAddr { get; set; }
+
     }
 }

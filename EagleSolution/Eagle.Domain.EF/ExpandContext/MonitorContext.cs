@@ -9,5 +9,7 @@ namespace Eagle.Domain.EF
         public DbSet<Heartbeat> Heartbeats { get; set; }
 
         public DbSet<Tree> Trees { get; set; }
+
+        public DbSet<Journal> Journals { get; set; }
     }
 }

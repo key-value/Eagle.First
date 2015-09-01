@@ -2,7 +2,6 @@
 
 
 @{
-    var Journals = @ViewBag.Journals as HtmlString;
     var updateJournal = @ViewBag.UpdateJournal as HtmlString;
 }
 
@@ -18,7 +17,7 @@
 
       <div class="form-horizontal">
                 <div class="row">
-     
+
                     <div class="form-group">
                         <label for="ProjectName" class="col-sm-3 control-label">ProjectName</label>
                         <div class="col-md-9">
@@ -27,7 +26,7 @@
 
                     </div>
                     <div class="form-group-separator"></div>
-     
+
                     <div class="form-group">
                         <label for="Path" class="col-sm-3 control-label">Path</label>
                         <div class="col-md-9">
@@ -52,7 +51,6 @@
 <script>
     var Journalbody = {
         addJournal: ko.mapping.fromJS(@updateJournal),
-        firstJournals: ko.mapping.fromJS(@Journal),
         SaveData: function () {
             var path = window.mainModel.map() + '/Edit';
             $.post(path, ko.mapping.toJS(Journalbody.addJournal), function (result) {
