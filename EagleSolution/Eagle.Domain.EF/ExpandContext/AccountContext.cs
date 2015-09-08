@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Interception;
 using Eagle.Domain.EF.DataContext;
 using Eagle.Model;
 

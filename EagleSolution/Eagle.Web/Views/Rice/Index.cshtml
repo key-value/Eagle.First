@@ -31,7 +31,7 @@
             <div class="col-sm-6">
 
                 <script type="text/javascript">
-                   
+
                 </script>
 
                 <!-- Errors container -->
@@ -89,6 +89,7 @@
 
 
     <script src="~/Scripts/sea.js"></script>
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script>
         //// seajs 的简单配置
         seajs.config({
@@ -98,7 +99,9 @@
             }
         });
         // 加载入口模块
-        seajs.use(['/Scripts/jquery', '/Scripts/js/Account']);
+        seajs.use(['/Scripts/jquery', '/Scripts/js/Account'], function(parameters) {
+
+        });
     </script>
 </body>
 </html>

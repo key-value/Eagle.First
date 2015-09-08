@@ -1,6 +1,12 @@
 ﻿
-
 @model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+}
 
 <script>
 
@@ -10,10 +16,10 @@
 
         AccountBody = {
             AccountList: ko.mapping.fromJS(@Model),
-            getIndex: function (index) { return index + 1 }
+            TotalPage: ko.observable(@totalPage),
         }
         ko.applyBindings(AccountBody, $("#Account-part")[0]);
-
+        window.mainModel.totalPage(AccountBody.TotalPage());
         window.mainModel.checkTable('AccountTable');
     });
 
@@ -34,34 +40,39 @@
                 <div class="panel-body">
                     <table id="AccountTable" class="table ">
                         <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" class="cbr">
-                                </th>
-                                <th>#</th>
-                              <th>LoginID</th>
-                                <th>Name</th>
-                              <th>CreateTime</th>
-                              <th>LastLoginTime</th>
-                              <th>State</th>
-                            </tr>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="cbr">
+                            </th>
+                            <th>#</th>
+                            <th>LoginID</th>
+                            <th>Name</th>
+                            <th>CreateTime</th>
+                            <th>LastLoginTime</th>
+                            <th>State</th>
+                        </tr>
                         </thead>
                         <tbody class="middle-align" data-bind="foreach: AccountBody.AccountList">
-                            <tr>
-                                <td>
-                                    <input type="checkbox" data-bind="value: ID" class="cbr">
-                                </td>
-                                <td data-bind="text:$index()+1"></td>
-                                <td data-bind="text:LoginID"></td>
-                                <td data-bind="text:Name"></td>
-                                <td data-bind="text:CreateTime"></td>
-                                <td data-bind="text: LastLoginTime"></td>
-                                <td>
-                                    <div data-bind="text:State() ? '启用' :  '禁用' ,attr:{class:LastLoginTime()?'label label-secondary':'label label-red'}"></div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" data-bind="value: ID" class="cbr">
+                            </td>
+                            <td data-bind="text:$index()+1"></td>
+                            <td data-bind="text:LoginID"></td>
+                            <td data-bind="text:Name"></td>
+                            <td data-bind="text:CreateTime"></td>
+                            <td data-bind="text: LastLoginTime"></td>
+                            <td>
+                                <div data-bind="text:State() ? '启用' :  '禁用' ,attr:{class:State()?'label label-secondary':'label label-warning'}"></div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

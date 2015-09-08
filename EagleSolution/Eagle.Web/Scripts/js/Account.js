@@ -46,13 +46,12 @@
                 };
 
                 $.ajax({
-                    url: "data/login-check.php",
+                    url: "/Rice/login",
                     method: 'POST',
                     dataType: 'json',
                     data: {
-                        do_login: true,
-                        username: $(form).find('#username').val(),
-                        passwd: $(form).find('#passwd').val(),
+                        accountName: $(form).find('#username').val(),
+                        password: $(form).find('#passwd').val(),
                     },
                     success: function (resp) {
                         show_loading_bar({
@@ -61,12 +60,12 @@
                             finish: function () {
 
                                 // Redirect after successful login page (when progress bar reaches 100%)
-                                if (resp.accessGranted) {
-                                    window.location.href = 'dashboard-1.html';
+                                if (resp.Flag) {
+                                    window.location.href = '/home/index';
                                 }
                                 else {
-                                    toastr.error("You have entered wrong password, please try again. User and password is <strong>demo/demo</strong> :)", "Invalid Login!", opts);
-                                    $passwd.select();
+                                    toastr.error(resp.Message, "Invalid Login!", opts);
+                                    $('#passwd').select();
                                 }
                             }
                         });

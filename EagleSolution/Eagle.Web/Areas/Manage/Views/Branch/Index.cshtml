@@ -35,8 +35,9 @@
             TotalPage: ko.observable(@totalPage),
         }
         ko.applyBindings(branchBody, $("#Branch-part")[0]);
-        window.mainModel.totalPage = branchBody.TotalPage;
+        window.mainModel.totalPage(branchBody.TotalPage());
         window.mainModel.checkTable('branchTable');
+
     });
 
 

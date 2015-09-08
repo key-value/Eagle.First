@@ -15,7 +15,7 @@ namespace Eagle.Server.Services
     [Injection(typeof(IAccountServices))]
     public class AccountServices : ApplicationServices, IAccountServices
     {
-        public Guid Login(string loginID, string pwd)
+        public ILoginAccount Login(string loginID, string pwd)
         {
             using (var defaultContext = new AccountContext())
             {
@@ -23,20 +23,20 @@ namespace Eagle.Server.Services
                 if (account == null)
                 {
                     Message = "输入账号不存在";
-                    return Guid.Empty;
+                    return null;
                 }
                 if (!account.State)
                 {
                     Message = "账号已禁用";
-                    return Guid.Empty;
+                    return null;
                 }
                 if (account.Password != pwd.MD5().ToLower())
                 {
                     Message = "密码错误请重新输入";
-                    return Guid.Empty;
+                    return null;
                 }
                 Flag = true;
-                return account.ID;
+                return ShowAccount.CreateShowAccount(account);
             }
         }
 

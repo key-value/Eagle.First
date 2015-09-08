@@ -1,0 +1,148 @@
+﻿@model HtmlString
+
+
+
+<script src="~/Scripts/devexpress-web-14.1/js/globalize.min.js"></script>
+<script src="~/Scripts/devexpress-web-14.1/js/dx.chartjs.js"></script>
+<div id="CpuChart-part">
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    选择服务器
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="list-group list-group-minimal text-center" data-bind="foreach: CpuChartBody.treeList">
+                            <a href="#" class="list-group-item" data-bind="html:Name,value:ID, click: CpuChartBody.TreeClick.bind($data)">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cpu 走势图</h3>
+                    <div class="panel-options">
+                        <a href="#" data-toggle="panel">
+                            <span class="collapse-icon">&ndash;</span>
+                            <span class="expand-icon">+</span>
+                        </a>
+                        <a href="#" data-toggle="remove">
+                            &times;
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div id="bar-3" style="height: 400px; width: 100%;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var CpuChartBody;
+    $(function () {
+        CpuChartBody = {
+            Chartbag: ko.observableArray(),
+            treeList: ko.mapping.fromJS(@Model),
+            TreeClick: function (tree) {
+                $.post(window.mainModel.map() + '/Details', {
+                    day: '',
+                    treeId: tree.ID(),
+                }, function (data) {
+                    var array = JSON.parse(data);
+                    //CpuChartBody.Chartbag(ko.toJS(data));
+
+                    //console.log(array);
+                    CpuChartBody.Chartbag([]);
+                    var i = 0;
+                    while (i < array.length) {
+                        console.log(array[i]);
+                        CpuChartBody.Chartbag().push(array[i]);
+                        i++;
+                    }
+
+                    $("#bar-3").dxChart({
+                        dataSource: CpuChartBody.Chartbag(),
+                        commonSeriesSettings: {
+                            argumentField: "HourNum"
+                        },
+                        series: [
+                            { valueField: "MaxNum", name: "最高值", color: "#40bbea" },
+                            { valueField: "AvgNum", name: "平均值", color: "#cc3f44" },
+                            //{ valueField: "africa", name: "Africa", color: "#8dc63f" }
+                        ],
+                        argumentAxis: {
+                            grid: {
+                                visible: true
+                            }
+                        },
+                        tooltip: {
+                            enabled: true
+                        },
+                        title: "  ",
+                        legend: {
+                            verticalAlignment: "bottom",
+                            horizontalAlignment: "center"
+                        },
+                        commonPaneSettings: {
+                            border: {
+                                visible: true,
+                                right: false
+                            }
+                        }
+                    });
+                    //console.log(CpuChartBody.Chartbag());
+                });
+            },
+        };
+        ko.applyBindings(CpuChartBody, $("#CpuChart-part")[0]);
+
+
+        $("#bar-3").dxChart({
+            dataSource: CpuChartBody.Chartbag(),
+            commonSeriesSettings: {
+                argumentField: "HourNum"
+            },
+            series: [
+                { valueField: "MaxNum", name: "最高值", color: "#40bbea" },
+                { valueField: "AvgNum", name: "平均值", color: "#cc3f44" },
+                //{ valueField: "africa", name: "Africa", color: "#8dc63f" }
+            ],
+            argumentAxis: {
+                grid: {
+                    visible: true
+                }
+            },
+            tooltip: {
+                enabled: true
+            },
+            title: "  ",
+            legend: {
+                verticalAlignment: "bottom",
+                horizontalAlignment: "center"
+            },
+            commonPaneSettings: {
+                border: {
+                    visible: true,
+                    right: false
+                }
+            }
+        });
+    });
+
+</script>
+
+<script src="~/Scripts/xenon-custom.js"></script>

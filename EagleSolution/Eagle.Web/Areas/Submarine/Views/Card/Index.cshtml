@@ -1,0 +1,63 @@
+﻿@model HtmlString
+
+<script>
+
+
+    var SystemCardBody;
+    $(document).ready(function ($) {
+
+        SystemCardBody = {
+            SystemCardList: ko.mapping.fromJS(@Model),
+            getIndex: function (index) { return index + 1 }
+        }
+        ko.applyBindings(SystemCardBody, $("#SystemCard-part")[0]);
+
+        window.mainModel.checkTable('SystemCardTable');
+    });
+
+
+</script>
+
+
+
+<div id="SystemCard-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="SystemCardTable" class="table ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="cbr">
+                                </th>
+                                <th>#</th>
+                                <th>CardName</th>
+                                <th>Action</th>
+                                <th>所属分类</th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: SystemCardBody.SystemCardList">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-bind="value: ID" class="cbr">
+                                </td>
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:CardName"></td>
+                                <td data-bind="text:Action"></td>
+                                <td data-bind="text:BranchName"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

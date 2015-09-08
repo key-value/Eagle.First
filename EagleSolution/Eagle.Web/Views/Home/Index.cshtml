@@ -513,7 +513,7 @@
                                 </a>
                             </li>
                             <li class="last">
-                                <a href="extra-lockscreen.html">
+                                <a href="~/Rice/Logout">
                                     <i class="fa-lock"></i>
                                     Logout
                                 </a>
@@ -709,7 +709,7 @@
                 Alert: main.alert,
                 buttons: main.buttons,
                 pageNum: ko.observable(1),
-                totalPage: 1,
+                totalPage: ko.observable(1),
                 branchAction: function (ev, two) {
                     mainModel.pageNum(1);
                     mainModel.title(two.Title());
@@ -727,16 +727,28 @@
                     mainModel.map('/' + two.AreaName() + '/' + two.ActionName());
 
                     $.get(mainModel.map() + '/index', { pageNum: mainModel.pageNum }, function (data) {
+                        mainModel.details('');
                         mainModel.details(data);
                     });
                 },
-                ReloadBranch: function (pageNum) {
-                    if (pageNum == null) {
-                        pageNum = mainModel.pageNum;
+                ReloadBranch: function (jumpNum, param) {
+                    var pageNum = mainModel.pageNum();
+                    if (jumpNum != null && jumpNum != 'undefined') {
+                        pageNum = mainModel.pageNum() + jumpNum;
                     }
+                    if (param == null || param == 'undefined') {
+                        param = { pageNum: pageNum };
+                    } else {
+                        param.pageNum = pageNum;
+                    }
+
+
                     mainModel.details('');
-                    $.get(mainModel.map() + '/index', { pageNum: pageNum }, function (data) {
+                    $.get(mainModel.map() + '/index', param, function (data) {
                         mainModel.details(data);
+                        if (pageNum !== mainModel.pageNum()) {
+                            mainModel.pageNum(pageNum);
+                        }
                     });
                 },
             };
@@ -759,15 +771,17 @@
 
     <script type="text/html" id="page-template">
         <ul class="pagination">
-            <li data-bind="attr:{class:mainModel.pageNum() > 1? '':'disabled'}"><a href="#"><i class="fa-angle-left"></i></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() > 3 ?'inline' :'none'}"><a href="#">...</a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() > 2 ?'inline' :'none'} "><a data-bind="html:mainModel.pageNum() - 2" href="#"></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() > 1 ?'inline' :'none'} "><a data-bind="html:mainModel.pageNum() - 1" href="#"></a></li>
-            <li class="active"><a href="#" data-bind="html:mainModel.pageNum"></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() + 1 > mainModel.TotalPage?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 1" href="#"></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() + 2 > mainModel.TotalPage?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 2" href="#"></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() + 3 > mainModel.TotalPage?'inline' :'none'} "><a href="#">...</a></li>
-            <li data-bind="attr:{class:mainModel.pageNum() + 1 > mainModel.TotalPage ? '':'disabled'}"><a href="#"><i class="fa-angle-right"></i></a></li>
+            <li data-bind="style: {  display:mainModel.pageNum() > 1? 'inline' :'none'},click:function(){mainModel.ReloadBranch(1-mainModel.pageNum())}"><a href="javascript:void(0)"><i class="fa-angle-left"></i></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 3 ?'inline' :'none'},click:function(){mainModel.ReloadBranch(-3)}"><a href="javascript:void(0)">...</a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 2 ?'inline' :'none'},click:function(){mainModel.ReloadBranch(-2)} "><a data-bind="html:mainModel.pageNum() - 2" href="javascript:void(0)"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() > 1 ?'inline' :'none'} ,click:function(){mainModel.ReloadBranch(-1)}"><a data-bind="html:mainModel.pageNum() - 1" href="javascript:void(0)"></a></li>
+
+            <li class="active"><a href="javascript:void(0)" data-bind="html:mainModel.pageNum()"></a></li>
+
+            <li data-bind="style: {  display:  mainModel.pageNum() + 1 <= mainModel.totalPage() ?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 1 ,click:function(){mainModel.ReloadBranch(1)}" href="javascript:void(0)"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 2 <= mainModel.totalPage() ?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 2 ,click:function(){mainModel.ReloadBranch(2)}" href="javascript:void(0)"></a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 3 <= mainModel.totalPage() ?'inline' :'none'} "><a href="#">...</a></li>
+            <li data-bind="style: {  display:mainModel.pageNum() + 1 <= mainModel.totalPage() ? 'inline' :'none'},click:function(){mainModel.ReloadBranch(mainModel.totalPage() -mainModel.pageNum())}"><a href="#"><i class="fa-angle-right"></i></a></li>
         </ul>
     </script>
 </body>

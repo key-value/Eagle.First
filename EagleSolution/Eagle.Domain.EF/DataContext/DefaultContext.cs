@@ -10,6 +10,7 @@ namespace Eagle.Domain.EF.DataContext
     {
         static DefaultContext()
         {
+
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DefaultContext, Migrations.Configuration>());
             //Database.SetInitializer<DefaultContext>(null);
 
@@ -57,6 +58,8 @@ namespace Eagle.Domain.EF.DataContext
 
         public DbSet<Letter> Letters { get; set; }
 
+        public DbSet<Warehouse> Warehouses { get; set; }
 
+        public DbSet<SystemCard> SystemCards { get; set; }
     }
 }

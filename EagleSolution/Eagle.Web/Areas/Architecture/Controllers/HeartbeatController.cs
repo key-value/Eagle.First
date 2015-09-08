@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Eagle.Infrastructrue.Aop.Locator;
+﻿using Eagle.Infrastructrue.Aop.Locator;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Server;
 using Eagle.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Eagle.Web.Areas.Architecture.Controllers
 {

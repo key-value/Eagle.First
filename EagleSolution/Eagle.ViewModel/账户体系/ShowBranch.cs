@@ -4,7 +4,7 @@ using Eagle.Model;
 
 namespace Eagle.ViewModel
 {
-    public class ShowBranch
+    public class ShowBranch : IShowBranch
     {
         public Guid ID { get; set; }
 

@@ -17,7 +17,7 @@ namespace Eagle.Infrastructrue.Utility
             {
                 skipCount = (pageNumber - 1) * pageSize;
             }
-            if (skipCount > pageCount)
+            if (pageNumber > pageCount)
             {
                 return new List<T>();
             }

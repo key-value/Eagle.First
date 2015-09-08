@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Eagle.Domain.EF;
 using Eagle.Domain.EF.DataContext;
@@ -14,12 +15,14 @@ namespace Eagle.Server.Services
     [Injection(typeof(IBranchServices))]
     public class BranchServices : ApplicationServices, IBranchServices
     {
-        public List<ShowBranch> GetBranches()
+        public List<ShowBranch> GetBranchesByUser(Guid userId)
         {
             Dictionary<Guid, List<Branch>> allBranch;
             using (var context = new AccountContext())
             {
-                allBranch = context.Branches.AsNoTracking().Where(x => x.Enble).GroupBy(x => x.PreBranch).ToDictionary(x => x.Key, x => x.OrderBy(y => y.SortID).ToList());
+                var jurisdictions = context.Jurisdictions.Where(x => x.AccountID == userId).AsNoTracking().ToList().Select(x => x.BranchId).ToList();
+
+                allBranch = context.Branches.AsNoTracking().Where(x => x.Enble && jurisdictions.Contains(x.ID)).GroupBy(x => x.PreBranch).ToDictionary(x => x.Key, x => x.OrderBy(y => y.SortID).ToList());
             }
             if (!allBranch.Any() || !allBranch.ContainsKey(Guid.Empty))
             {
@@ -44,6 +47,41 @@ namespace Eagle.Server.Services
                     dataBranch.Branches = new List<ShowBranch>();
                 }
                 dataBranch.ActionButtons = (new[] { 0, 1, 2 }).ToJson();
+                resultBranch.Add(dataBranch);
+            }
+            Flag = true;
+            return resultBranch;
+        }
+
+
+        public List<IShowBranch> GetBranches()
+        {
+            Dictionary<Guid, List<Branch>> allBranch;
+            using (var context = new AccountContext())
+            {
+                allBranch = context.Branches.AsNoTracking().Where(x => x.Enble).GroupBy(x => x.PreBranch).ToDictionary(x => x.Key, x => x.OrderBy(y => y.SortID).ToList());
+            }
+            if (!allBranch.Any() || !allBranch.ContainsKey(Guid.Empty))
+            {
+                return new List<IShowBranch>();
+            }
+            var firstBranch = allBranch[Guid.Empty].ToList();
+            var resultBranch = new List<IShowBranch>();
+            foreach (var branch in firstBranch)
+            {
+                var dataBranch = ShowBranch.CreateShowBranch(branch);
+                if (allBranch.ContainsKey(branch.ID))
+                {
+                    dataBranch.Branches = new List<ShowBranch>();
+                    foreach (var branch1 in allBranch[branch.ID])
+                    {
+                        dataBranch.Branches.Add(ShowBranch.CreateShowBranch(branch1));
+                    }
+                }
+                else
+                {
+                    dataBranch.Branches = new List<ShowBranch>();
+                }
                 resultBranch.Add(dataBranch);
             }
             Flag = true;
@@ -117,6 +155,38 @@ namespace Eagle.Server.Services
             }
             return allBranch;
         }
+
+
+        public List<CardBranch> GetFirstBranchesAndCard(Guid userId)
+        {
+            Flag = true;
+            List<CardBranch> allBranch = new List<CardBranch>();
+            using (var context = new AccountContext())
+            {
+                var jurisdictions = context.Jurisdictions.Where(x => x.AccountID == userId).AsNoTracking().ToList().Select(x => x.BranchId).ToList();
+
+                var dataBranch = context.Branches.AsNoTracking().Where(x => x.Level == 1 && jurisdictions.Contains(x.ID)).OrderBy(x => x.SortID).ToList();
+
+                if (dataBranch.Null())
+                {
+                    return new List<CardBranch>();
+                }
+                var branchIds = dataBranch.Select(x => x.ID).ToList();
+                var systemCards = context.SystemCards.AsNoTracking().Where(x => branchIds.Contains(x.BranchId)).ToList();
+
+                foreach (var branch in dataBranch)
+                {
+                    var branch1 = branch;
+                    var branchCards = systemCards.Where(x => x.BranchId == branch1.ID);
+                    allBranch.Add(CardBranch.CreateShowBranch(branch, branchCards));
+                }
+            }
+            return allBranch;
+        }
+
+
+
+
 
 
         private readonly List<ActionButton> _actionButtons = new List<ActionButton>()
@@ -201,7 +271,6 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             }
         }
 
-
         public void Delete(List<Guid> branchIdList)
         {
 
@@ -218,5 +287,6 @@ new ActionButton(){ActionName = "Delete",Name = "删除",Dialog = 0,Post = true,
             }
             Flag = true;
         }
+
     }
 }

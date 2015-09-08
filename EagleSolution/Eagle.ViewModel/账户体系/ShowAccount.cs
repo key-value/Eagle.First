@@ -4,7 +4,7 @@ using Eagle.Model;
 
 namespace Eagle.ViewModel
 {
-    public class ShowAccount
+    public class ShowAccount : ILoginAccount
     {
         public Guid ID { get; set; }
 

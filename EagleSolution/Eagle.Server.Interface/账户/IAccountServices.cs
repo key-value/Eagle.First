@@ -6,7 +6,7 @@ namespace Eagle.Server.Interface
 {
     public interface IAccountServices : IAppServices
     {
-        Guid Login(string loginID, string pwd);
+        ILoginAccount Login(string loginID, string pwd);
         List<ShowAccount> GetAccounts(int pageNum);
         void Update(UpdateAccount updateAccount);
         void Delete(List<Guid> accountIdList);

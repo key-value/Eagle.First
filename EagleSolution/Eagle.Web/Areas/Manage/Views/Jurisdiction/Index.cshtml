@@ -1,5 +1,11 @@
 ﻿@model HtmlString
-
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+}
 <script>
 
     var AccountBody;
@@ -7,6 +13,7 @@
     $(document).ready(function ($) {
 
         AccountBody = {
+            TotalPage: ko.observable(@totalPage),
             AccountList: ko.mapping.fromJS(@Model),
             BranchList: ko.mapping.fromJS(@ViewBag.branchs),
             jurisdcList: ko.observableArray(new Array()),
@@ -54,6 +61,7 @@
             }
 
         }
+        window.mainModel.totalPage(AccountBody.TotalPage());
         ko.applyBindings(AccountBody, $("#Account-part")[0]);
 
         //window.mainModel.checkTable('AccountTable');

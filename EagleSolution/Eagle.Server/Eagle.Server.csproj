@@ -51,9 +51,14 @@
   <ItemGroup>
     <Compile Include="ApplicationServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\商户管理\CityServices.cs" />
+    <Compile Include="Services\商户管理\InitMonitorRestaruant.cs" />
+    <Compile Include="Services\商户管理\RestaurantServices.cs" />
+    <Compile Include="Services\商户管理\TableServices.cs" />
     <Compile Include="Services\服务器管理\HeartbeatServices.cs" />
     <Compile Include="Services\服务器管理\JournalServices.cs" />
     <Compile Include="Services\服务器管理\TreeServices.cs" />
+    <Compile Include="Services\系统配置\CardServices.cs" />
     <Compile Include="Services\账户\BranchServices.cs" />
     <Compile Include="Services\账户\AccountServices.cs" />
     <Compile Include="Services\账户\JurisdictionServices.cs" />

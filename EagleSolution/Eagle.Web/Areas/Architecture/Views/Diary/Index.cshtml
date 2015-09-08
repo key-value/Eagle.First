@@ -1,0 +1,147 @@
+﻿@model HtmlString
+
+
+<script>
+
+
+    var DiaryBody;
+    $(document).ready(function ($) {
+
+
+        DiaryBody = {
+            DiaryList: ko.mapping.fromJS(@Model),
+            pathList: ko.observableArray([]),
+            extendPath: ko.observableArray([]),
+            diaryID: "",
+            fileName: ko.observable(''),
+            fileContext: ko.observable(''),
+            DiaryClick: function (diary) {
+                DiaryBody.ClearContext();
+                $.post(window.mainModel.map() + '/GetFiles', {
+                    path: '',
+                    journalId: diary.ID(),
+                }, function (data) {
+                    DiaryBody.pathList(data);
+                    DiaryBody.diaryID = diary.ID();
+                    DiaryBody.extendPath([]);
+                });
+            },
+            ClearContext: function () {
+                $('#logInfo').hide();
+                DiaryBody.fileContext('');
+            },
+
+
+
+            FileClick: function (path) {
+                DiaryBody.ClearContext();
+                if (path == '..') {
+                    DiaryBody.extendPath.pop();
+                    $.post(window.mainModel.map() + '/GetFiles', {
+                        path: DiaryBody.extendPath().join('/'),
+                        journalId: DiaryBody.diaryID,
+                    }, function (data) {
+                        DiaryBody.pathList(data);
+                    });
+                } else if (path.lastIndexOf('.txt') > 0 && path.lastIndexOf('.txt') == path.length - 4) {
+                    var fullPath = DiaryBody.extendPath().join('/');
+                    DiaryBody.fileName(path);
+                    window.mainModel.dialog('');
+                    $.post(window.mainModel.map() + '/GetFile', {
+                        r: Math.random(),
+                        fileName: fullPath + '/' + path,
+                        journalId: DiaryBody.diaryID,
+                    }, function (data) {
+                        DiaryBody.fileContext(data);
+                        $('#logInfo').show();
+                    });
+                }
+                else {
+                    DiaryBody.extendPath.push(path);
+                    $.post(window.mainModel.map() + '/GetFiles', {
+                        path: DiaryBody.extendPath().join('/'),
+                        journalId: DiaryBody.diaryID,
+                    }, function (data) {
+                        DiaryBody.pathList(data);
+                    });
+                }
+
+            }
+        }
+
+        ko.applyBindings(DiaryBody, $("#Diary-part")[0]);
+
+        DiaryBody.ClearContext();
+    });
+
+</script>
+
+
+<div id="Diary-part">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    日志站点
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="list-group list-group-minimal text-center" data-bind="foreach: DiaryBody.DiaryList">
+                            <a href="#" class="list-group-item" data-bind="html:ProjectName,value:ID, click: DiaryBody.DiaryClick.bind($data)">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading" data-bind="html:DiaryBody.extendPath().join('/')">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="list-group list-group-minimal text-center" data-bind="foreach: DiaryBody.pathList">
+                            <a href="#" class="list-group-item" data-bind="html:$data,click: DiaryBody.FileClick.bind($data)">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="logInfo">
+        @*<div class="modal-dialog" style="width: 60%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="fileName" data-bind= "html:DiaryBody.fileName">Long Height Modal</h4>
+                    </div>
+                    <div class="modal-body" data-bind="html:DiaryBody.fileContext">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>*@
+
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" data-bind="html:DiaryBody.fileName">
+                </div>
+                <div class="panel-body">
+                    <div data-bind="html:DiaryBody.fileContext">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

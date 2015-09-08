@@ -1,32 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Eagle.Infrastructrue.Aop.Locator;
+using Eagle.Infrastructrue.Utility;
+using Eagle.Server;
+using System;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Eagle.Web.Controllers
+namespace Eagle.Web.Areas.Architecture.Controllers
 {
-    public class AccountController : Controller
+    public class CpuChartController : Controller
     {
-        // GET: Account
-        public ActionResult Index()
+        // GET: Architecture/CpuChart
+        public ActionResult Index(int pageNum)
         {
-            return View();
+            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
+            var treeList = treeServices.Get(pageNum);
+            return View(model: new HtmlString(treeList.ToJson()));
         }
 
-        // GET: Account/Details/5
-        public ActionResult Details()
+        // GET: Architecture/CpuChart/Details/5
+        public ActionResult Details(Guid treeId)
         {
-            return View();
+            var heartbeatServices = ServiceLocator.Instance.GetService<IHeartbeatServices>();
+            var heartbag = heartbeatServices.GetHeartbeatList(new DateTime(2015, 8, 8), treeId);
+            return Content(heartbag.ToJson());
         }
 
-        // GET: Account/Create
+        // GET: Architecture/CpuChart/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Account/Create
+        // POST: Architecture/CpuChart/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -42,13 +47,13 @@ namespace Eagle.Web.Controllers
             }
         }
 
-        // GET: Account/Edit/5
+        // GET: Architecture/CpuChart/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Account/Edit/5
+        // POST: Architecture/CpuChart/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -64,13 +69,13 @@ namespace Eagle.Web.Controllers
             }
         }
 
-        // GET: Account/Delete/5
+        // GET: Architecture/CpuChart/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Account/Delete/5
+        // POST: Architecture/CpuChart/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -6,11 +6,14 @@ namespace Eagle.Server.Interface
 {
     public interface IBranchServices : IAppServices
     {
-        List<ShowBranch> GetBranches();
+
+        List<IShowBranch> GetBranches();
+        List<ShowBranch> GetBranchesByUser(Guid userId);
         List<ShowBranch> GetBranches(int pageNum);
         List<ShowBranch> GetFirstBranches();
         void Update(UpdateBranch updateBranch);
         void Delete(List<Guid> branchIdList);
         UpdateBranch GetBranches(Guid id);
+        List<CardBranch> GetFirstBranchesAndCard(Guid userId);
     }
 }

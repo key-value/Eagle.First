@@ -1,0 +1,57 @@
+﻿@model HtmlString
+
+<script>
+    var newbornBody;
+    $(function () {
+
+        newbornBody = {
+            branchList: ko.mapping.fromJS(@Model),
+            colorlist: ko.observableArray(["secondary", "red", "blue", "turquoise", "primary", "orange", "pink", "info", "purple"]),
+            randomNum: Math.round(Math.random() * 8),
+            GetColor: function (index) {
+                var iNum = (index() + newbornBody.randomNum) % 9;
+                return newbornBody.colorlist()[iNum];
+            },
+            CardClick: function (actionBranch, card) {
+                var path = '/' + actionBranch.AreaName() + '/' + actionBranch.ActionName() + '/' + card.Action();
+                $.post(path, function (result) {
+                    window.mainModel.Alert(result);
+                });
+            }
+        }
+        ko.applyBindings(newbornBody, $("#Newborn-part")[0]);
+    });
+</script>
+<div id="Newborn-part">
+    <div class="row" data-bind="foreach: newbornBody.branchList">
+
+        <div class="col-sm-3  col-sm-12">
+            <div class="" data-bind="attr:{class:'xe-widget xe-vertical-counter xe-vertical-counter-'+newbornBody.GetColor($index)}">
+                <div class="xe-icon">
+                    <i data-bind="attr:{class: Logo}"></i>
+                </div>
+
+                <div class="xe-label row">
+
+                    <div class="btn-group">
+                        <button type="button" data-bind="attr:{class:'btn btn-'+newbornBody.GetColor($index)}">
+                            <h4>
+                                <strong data-bind="html:Title"></strong>
+                            </h4>
+                        </button>
+                        <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown" data-bind="attr:{class:'btn dropdown-toggle btn-'+newbornBody.GetColor($index)}">
+                            <i data-bind="attr:{class: Logo}" class="fa-star-o"></i>
+                        </button>
+
+                        <ul data-bind="attr:{class:'dropdown-menu no-spacing dropdown-'+newbornBody.GetColor($index)},foreach:$data.BranchCards" role="menu">
+                            <li>
+                                <a href="javascrip:void(0)" data-bind="html:CardName,click: function(){newbornBody.CardClick($parent,$data)}">Action</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

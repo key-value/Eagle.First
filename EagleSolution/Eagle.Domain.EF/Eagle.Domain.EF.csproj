@@ -51,14 +51,22 @@
     <Compile Include="DataContext\DefaultContext.cs" />
     <Compile Include="EFIntercepterLogging.cs" />
     <Compile Include="ExpandContext\AccountContext.cs" />
+    <Compile Include="ExpandContext\EagleContext.cs" />
     <Compile Include="ExpandContext\MonitorContext.cs" />
+    <Compile Include="ExpandContext\RestContext.cs" />
     <Compile Include="Map\AccountMap.cs" />
     <Compile Include="Map\BranchMap.cs" />
     <Compile Include="Map\HeartbeatMap.cs" />
     <Compile Include="Map\JournalMap.cs" />
     <Compile Include="Map\JurisdictionMap.cs" />
     <Compile Include="Map\LetterMap.cs" />
+    <Compile Include="Map\MonitorCityMap.cs" />
+    <Compile Include="Map\MonitorRestaurantMap.cs" />
+    <Compile Include="Map\MonitorTableMap.cs" />
+    <Compile Include="Map\RestaurantStateMap.cs" />
+    <Compile Include="Map\SystemCardMap.cs" />
     <Compile Include="Map\TreeMap.cs" />
+    <Compile Include="Map\WarehouseMap.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,0 +1,155 @@
+﻿@model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+    var cityList = ViewBag.cityList as HtmlString;
+    if (cityList == null)
+    {
+        cityList = new HtmlString("[]");
+    }
+    var cityId = ViewBag.cityId as Guid?;
+    if (!cityId.HasValue)
+    {
+        cityId = Guid.Empty;
+    }
+    var searchName = ViewBag.searchName as HtmlString;
+
+}
+
+
+<script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>
+
+
+<!-- JavaScripts initializations and stuff -->
+<script src="~/Scripts/xenon-custom.js"></script>
+
+<div id="MonitorRestaurant-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <form id="serachThing" class="form-horizontal  col-sm-12">
+                        <div class="form-group ">
+                            <label class="control-label col-sm-2" for="selectCity">
+                                选择城市
+                            </label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="cityId" id="selectCity" data-bind="options:MonitorRestaurantBody.CityList,optionsText:'Name',optionsValue:'ID',value:MonitorRestaurantBody.CityID"></select>
+                            </div>
+                        </div>
+                        <div class="form-group-separator"></div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-sm-2" for="searchName">
+                                名称查找
+                            </label>
+                            <div class="col-sm-3">
+                                <input id="searchName" name="restName" class="form-control" data-bind="value:MonitorRestaurantBody.SearchName" />
+                            </div>
+                        </div>
+                        <div class="form-group-separator"></div>
+                        <div class="form-group ">
+                            <label class="control-label col-sm-2" for="reflesh">
+                            </label>
+                            <div class="col-sm-3">
+                                <input id="reflesh" class="btn btn-blue" data-bind="click: MonitorRestaurantBody.SearchAction" value="搜索" />
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="row col-sm-12">
+
+
+
+                        <table id="MonitorRestaurantTable" class="table ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" class="cbr">
+                                    </th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>State</th>
+                                    <th>Version</th>
+                                    <th>CateringSystem</th>
+                                    <th>DockMode</th>
+                                </tr>
+                            </thead>
+                            <tbody class="middle-align" data-bind="foreach: MonitorRestaurantBody.MonitorRestaurantList">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" data-bind="value: ID" class="cbr">
+                                    </td>
+                                    <td data-bind="text:$index()+1"></td>
+                                    <td data-bind="text:Name"></td>
+                                    <td>
+                                        <div data-bind="text:ConnectState() ? '链接' :  '断开' ,attr:{class:ConnectState()?'label label-secondary':'label label-warning'}"></div>
+                                    </td>
+                                    <td data-bind="text:Version"></td>
+                                    <td data-bind="text:CateringSystem"></td>
+                                    <td data-bind="text:DockMode() == 1? '米客版':'对接版'"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+    var MonitorRestaurantBody;
+    $(document).ready(function ($) {
+
+        MonitorRestaurantBody = {
+            MonitorRestaurantList: ko.mapping.fromJS(@Model),
+            TotalPage: ko.observable(@totalPage),
+            CityList: ko.mapping.fromJS(@cityList),
+            CityID: ko.observable('@cityId'),
+            SearchName: ko.observable('@searchName'),
+            SearchAction: function () {
+                var jumpNum = 1 - mainModel.pageNum();
+                var param = $('#serachThing').serialize();
+
+                window.mainModel.ReloadBranch(jumpNum, param);
+
+            }
+        }
+
+
+        ko.applyBindings(MonitorRestaurantBody, $("#MonitorRestaurant-part")[0]);
+
+        window.mainModel.totalPage(MonitorRestaurantBody.TotalPage());
+        window.mainModel.checkTable('MonitorRestaurantTable');
+
+        $("#selectCity").selectBoxIt().on('open', function () {
+            // Adding Custom Scrollbar
+            $(this).data("selectBox-selectBoxIt").list.perfectScrollbar();
+        });
+
+    });
+
+
+</script>
+
+<script src="~/Scripts/xenon-custom.js"></script>

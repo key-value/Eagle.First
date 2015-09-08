@@ -126,6 +126,7 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -607,6 +608,13 @@
     <Content Include="Areas\Architecture\Views\Tree\Index.cshtml" />
     <Content Include="Areas\Architecture\Views\Diary\Index.cshtml" />
     <Content Include="Areas\Architecture\Views\CpuChart\Index.cshtml" />
+    <Content Include="Areas\Brand\Views\web.config" />
+    <Content Include="Areas\Submarine\Views\web.config" />
+    <Content Include="Areas\Submarine\Views\Newborn\Index.cshtml" />
+    <Content Include="Areas\Submarine\Views\Card\Index.cshtml" />
+    <Content Include="Areas\Submarine\Views\Card\Create.cshtml" />
+    <Content Include="Areas\Brand\Views\Rest\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Pirate-Release.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datatables\css\jquery.dataTables.css" />
@@ -1063,6 +1071,7 @@
     <Content Include="Scripts\select2\select2_locale_zh-TW.js" />
     <Content Include="Scripts\selectboxit\index.html" />
     <Content Include="Scripts\selectboxit\jquery.selectBoxIt.css" />
+    <Content Include="Scripts\selectboxit\jquery.selectBoxIt.js" />
     <Content Include="Scripts\selectboxit\jquery.selectBoxIt.min.js" />
     <Content Include="Scripts\tagsinput\bootstrap-tagsinput.css" />
     <Content Include="Scripts\tagsinput\bootstrap-tagsinput.js" />
@@ -1217,13 +1226,19 @@
     <Compile Include="Areas\Architecture\Controllers\HeartbeatController.cs" />
     <Compile Include="Areas\Architecture\Controllers\JournalController.cs" />
     <Compile Include="Areas\Architecture\Controllers\TreeController.cs" />
+    <Compile Include="Areas\Brand\BrandAreaRegistration.cs" />
+    <Compile Include="Areas\Brand\Controllers\BrandController.cs" />
+    <Compile Include="Areas\Brand\Controllers\RestController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\BranchController.cs" />
     <Compile Include="Areas\Manage\Controllers\JurisdictionController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
     <Compile Include="Areas\Message\Controllers\LetterController.cs" />
     <Compile Include="Areas\Message\MessageAreaRegistration.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\Submarine\Controllers\CardController.cs" />
+    <Compile Include="Areas\Submarine\Controllers\NewbornController.cs" />
+    <Compile Include="Areas\Submarine\SubmarineAreaRegistration.cs" />
+    <Compile Include="Controllers\RiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1233,7 +1248,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Rice\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\toastr\.DS_Store" />
     <Content Include="Scripts\toastr\toastr.less" />
@@ -1323,8 +1338,13 @@
     <Folder Include="Areas\Architecture\Models\" />
     <Folder Include="Areas\Architecture\Views\Chart\" />
     <Folder Include="Areas\Architecture\Views\Heartbeat\" />
+    <Folder Include="Areas\Brand\Models\" />
+    <Folder Include="Areas\Brand\Views\Brand\" />
+    <Folder Include="Areas\Brand\Views\Shared\" />
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Areas\Message\Models\" />
+    <Folder Include="Areas\Submarine\Models\" />
+    <Folder Include="Areas\Submarine\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

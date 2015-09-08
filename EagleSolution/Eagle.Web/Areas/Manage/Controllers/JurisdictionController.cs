@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Eagle.Infrastructrue.Aop.Locator;
+﻿using Eagle.Infrastructrue.Aop.Locator;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Server.Interface;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Eagle.Web.Areas.Manage.Controllers
 {
@@ -16,6 +15,7 @@ namespace Eagle.Web.Areas.Manage.Controllers
         {
             var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
             var account = accountServices.GetAccounts(pageNum);
+            ViewBag.totalPage = accountServices.PageCount;
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             ViewBag.branchs = new HtmlString(branchServices.GetBranches().ToJson());
             //ViewBag.jurisdc = new HtmlString(new Dictionary<string, string>().ToJson());
