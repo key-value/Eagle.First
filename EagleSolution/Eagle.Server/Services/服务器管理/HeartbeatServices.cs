@@ -14,8 +14,16 @@ namespace Eagle.Server.Services
     {
         public void Add(List<HeartbeatBody> heartbeatBodys, Guid machineId)
         {
+            var oldHeartbeatIDs = heartbeatBodys.Select(x => x.LogTime);
+
             using (var monitorContext = new MonitorContext())
             {
+                var oldHeartbeats = monitorContext.Heartbeats.Where(x => oldHeartbeatIDs.Contains(x.LogTime) && x.MachineId == machineId);
+                if (oldHeartbeats.Any())
+                {
+                    monitorContext.Heartbeats.RemoveRange(oldHeartbeats);
+                }
+
                 foreach (var heartbeatBody in heartbeatBodys)
                 {
                     var heartbeat = new Heartbeat();
@@ -26,6 +34,8 @@ namespace Eagle.Server.Services
                     heartbeat.AvgNum = heartbeatBody.AvgNum;
                     heartbeat.MaxNum = heartbeatBody.MaxNum;
                     heartbeat.HourTime = heartbeatBody.HourTime;
+                    heartbeat.AvgMemory = heartbeatBody.AvgMemory;
+                    heartbeat.MaxMemory = heartbeatBody.MaxMemory;
                     monitorContext.Heartbeats.Add(heartbeat);
                 }
                 monitorContext.SaveChanges();
@@ -59,8 +69,10 @@ namespace Eagle.Server.Services
                 {
                     var showCpuChart = new ShowCpuChart();
                     showCpuChart.HourNum = heartbeat.HourTime;
-                    showCpuChart.AvgNum = heartbeat.AvgNum;
-                    showCpuChart.MaxNum = heartbeat.MaxNum;
+                    showCpuChart.AvgNum = Math.Round(heartbeat.AvgNum, 2);
+                    showCpuChart.MaxNum = Math.Round(heartbeat.MaxNum, 2);
+                    showCpuChart.MaxMemory = Math.Round(heartbeat.MaxMemory, 2);
+                    showCpuChart.AvgMemory = Math.Round(heartbeat.AvgMemory, 2);
                     showCpuChartList.Add(showCpuChart);
                 }
             }

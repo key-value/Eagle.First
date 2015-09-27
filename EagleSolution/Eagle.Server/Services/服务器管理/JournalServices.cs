@@ -200,6 +200,7 @@ namespace Eagle.Server.Services
             }
             catch (Exception ex)
             {
+                LogUtility.SendError(ex);
                 return string.Empty;
             }
             return fileString.ToString();

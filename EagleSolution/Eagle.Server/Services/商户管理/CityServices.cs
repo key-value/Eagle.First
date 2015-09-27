@@ -37,7 +37,7 @@ namespace Eagle.Server.Services
             cities.Add(new ShowCity() { ID = Guid.Empty, Name = "全部" });
             using (var restContext = new RestContext())
             {
-                var monitorCities = restContext.MonitorCities;
+                var monitorCities = restContext.MonitorCities.OrderBy(x => x.Name);
                 cities.AddRange(
                     from monitorCity in monitorCities
                     select new ShowCity()

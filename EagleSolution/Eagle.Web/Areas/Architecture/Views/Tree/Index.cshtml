@@ -37,6 +37,7 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>CreateTime</th>
                                 <th>IpAddr</th>
@@ -48,6 +49,7 @@
                                 <td>
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
+                                <td data-bind="text:ID"></td>
                                 <td data-bind="text:$index()+1"><input type="hidden" data-bind="value:ID">/td>
                                 <td data-bind="text:Name"></td>
                                 <td data-bind="text:CreateTime"></td>

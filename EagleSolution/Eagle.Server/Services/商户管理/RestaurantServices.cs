@@ -47,22 +47,74 @@ namespace Eagle.Server.Services
                     (from monitorRestaurant in restContext.MonitorRestaurants
                         .Where(restaurantExpression).Where(restaurantNameExpression)
                      join state in restContext.RestaurantStates.Where(stateExpression) on monitorRestaurant.ID equals state.ID
-                     orderby state.LastConnectTime descending
-                     orderby state.ConnectState descending
                      orderby monitorRestaurant.SubName
                      orderby monitorRestaurant.Name
-                     select new { monitorRestaurant, state }).AsNoTracking().ToList();
+                     orderby state.LastConnectTime descending
+                     orderby state.ConnectState descending
+                     select new { monitorRestaurant, state }).AsNoTracking().Pageing(pageNum, PageSize, ref _pageCount).ToList();
 
-                //var restLists =
-                //    restContext.MonitorRestaurants.AsNoTracking()
-                //        .Where(restaurantExpression).Where(restaurantNameExpression)
-                //        .OrderBy(x => x.Name)
-                //        .ThenBy(x => x.SubName).Pageing(pageNum, PageSize, ref _pageCount)
-                //        .ToList();
                 showRests.AddRange(restLists.Select(x => ShowRestaurant.CreateShowRestaurant(x.monitorRestaurant, x.state)));
 
             }
             return showRests;
         }
+
+        public List<ShowRestaurant> GetAll(Guid cityId, string restName, int pageNum)
+        {
+            Expression<Func<MonitorRestaurant, bool>> restaurantExpression = x => true;
+            Expression<Func<MonitorRestaurant, bool>> restaurantNameExpression = x => true;
+            if (Guid.Empty != cityId)
+            {
+                restaurantExpression = x => x.City == cityId;
+            }
+            Guid restaurant;
+            if (!string.IsNullOrEmpty(restName))
+            {
+                if (Guid.TryParse(restName, out restaurant))
+                {
+                    restaurantNameExpression = x => x.ID == restaurant;
+                }
+                else
+                {
+                    restaurantNameExpression = x => x.Name.Contains(restName) || x.SubName.Contains(restName);
+                }
+            }
+            var showRests = new List<ShowRestaurant>();
+            using (var restContext = new RestContext())
+            {
+                var restLists =
+                    (from monitorRestaurant in restContext.MonitorRestaurants
+                        .Where(restaurantExpression).Where(restaurantNameExpression)
+                     orderby monitorRestaurant.SubName
+                     orderby monitorRestaurant.Name
+                     select monitorRestaurant).AsNoTracking().Pageing(pageNum, PageSize, ref _pageCount).ToList();
+
+                showRests.AddRange(restLists.Select(ShowRestaurant.CreateShowRestaurant));
+
+            }
+            return showRests;
+        }
+
+
+
+        /// <summary>
+        /// 0为非对接  1为对接
+        /// </summary>
+        /// <param name="dockMode"></param>
+        /// <returns></returns>
+        public List<IShowRestName> Get(string dockMode)
+        {
+            var showRests = new List<IShowRestName>();
+            using (var restContext = new RestContext())
+            {
+                var restLists = restContext.MonitorRestaurants.Where(x => x.DockMode == dockMode).AsNoTracking().ToList();
+
+                showRests.AddRange(restLists.Select(ShowRestaurant.CreateShowRestaurant));
+
+            }
+            return showRests;
+        }
+
+
     }
 }

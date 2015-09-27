@@ -4,6 +4,7 @@ using Eagle.Server;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.Brand.Controllers
 {
@@ -13,7 +14,7 @@ namespace Eagle.Web.Areas.Brand.Controllers
         public ActionResult Index(Guid? cityId, string restName, int pageNum = 1)
         {
             var restaurantServices = ServiceLocator.Instance.GetService<IRestaurantServices>();
-            var restList = restaurantServices.Get(cityId.GetValueOrDefault(), restName, 0, pageNum);
+            var restList = restaurantServices.GetAll(cityId.GetValueOrDefault(), restName, pageNum);
             ViewBag.totalPage = restaurantServices.PageCount;
 
             var cityServices = ServiceLocator.Instance.GetService<ICityServices>();
@@ -25,76 +26,26 @@ namespace Eagle.Web.Areas.Brand.Controllers
             return PartialView(model: new HtmlString(restList.ToJson()));
         }
 
-        // GET: Brand/Rest/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Tables(Guid? restId, int pageNum)
         {
-            return View();
+            if (!restId.HasValue)
+            {
+                return Content("");
+            }
+            var tableServices = ServiceLocator.Instance.GetService<ITableServices>();
+            tableServices.PageSize = 12;
+            var tables = tableServices.GetDeskList(restId.GetValueOrDefault(), pageNum);
+
+            var cell = new SplinterCell<ShowTable>();
+            cell.Data = tables;
+            cell.PageCount = tableServices.PageCount;
+
+            return Json(cell);
         }
 
-        // GET: Brand/Rest/Create
-        public ActionResult Create()
+        public ActionResult TableRecord(TableRecord tableRecord)
         {
-            return View();
-        }
-
-        // POST: Brand/Rest/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Brand/Rest/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Brand/Rest/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Brand/Rest/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Brand/Rest/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return Content("");
         }
     }
 }

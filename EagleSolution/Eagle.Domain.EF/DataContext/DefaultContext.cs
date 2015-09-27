@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Reflection;
+using Eagle.Domain.Core.Model;
 using Eagle.Domain.EF.Map;
 using Eagle.Model;
 
@@ -11,7 +12,7 @@ namespace Eagle.Domain.EF.DataContext
         static DefaultContext()
         {
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DefaultContext, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DefaultContext, Domain.EF.Migrations.Configuration>());
             //Database.SetInitializer<DefaultContext>(null);
 
 #if DEBUG
@@ -23,7 +24,7 @@ namespace Eagle.Domain.EF.DataContext
         {
             this.Configuration.LazyLoadingEnabled = true;
         }
-        public void ModifiedModel(object entity)
+        public void ModifiedModel(IEntity entity)
         {
             this.Entry(entity).State = EntityState.Modified;
         }

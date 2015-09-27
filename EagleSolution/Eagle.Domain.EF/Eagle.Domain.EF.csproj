@@ -61,9 +61,11 @@
     <Compile Include="Map\JurisdictionMap.cs" />
     <Compile Include="Map\LetterMap.cs" />
     <Compile Include="Map\MonitorCityMap.cs" />
+    <Compile Include="Map\MonitorConnectStepMap.cs" />
     <Compile Include="Map\MonitorRestaurantMap.cs" />
     <Compile Include="Map\MonitorTableMap.cs" />
     <Compile Include="Map\RestaurantStateMap.cs" />
+    <Compile Include="Map\RestPaceMap.cs" />
     <Compile Include="Map\SystemCardMap.cs" />
     <Compile Include="Map\TreeMap.cs" />
     <Compile Include="Map\WarehouseMap.cs" />

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Client">
+      <HintPath>..\packages\jiliSock\Client.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -53,7 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\商户管理\CityServices.cs" />
     <Compile Include="Services\商户管理\InitMonitorRestaruant.cs" />
+    <Compile Include="Services\商户管理\MonitorConnectStepServices.cs" />
     <Compile Include="Services\商户管理\RestaurantServices.cs" />
+    <Compile Include="Services\商户管理\RestPaceServices.cs" />
     <Compile Include="Services\商户管理\TableServices.cs" />
     <Compile Include="Services\服务器管理\HeartbeatServices.cs" />
     <Compile Include="Services\服务器管理\JournalServices.cs" />
@@ -63,6 +68,13 @@
     <Compile Include="Services\账户\AccountServices.cs" />
     <Compile Include="Services\账户\JurisdictionServices.cs" />
     <Compile Include="Services\通信记录\LetterServices.cs" />
+    <Compile Include="SockCommand\BaseCommand.cs" />
+    <Compile Include="SockCommand\CommandType.cs" />
+    <Compile Include="SockCommand\RefleshRestCommand.cs" />
+    <Compile Include="SockCommand\RestartCommand.cs" />
+    <Compile Include="SockCommand\SendSqlCommand.cs" />
+    <Compile Include="SockCommand\Training.cs" />
+    <Compile Include="SockCommand\UpLoadLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">

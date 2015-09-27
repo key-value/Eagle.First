@@ -8,5 +8,9 @@
 
         public double AvgNum { get; set; }
 
+        public double MaxMemory { get; set; }
+
+        public double AvgMemory { get; set; }
+
     }
 }

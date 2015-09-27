@@ -1,40 +1,41 @@
-﻿using Eagle.Infrastructrue.Aop.Locator;
-using Eagle.Infrastructrue.Utility;
-using Eagle.Server;
-using System;
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Eagle.Infrastructrue.Aop.Locator;
+using Eagle.Infrastructrue.Utility;
+using Eagle.Server;
 
-namespace Eagle.Web.Areas.Architecture.Controllers
+namespace Eagle.Web.Areas.Brand.Controllers
 {
-    public class CpuChartController : Controller
+    public class RestPaceController : Controller
     {
-        // GET: Architecture/CpuChart
-        public ActionResult Index(int pageNum)
+        // GET: Brand/RestPace
+        public ActionResult Index(int pageNum = 1)
         {
-            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
-            var treeList = treeServices.Get(pageNum);
-            ViewBag.selectTime = DateTime.Today;
-            return View(model: new HtmlString(treeList.ToJson()));
+            var restaurantServices = ServiceLocator.Instance.GetService<IRestaurantServices>();
+            var restList = restaurantServices.Get("1");
+            ViewBag.rests = new HtmlString(restList.ToJson());
+            var restPaceServices = ServiceLocator.Instance.GetService<IRestPaceServices>();
+            var restpacs = restPaceServices.Get(pageNum);
+            ViewBag.totalPage = restPaceServices.PageCount;
+            return PartialView(new HtmlString(restpacs.ToJson()));
         }
 
-        // GET: Architecture/CpuChart/Details/5
-        public ActionResult Details(Guid treeId, DateTime selectTime)
+        // GET: Brand/RestPace/Details/5
+        public ActionResult Details(int id)
         {
-            var heartbeatServices = ServiceLocator.Instance.GetService<IHeartbeatServices>();
-            var heartbag = heartbeatServices.GetHeartbeatList(selectTime, treeId);
-            ViewBag.selectTime = selectTime;
-            return Content(heartbag.ToJson());
+            return View();
         }
 
-        // GET: Architecture/CpuChart/Create
+        // GET: Brand/RestPace/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Create
+        // POST: Brand/RestPace/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -50,13 +51,13 @@ namespace Eagle.Web.Areas.Architecture.Controllers
             }
         }
 
-        // GET: Architecture/CpuChart/Edit/5
+        // GET: Brand/RestPace/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Edit/5
+        // POST: Brand/RestPace/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -72,13 +73,13 @@ namespace Eagle.Web.Areas.Architecture.Controllers
             }
         }
 
-        // GET: Architecture/CpuChart/Delete/5
+        // GET: Brand/RestPace/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Delete/5
+        // POST: Brand/RestPace/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

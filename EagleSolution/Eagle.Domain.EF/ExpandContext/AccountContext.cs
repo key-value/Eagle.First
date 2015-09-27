@@ -7,6 +7,11 @@ namespace Eagle.Domain.EF
 {
     public class AccountContext : DefaultContext
     {
+        static AccountContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DefaultContext, Migrations.Configuration>());
+        }
+
         /// <summary>
         /// 页面分配表
         /// </summary>

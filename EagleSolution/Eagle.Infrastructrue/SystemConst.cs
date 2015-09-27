@@ -29,6 +29,10 @@ namespace Eagle.Infrastructrue
 
         public static string GetCateringSystem(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return string.Empty;
+            }
             if (CateringSystem.ContainsKey(name))
             {
                 return CateringSystem[name];

@@ -14,6 +14,8 @@ namespace Eagle.Server
 
         int PageCount { get; }
 
+        int PageSize { get; set; }
+
         Cells GetResult();
     }
 }

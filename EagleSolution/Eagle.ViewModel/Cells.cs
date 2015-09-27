@@ -5,6 +5,12 @@
         /// <summary>
         /// 初始化 <see cref="T:System.Object"/> 类的新实例。
         /// </summary>
+        public Cells()
+        {
+        }
+        /// <summary>
+        /// 初始化 <see cref="T:System.Object"/> 类的新实例。
+        /// </summary>
         public Cells(bool flag, string message, int code)
         {
             Flag = flag;

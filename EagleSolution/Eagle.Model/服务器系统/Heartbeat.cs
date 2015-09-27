@@ -19,5 +19,9 @@ namespace Eagle.Model
 
         public int HourTime { get; set; }
 
+        public double MaxMemory { get; set; }
+
+        public double AvgMemory { get; set; }
+
     }
 }

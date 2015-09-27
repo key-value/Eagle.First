@@ -4,7 +4,7 @@ using Eagle.Model;
 
 namespace Eagle.ViewModel
 {
-    public class ShowRestaurant
+    public class ShowRestaurant : IShowRestName
     {
 
         /// <summary>
@@ -43,6 +43,12 @@ namespace Eagle.ViewModel
         public DateTime LastConnectTime { get; set; }
 
         public static ShowRestaurant CreateShowRestaurant(MonitorRestaurant monitorRestaurant, RestaurantState restaurantState)
+        {
+            var showRest = CreateShowRestaurant(monitorRestaurant);
+            showRest.ConnectState = restaurantState.ConnectState;
+            return showRest;
+        }
+        public static ShowRestaurant CreateShowRestaurant(MonitorRestaurant monitorRestaurant)
         {
             var showRest = new ShowRestaurant();
             showRest.ID = monitorRestaurant.ID;

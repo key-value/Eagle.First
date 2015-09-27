@@ -1,0 +1,82 @@
+﻿@using Eagle.ViewModel
+@model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+    var restList = ViewBag.rests as HtmlString;
+
+}
+<script>
+
+
+    var RestPaceBody;
+    $(document).ready(function ($) {
+
+        RestPaceBody = {
+            RestPaceList: ko.mapping.fromJS(@Model),
+            restList: ko.mapping.fromJS(@restList),
+            TotalPage: ko.observable(@totalPage),
+        }
+        ko.applyBindings(RestPaceBody, $("#RestPace-part")[0]);
+
+        window.mainModel.checkTable('RestPaceTable');
+    });
+
+
+</script>
+
+<script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>
+
+
+
+<div id="RestPace-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="RestPaceTable" class="table ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="cbr">
+                                </th>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>SqlCommand</th>
+                                <th>SendTime</th>
+                                <th>ReceiptText</th>
+                                <th>ReceiveTime</th>
+                                <th>RestaurantName</th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: RestPaceBody.RestPaceList">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-bind="value: ID" class="cbr">
+                                </td>
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:ID"></td>
+                                <td data-bind="text:SqlCommand"></td>
+                                <td data-bind="text:SendTime"></td>
+                                <td data-bind="text:ReceiptText"></td>
+                                <td data-bind="text:ReceiveTime"></td>
+                                <td data-bind="text:RestaurantId"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

@@ -69,7 +69,8 @@
         checkFun: require('checkTable').checkFun,
         sysbtnClick: sysbtnClick,
         alert: alertClass.Alert,
-        buttons: require('systemButton').buttons
+        alertError: alertClass.AlertError,
+        buttons: require('systemButton').buttons,
     }
 });
 

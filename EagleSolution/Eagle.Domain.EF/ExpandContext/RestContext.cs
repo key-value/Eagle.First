@@ -13,5 +13,9 @@ namespace Eagle.Domain.EF
         public DbSet<MonitorCity> MonitorCities { get; set; }
 
         public DbSet<MonitorTable> MonitorTables { get; set; }
+
+        public DbSet<MonitorConnectStep> MonitorConnectSteps { get; set; }
+
+        public DbSet<RestPace> RestPaces { get; set; }
     }
 }

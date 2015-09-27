@@ -21,7 +21,7 @@ namespace Eagle.Server.Services
             int result = 0;
             using (var defaultContext = new DefaultContext())
             {
-                defaultContext.SaveChanges();
+
                 monitorDbName = defaultContext.Database.Connection.Database;
 
                 string sql = string.Format("DELETE [{0}].dbo.MonitorRestaurants", monitorDbName);

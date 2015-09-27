@@ -62,10 +62,10 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
+                                <th>图标</th>
                                 <th>栏目名称</th>
                                 <th>区域名称</th>
                                 <th>行为</th>
-                                <th>图标</th>
                                 <th>排序</th>
                                 <th>状态</th>
                                 <th>描述</th>
@@ -78,10 +78,10 @@
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
                                 <td data-bind="text:$index()+1"></td>
+                                <td data-bind="attr: {class:Logo}"></td>
                                 <td data-bind="text:Title"></td>
                                 <td data-bind="text:AreaName"></td>
                                 <td data-bind="text:ActionName"></td>
-                                <td data-bind="attr: {class:Logo}"></td>
                                 <td data-bind="text:SortID"></td>
                                 <td>
                                     <div data-bind="text: Enble() ? '启用' :  '禁用' ,attr:{class:Enble()?'label label-secondary':'label label-red'}"></div>
@@ -136,4 +136,5 @@
         <td data-bind="text:Description"></td>
     </tr>
 </script>
+
 <script src="~/Scripts/xenon-custom.js"></script>

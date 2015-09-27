@@ -707,6 +707,7 @@
                 checkTable: main.checkFun,
                 sysbtnClick: main.sysbtnClick,
                 Alert: main.alert,
+                AlertError: main.alertError,
                 buttons: main.buttons,
                 pageNum: ko.observable(1),
                 totalPage: ko.observable(1),
@@ -780,7 +781,7 @@
 
             <li data-bind="style: {  display:  mainModel.pageNum() + 1 <= mainModel.totalPage() ?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 1 ,click:function(){mainModel.ReloadBranch(1)}" href="javascript:void(0)"></a></li>
             <li data-bind="style: {  display:  mainModel.pageNum() + 2 <= mainModel.totalPage() ?'inline' :'none'}"><a data-bind="html:mainModel.pageNum() + 2 ,click:function(){mainModel.ReloadBranch(2)}" href="javascript:void(0)"></a></li>
-            <li data-bind="style: {  display:  mainModel.pageNum() + 3 <= mainModel.totalPage() ?'inline' :'none'} "><a href="#">...</a></li>
+            <li data-bind="style: {  display:  mainModel.pageNum() + 3 <= mainModel.totalPage() ?'inline' :'none'},click:function(){mainModel.ReloadBranch(3)} "><a href="#">...</a></li>
             <li data-bind="style: {  display:mainModel.pageNum() + 1 <= mainModel.totalPage() ? 'inline' :'none'},click:function(){mainModel.ReloadBranch(mainModel.totalPage() -mainModel.pageNum())}"><a href="#"><i class="fa-angle-right"></i></a></li>
         </ul>
     </script>

@@ -11,5 +11,9 @@ namespace Eagle.ViewModel
         public DateTime LogTime { get; set; }
 
         public int HourTime { get; set; }
+
+        public double MaxMemory { get; set; }
+
+        public double AvgMemory { get; set; }
     }
 }

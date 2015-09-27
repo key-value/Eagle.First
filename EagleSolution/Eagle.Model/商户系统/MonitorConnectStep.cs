@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Eagle.Model
 {
@@ -38,5 +39,17 @@ namespace Eagle.Model
         /// </summary>
         public string IpAddress { get; set; }
 
+
+
+        public static List<string> ConnectName = new List<string>()
+        {
+            "",
+            "登陆",
+            "登出",
+            "重新登陆",
+            "登陆失败",
+            "抢登陆失败",
+            "超时",
+        };
     }
 }

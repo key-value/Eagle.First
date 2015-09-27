@@ -22,6 +22,8 @@
     <script src="~/Scripts/xenon-api.js"></script>
     <script src="~/Scripts/xenon-toggles.js"></script>*@
 
+<link rel="stylesheet" href="~/Scripts/select2/select2.css">
+<link rel="stylesheet" href="~/Scripts/select2/select2-bootstrap.css">
 
 <div class="modal-dialog" id="modal-dialog">
     <div class="modal-content">
@@ -222,8 +224,9 @@
 
 
 <script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
-<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>
-<script src="~/Scripts/multiselect/js/jquery.multi-select.js"></script>
+<script src="~/Scripts/select2/select2.min.js"></script>
+@*<script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>*@
+@*<script src="~/Scripts/multiselect/js/jquery.multi-select.js"></script>*@
 
 <script>
     var branchbody = {
@@ -250,6 +253,7 @@
             $.post(path, ko.mapping.toJS(branchbody.addbranch), function (result) {
                 window.mainModel.Alert(result);
                 jQuery('#system-dialog').modal('hide');
+                window.mainModel.dialog('');
                 window.mainModel.ReloadBranch();
             });
         }

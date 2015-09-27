@@ -1,40 +1,32 @@
-﻿using Eagle.Infrastructrue.Aop.Locator;
-using Eagle.Infrastructrue.Utility;
-using Eagle.Server;
-using System;
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Eagle.Web.Areas.Architecture.Controllers
+namespace Eagle.Web.Areas.Brand.Controllers
 {
-    public class CpuChartController : Controller
+    public class RestPaceHDController : Controller
     {
-        // GET: Architecture/CpuChart
-        public ActionResult Index(int pageNum)
+        // GET: Brand/RestPaceHD
+        public ActionResult Index()
         {
-            var treeServices = ServiceLocator.Instance.GetService<ITreeServices>();
-            var treeList = treeServices.Get(pageNum);
-            ViewBag.selectTime = DateTime.Today;
-            return View(model: new HtmlString(treeList.ToJson()));
+            return View();
         }
 
-        // GET: Architecture/CpuChart/Details/5
-        public ActionResult Details(Guid treeId, DateTime selectTime)
+        // GET: Brand/RestPaceHD/Details/5
+        public ActionResult Details(int id)
         {
-            var heartbeatServices = ServiceLocator.Instance.GetService<IHeartbeatServices>();
-            var heartbag = heartbeatServices.GetHeartbeatList(selectTime, treeId);
-            ViewBag.selectTime = selectTime;
-            return Content(heartbag.ToJson());
+            return View();
         }
 
-        // GET: Architecture/CpuChart/Create
+        // GET: Brand/RestPaceHD/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Create
+        // POST: Brand/RestPaceHD/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -50,13 +42,13 @@ namespace Eagle.Web.Areas.Architecture.Controllers
             }
         }
 
-        // GET: Architecture/CpuChart/Edit/5
+        // GET: Brand/RestPaceHD/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Edit/5
+        // POST: Brand/RestPaceHD/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -72,13 +64,13 @@ namespace Eagle.Web.Areas.Architecture.Controllers
             }
         }
 
-        // GET: Architecture/CpuChart/Delete/5
+        // GET: Brand/RestPaceHD/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Architecture/CpuChart/Delete/5
+        // POST: Brand/RestPaceHD/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

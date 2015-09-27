@@ -11,6 +11,7 @@ namespace Eagle.Server
         protected ApplicationServices()
         {
             Flag = false;
+            PageSize = 15;
         }
 
         public int Code { get; set; }
@@ -23,7 +24,7 @@ namespace Eagle.Server
 
         public int PageCount { get { return _pageCount; } set { _pageCount = value; } }
 
-        public const int PageSize = 15;
+        public int PageSize { get; set; }
 
         public Cells GetResult()
         {

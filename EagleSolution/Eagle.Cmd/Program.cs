@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Text;
@@ -14,67 +15,51 @@ namespace Eagle.Cmd
     {
         static void Main(string[] args)
         {
-            HostCalculatorServiceViaCode();
-        }
 
-
-
-        /// <summary>
-        /// Hosting a service using managed code without any configuraiton information.
-        /// Please note that the related configuration data should be removed before calling the method.
-        /// </summary>
-        static void HostCalculatorServiceViaCode()
-        {
-            //Uri httpBaseAddress = new Uri("http://localhost:8888/MessageService");
-            //Uri tcpBaseAddress = new Uri("net.tcp://localhost:9999/MessageService");
-
-            //using (ServiceHost calculatorSerivceHost = new ServiceHost(typeof(MessageServices), httpBaseAddress, tcpBaseAddress))
+            //int maxCount = 40000;
+            //List<HotSpotEntities> collection = new List<HotSpotEntities>();
+            //for (int i = 0; i < maxCount; i++)
             //{
-            //    BasicHttpBinding httpBinding = new BasicHttpBinding();
-            //    NetTcpBinding tcpBinding = new NetTcpBinding();
-            //    tcpBinding.Security.Mode = SecurityMode.None;
-            //    calculatorSerivceHost.AddServiceEndpoint(typeof(IMessageService), httpBinding, string.Empty);
-            //    calculatorSerivceHost.AddServiceEndpoint(typeof(IMessageService), tcpBinding, string.Empty);
-
-            //    ServiceMetadataBehavior behavior = calculatorSerivceHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
-            //    {
-            //        if (behavior == null)
-            //        {
-            //            behavior = new ServiceMetadataBehavior();
-            //            behavior.HttpGetEnabled = true;
-            //            calculatorSerivceHost.Description.Behaviors.Add(behavior);
-            //        }
-            //        else
-            //        {
-            //            behavior.HttpGetEnabled = true;
-            //        }
-            //    }
-
-            //    calculatorSerivceHost.Opened += delegate
-            //    {
-            //        Console.WriteLine("Calculator Service has begun to listen  ");
-            //    };
-
-
-            //    calculatorSerivceHost.Open();
-
-            Console.Read();
+            //    Console.WriteLine(string.Format("成功创建连接对象{0}", i));
+            //    var db = new HotSpotEntities();
+            //    db.Connection.Open();
+            //    collection.Add(db);
             //}
+
+            Expression<Func<int, bool>> exp1 = x => x > 5;
+            Expression<Func<int, bool>> exp2 = x => x < 10;
+
+            ParameterExpression y = Expression.Parameter(typeof(int), "y");
+            var newExp = new NewExpression(y);
+            var newexp1 = newExp.Replace(exp1.Body);
+            var newexp2 = newExp.Replace(exp2.Body);
+            var newbody = Expression.And(newexp1, newexp2);
+
+            Expression<Func<int, bool>> res = Expression.Lambda<Func<int, bool>>(newbody, y);
+            //将表达式树描述的lambda表达式编译为可执行代码，并生成表示该lambda表达式的委托
+            Func<int, bool> del = res.Compile();
+            Console.WriteLine(del(7));
+            Console.ReadLine();
+
         }
 
-        //static void HostCalculatorSerivceViaConfiguration()
-        //{
-        //    //using (ServiceHost calculatorSerivceHost = new ServiceHost(typeof(MessageServices)))
-        //    //{
-        //    //    calculatorSerivceHost.Opened += delegate
-        //    //    {
-        //    //        Console.WriteLine("Calculator Service has begun to listen  ");
-        //    //    };
 
-        //    //    calculatorSerivceHost.Open();
-
-        //    //    Console.Read();
-        //    //}
-        //}
+        public class NewExpression : ExpressionVisitor
+        {
+            public ParameterExpression param { get; set; }
+            public NewExpression(ParameterExpression param)
+            {
+                this.param = param;
+            }
+            public Expression Replace(Expression exp)
+            {
+                return this.Visit(exp);
+            }
+            protected override Expression VisitParameter(ParameterExpression node)
+            {
+                //return base.VisitParameter(node);
+                return this.param;
+            }
+        }
     }
 }

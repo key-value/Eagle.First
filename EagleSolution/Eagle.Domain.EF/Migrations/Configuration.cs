@@ -7,7 +7,7 @@ namespace Eagle.Domain.EF.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Eagle.Domain.EF.DataContext.DefaultContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Eagle.Domain.EF.DataContext.DefaultContext>
     {
         public Configuration()
         {

@@ -17,9 +17,13 @@ namespace Eagle.Server.Services
     {
         public ILoginAccount Login(string loginID, string pwd)
         {
-            using (var defaultContext = new AccountContext())
+            using (var defaultContext = new DefaultContext())
             {
-                var account = defaultContext.Accounts.FirstOrDefault(x => x.LoginID == loginID.Trim());
+                var a = defaultContext.SystemCards.FirstOrDefault();
+            }
+            using (var accountContext = new AccountContext())
+            {
+                var account = accountContext.Accounts.FirstOrDefault(x => x.LoginID == loginID.Trim());
                 if (account == null)
                 {
                     Message = "输入账号不存在";

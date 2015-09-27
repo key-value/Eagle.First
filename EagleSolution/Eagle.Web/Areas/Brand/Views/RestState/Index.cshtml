@@ -24,8 +24,6 @@
 <script src="~/Scripts/selectboxit/jquery.selectBoxIt.min.js"></script>
 
 
-<!-- JavaScripts initializations and stuff -->
-<script src="~/Scripts/xenon-custom.js"></script>
 
 <div id="MonitorRestaurant-part" class="row">
     <div class="row">
@@ -75,7 +73,15 @@
                             <div class="col-sm-3">
                                 @*rgb(200, 191, 231)*@
                                 @*rgb(64, 128, 128)*@
-                                <input style="background-color: #408080" id="reflesh" class="btn btn-info" data-bind="click: MonitorRestaurantBody.SearchAction" value="搜索" />
+                                <input style="background-color: rgb(200, 191, 231)" id="reflesh" class="btn btn-info" data-bind="click: MonitorRestaurantBody.SearchAction" value="搜索" />
+                            </div>
+                        </div>
+                        <div class="form-group-separator"></div>
+                        <div class="form-group ">
+                            <label class="control-label col-sm-2" for="RestState">
+                            </label>
+                            <div class="col-sm-10">
+                                <button data-bind="click:MonitorRestaurantBody.RestAction.bind( $data,'RestState')" id="RestState" class="btn btn-info">重置所有状态</button>
                             </div>
                         </div>
 
@@ -90,6 +96,7 @@
                                     </th>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>State</th>
                                     <th>Version</th>
                                     <th>CateringSystem</th>
                                     <th>DockMode</th>
@@ -102,6 +109,9 @@
                                     </td>
                                     <td data-bind="text:$index()+1"></td>
                                     <td data-bind="text:Name"></td>
+                                    <td>
+                                        <div data-bind="text:ConnectState() ? '链接' :  '断开' ,attr:{class:ConnectState()?'label label-secondary':'label label-warning'}"></div>
+                                    </td>
                                     <td data-bind="text:Version"></td>
                                     <td data-bind="text:CateringSystem"></td>
                                     <td data-bind="text:DockMode() == 1? '米客版':'对接版'"></td>
@@ -121,89 +131,39 @@
 </div>
 
 
-<div id="MonitorTable-part" class="row">
+
+<div id="MonitorConnectStep-part" class="row" data-bind="style: {  display: MonitorConnectStepBody.MonitorConnectStepList().length == 0 ? 'none' :''}">
+
+
     <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-
-                    <h3 class="panel-title">Tabbed panel</h3>
-                    <div class="panel-options">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#tab-table" data-toggle="tab">餐桌列表</a>
-                            </li>
-                            <li>
-                                <a href="#tab-table" data-toggle="tab">链接日志</a>
-                            </li>
-                            <li>
-                                <a href="#tab-table" data-toggle="tab">操作日志</a>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                </div>
-                <div class="panel-body">
-                    <div id="tab-table">
-                        <div class="row" data-bind="foreach: MonitorTableBody.monitorTableList">
-
-                            <div class="col-sm-3 ">
-
-                                @*rgb(111,183,255)*@
-                                @*rgb(128, 128, 255)*@
-                                <div data-bind=" style:{ backgroundColor : IsDelete() ? '#8080FF' : '#408080'  }" class="xe-widget xe-progress-counter xe-progress-counter-info">
-
-                                    <div class="xe-background">
-                                        <i class="linecons-paper-plane"></i>
-                                    </div>
-
-                                    <div class="xe-upper">
-                                        <div class="xe-icon">
-                                            <i class="fa fa-cutlery"></i>
-                                        </div>
-                                        <div class="xe-label">
-                                            <strong class="num" data-bind="html:TableName"></strong>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="xe-lower">
-                                        <div class="border"></div>
-                                        <span data-bind="html:TableType"></span>
-                                        @*<button class="btn btn-white ">操作日志</button>*@
-
-                                        <a href="#" class="row">
-                                            <i class="fa-retweet"> 操作日志</i>
-                                        </a>
-
-                                        <a href="#" class="row">
-                                            <i class="fa-retweet">连接日志</i>
-                                        </a>
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center" data-bind='template:{ name:"tablePage-template",
-                                                             templateOptions: { TablePage : MonitorTableBody.TablePage(),
-                                                                        totalPage:  MonitorTableBody.totalPage(),
-                                                                       PageAction: MonitorTableBody.PageAction} }'>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
+        <div class="col-md-12 text-center" data-bind='template:{ name:"tablePage-template",
+                                                             templateOptions: { TablePage : MonitorConnectStepBody.TablePage(),
+                                                                        totalPage:  MonitorConnectStepBody.totalPage(),
+                                                                       PageAction: MonitorConnectStepBody.PageAction} }'>
         </div>
     </div>
-</div>
+    <div class="timeline-centered" data-bind="foreach: MonitorConnectStepBody.MonitorConnectStepList">
 
+        <article class="timeline-entry" data-bind="attr: { class: ConnectType() == 0 ? 'timeline-entry begin':ConnectType() != 1 && ConnectType() != 3?'timeline-entry left-aligned':'timeline-entry'}">
+
+            <div class="timeline-entry-inner">
+                <time class="timeline-time" data-bind="attr:{datetime: SockCreateTime}"><span data-bind="html:CreateTime">06:30 PM</span>  </time>
+
+                <div data-bind="attr: {class: MonitorConnectStepBody.colorList[ConnectType()]}">
+                    <i data-bind="attr: {class: MonitorConnectStepBody.icolist[ConnectType()]}"></i>
+                </div>
+
+                <div class="timeline-label" data-bind="style: {  display: ConnectType() == 0 ? 'none' :''}">
+                    <h2 data-bind="text:ConnectName"></h2>
+                    <p data-bind="text:IpAddress"></p>
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
 
 
 <script type="text/html" id="tablePage-template">
@@ -229,29 +189,31 @@
 
 <script>
 
+    var MonitorConnectStepBody;
     var MonitorRestaurantBody;
-    var MonitorTableBody;
     $(document).ready(function ($) {
-        $('#MonitorTable-part').hide();
-        MonitorTableBody = {
-            monitorTableList: ko.observableArray(),
+        $('#MonitorConnectStep-part').hide();
+        MonitorConnectStepBody = {
+            MonitorConnectStepList: ko.observableArray(),
             SelectRest: ko.observable(''),
             TablePage: ko.observable(0),
             totalPage: ko.observable(0),
+            icolist: ['fa-briefcase', 'fa-paper-plane-o', 'fa-bookmark-o', 'fa-frown-o', 'fa-sun-o', 'fa-upload', 'fa-warning'],
+            colorList: ['timeline-icon', 'timeline-icon timeline-bg-success', 'timeline-icon timeline-bg-warning', 'timeline-icon timeline-bg-success', 'timeline-icon fa-location-arrow', 'timeline-icon timeline-bg-warning', 'timeline-icon timeline-bg-red'],
             PageAction: function (jumpNum) {
                 console.log(jumpNum);
-                var pageNum = MonitorTableBody.TablePage() + jumpNum;
-                var path = window.mainModel.map() + '/Tables';
+                var pageNum = MonitorConnectStepBody.TablePage() + jumpNum;
+                var path = window.mainModel.map() + '/ConnectSteps';
                 var param = {
                     pageNum: pageNum,
-                    restId: MonitorTableBody.SelectRest(),
+                    restId: MonitorConnectStepBody.SelectRest(),
                 }
                 $.post(path, param, function (result) {
-                    MonitorTableBody.monitorTableList('');
+                    MonitorConnectStepBody.MonitorConnectStepList('');
                     if (result.Flag) {
-                        MonitorTableBody.totalPage(result.PageCount);
-                        MonitorTableBody.TablePage(pageNum);
-                        MonitorTableBody.monitorTableList(ko.mapping.fromJS(result.Data)());
+                        MonitorConnectStepBody.totalPage(result.PageCount);
+                        MonitorConnectStepBody.TablePage(pageNum);
+                        MonitorConnectStepBody.MonitorConnectStepList(ko.mapping.fromJS(result.Data)());
                     } else {
                         window.mainModel.AlertError(result.Message);
                     }
@@ -259,7 +221,7 @@
                 });
 
             },
-        };
+        }
 
         MonitorRestaurantBody = {
             MonitorRestaurantList: ko.mapping.fromJS(@Model),
@@ -268,33 +230,42 @@
             CityID: ko.observable('@cityId'),
             SearchName: ko.observable('@searchName'),
             SearchAction: function () {
-                var jumpNum = 1 - window.mainModel.pageNum();
+                var jumpNum = 1 - mainModel.pageNum();
                 var param = $('#serachThing').serialize();
 
                 window.mainModel.ReloadBranch(jumpNum, param);
 
             },
+            RestAction: function () {
+                var path = window.mainModel.map() + '/RefreshRestAction';
+                $.post(path, function (result) {
+                    window.mainModel.Alert(result);
+                    if (result.Flag) {
+                        window.mainModel.ReloadBranch();
+                    }
+                });
+            },
             SelectRest: function (rest) {
-                MonitorTableBody.TablePage(1);
-                var path = window.mainModel.map() + '/Tables';
+                $('#MonitorConnectStep-part').show();
+                var path = window.mainModel.map() + '/ConnectSteps';
+                MonitorConnectStepBody.TablePage(1);
                 var param = {
-                    pageNum: MonitorTableBody.TablePage(),
+                    pageNum: MonitorConnectStepBody.TablePage(),
                     restId: rest.ID(),
                 }
                 $.post(path, param, function (result) {
-                    MonitorTableBody.monitorTableList('');
+                    MonitorConnectStepBody.MonitorConnectStepList('');
                     if (result.Flag) {
-                        $('#MonitorTable-part').show();
-                        MonitorTableBody.SelectRest(rest.ID());
-                        MonitorTableBody.totalPage(result.PageCount);
-                        MonitorTableBody.monitorTableList(ko.mapping.fromJS(result.Data)());
+                        $('#MonitorConnectStep-part').show();
+                        MonitorConnectStepBody.SelectRest(rest.ID());
+                        MonitorConnectStepBody.totalPage(result.PageCount);
+                        MonitorConnectStepBody.MonitorConnectStepList(ko.mapping.fromJS(result.Data)());
                     }
                 });
             }
         }
 
-
-        ko.applyBindings(MonitorTableBody, $("#MonitorTable-part")[0]);
+        ko.applyBindings(MonitorConnectStepBody, $("#MonitorConnectStep-part")[0]);
         ko.applyBindings(MonitorRestaurantBody, $("#MonitorRestaurant-part")[0]);
         window.mainModel.totalPage(MonitorRestaurantBody.TotalPage());
         window.mainModel.checkTable('MonitorRestaurantTable');
