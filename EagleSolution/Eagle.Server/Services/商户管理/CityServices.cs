@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eagle.Domain.EF;
+using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.AuspiciousCache;
 using Eagle.ViewModel;
@@ -15,7 +16,7 @@ namespace Eagle.Server.Services
         {
             var monitorDbName = string.Empty;
             int result = 0;
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 monitorDbName = restContext.Database.Connection.Database;
                 string sql = string.Format("DELETE [{0}].dbo.MonitorCities", monitorDbName);
@@ -35,7 +36,7 @@ namespace Eagle.Server.Services
         {
             var cities = new List<ShowCity>();
             cities.Add(new ShowCity() { ID = Guid.Empty, Name = "全部" });
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 var monitorCities = restContext.MonitorCities.OrderBy(x => x.Name);
                 cities.AddRange(

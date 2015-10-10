@@ -7,7 +7,7 @@ using Eagle.Model;
 
 namespace Eagle.Domain.EF.DataContext
 {
-    public class DefaultContext : DbContext
+    public partial class DefaultContext : DbContext
     {
         static DefaultContext()
         {
@@ -22,7 +22,10 @@ namespace Eagle.Domain.EF.DataContext
         public DefaultContext()
             : base("DefaultConnection")
         {
-            this.Configuration.LazyLoadingEnabled = true;
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.ValidateOnSaveEnabled = false;
+            this.Configuration.UseDatabaseNullSemantics = false;
         }
         public void ModifiedModel(IEntity entity)
         {
@@ -50,17 +53,26 @@ namespace Eagle.Domain.EF.DataContext
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetAssembly(typeof(AccountMap)));
-
         }
 
 
         #endregion
 
 
-        public DbSet<Letter> Letters { get; set; }
+        public DbSet<Letter> Letters
+        {
+            get; set;
+        }
 
-        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Warehouse> Warehouses
+        {
+            get; set;
+        }
 
-        public DbSet<SystemCard> SystemCards { get; set; }
+        public DbSet<SystemCard> SystemCards
+        {
+            get; set;
+        }
+
     }
 }

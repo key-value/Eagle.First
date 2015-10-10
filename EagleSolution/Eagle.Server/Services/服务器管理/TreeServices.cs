@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eagle.Domain.EF;
+using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
@@ -16,7 +17,7 @@ namespace Eagle.Server.Services
         public List<ShowTree> Get(int pageNum)
         {
             Flag = true;
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var treelist = monitorContext.Trees.OrderByDescending(x => x.CreateTime).ThenBy(x => x.ID)
                     .Pageing(pageNum, PageSize, ref _pageCount).ToList();
@@ -39,7 +40,7 @@ namespace Eagle.Server.Services
         public UpdateTree Get(Guid treeID)
         {
             var updateTree = new UpdateTree();
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var tree = monitorContext.Trees.FirstOrDefault(x => x.ID == treeID);
                 if (tree.Null())
@@ -58,7 +59,7 @@ namespace Eagle.Server.Services
 
         private void Edit(UpdateTree updateTree)
         {
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var tree = monitorContext.Trees.FirstOrDefault(x => x.ID == updateTree.ID);
                 if (tree.Null())
@@ -83,7 +84,7 @@ namespace Eagle.Server.Services
             tree.Description = updateTree.Description;
             tree.IpAddr = updateTree.IpAddr;
             tree.CreateTime = DateTime.Now;
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 monitorContext.Trees.Add(tree);
                 monitorContext.SaveChanges();
@@ -105,7 +106,7 @@ namespace Eagle.Server.Services
 
         public void Delete(List<Guid> treeIdList)
         {
-            using (var defalutContent = new MonitorContext())
+            using (var defalutContent = new DefaultContext())
             {
                 var trees = defalutContent.Trees.Where(x => treeIdList.Contains(x.ID));
                 if (!trees.Any())

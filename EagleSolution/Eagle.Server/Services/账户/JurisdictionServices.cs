@@ -22,7 +22,7 @@ namespace Eagle.Server.Services
         public List<Guid> GetJurisdiction(Guid accountId)
         {
             Flag = true;
-            using (var defaultContext = new AccountContext())
+            using (var defaultContext = new DefaultContext())
             {
                 var jurisdictions = defaultContext.Jurisdictions.Where(x => x.AccountID == accountId).AsNoTracking().ToList();
                 return jurisdictions.Select(x => x.BranchId).ToList();
@@ -37,7 +37,7 @@ namespace Eagle.Server.Services
         /// <param name="delList"></param>
         public void Distribution(Guid accountId, List<Guid> addList, List<Guid> delList)
         {
-            using (var defaultContent = new AccountContext())
+            using (var defaultContent = new DefaultContext())
             {
                 var account = defaultContent.Accounts.FirstOrDefault(x => x.ID == accountId);
                 if (account.Null())

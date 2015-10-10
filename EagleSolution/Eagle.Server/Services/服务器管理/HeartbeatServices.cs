@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eagle.Domain.EF;
+using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Model;
@@ -16,7 +17,7 @@ namespace Eagle.Server.Services
         {
             var oldHeartbeatIDs = heartbeatBodys.Select(x => x.LogTime);
 
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var oldHeartbeats = monitorContext.Heartbeats.Where(x => oldHeartbeatIDs.Contains(x.LogTime) && x.MachineId == machineId);
                 if (oldHeartbeats.Any())
@@ -49,7 +50,7 @@ namespace Eagle.Server.Services
             var beginTime = day.Date;
             var endTime = day.Date.AddDays(1);
 
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var tree = monitorContext.Trees.FirstOrDefault(x => x.ID == treeId);
                 if (tree.Null())

@@ -19,7 +19,7 @@ namespace Eagle.Server.Services
         public List<ShowCard> Get(int pageNum)
         {
             Flag = true;
-            using (var defaultContext = new AccountContext())
+            using (var defaultContext = new DefaultContext())
             {
                 var systemCards = defaultContext.SystemCards.OrderByDescending(x => x.ID).AsNoTracking()
                     .Pageing(pageNum, PageSize, ref _pageCount).ToList();

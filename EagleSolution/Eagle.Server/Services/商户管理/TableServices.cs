@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eagle.Domain.EF;
+using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.AuspiciousCache;
 using Eagle.Infrastructrue.Utility;
@@ -21,7 +22,7 @@ namespace Eagle.Server.Services
         {
             var monitorDbName = string.Empty;
             int result = 0;
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 monitorDbName = restContext.Database.Connection.Database;
                 string sql = string.Format("DELETE [{0}].[dbo].[MonitorTables]", monitorDbName);
@@ -44,7 +45,7 @@ namespace Eagle.Server.Services
         public List<ShowTable> GetDeskList(Guid restaurantId, int pageNum)
         {
             var desks = new List<ShowTable>();
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 var monitorDesks = restContext.MonitorTables.Where(x => x.RestaurantId == restaurantId).OrderBy(x => x.IsDelete).ThenBy(x => x.TableName).Pageing(pageNum, PageSize, ref _pageCount).ToList();
                 desks.AddRange(monitorDesks.Select(x => new ShowTable()

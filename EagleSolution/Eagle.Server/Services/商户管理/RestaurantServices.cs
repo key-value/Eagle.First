@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Eagle.Domain.EF;
+using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Model;
@@ -41,7 +42,7 @@ namespace Eagle.Server.Services
                 stateExpression = state => state.ConnectState == connectState;
             }
             var showRests = new List<ShowRestaurant>();
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 var restLists =
                     (from monitorRestaurant in restContext.MonitorRestaurants
@@ -80,7 +81,7 @@ namespace Eagle.Server.Services
                 }
             }
             var showRests = new List<ShowRestaurant>();
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 var restLists =
                     (from monitorRestaurant in restContext.MonitorRestaurants
@@ -105,7 +106,7 @@ namespace Eagle.Server.Services
         public List<IShowRestName> Get(string dockMode)
         {
             var showRests = new List<IShowRestName>();
-            using (var restContext = new RestContext())
+            using (var restContext = new DefaultContext())
             {
                 var restLists = restContext.MonitorRestaurants.Where(x => x.DockMode == dockMode).AsNoTracking().ToList();
 

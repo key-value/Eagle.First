@@ -2,9 +2,9 @@
 using Eagle.Domain.EF.DataContext;
 using Eagle.Model;
 
-namespace Eagle.Domain.EF
+namespace Eagle.Domain.EF.DataContext
 {
-    public class MonitorContext : DefaultContext
+    public partial class DefaultContext
     {
         public DbSet<Heartbeat> Heartbeats { get; set; }
 

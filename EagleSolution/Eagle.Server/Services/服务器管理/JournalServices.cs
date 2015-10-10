@@ -19,7 +19,7 @@ namespace Eagle.Server.Services
         public List<ShowJournal> GetJournals(int pageNum)
         {
             var showJournals = new List<ShowJournal>();
-            using (var content = new MonitorContext())
+            using (var content = new DefaultContext())
             {
                 var journals = content.Journals.AsNoTracking().OrderByDescending(x => x.CreateTime).Pageing(pageNum, PageSize, ref _pageCount).ToList();
 
@@ -34,7 +34,7 @@ namespace Eagle.Server.Services
         public UpdateJournal Get(Guid journalId)
         {
             var updateJournal = new UpdateJournal();
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var journal = monitorContext.Journals.FirstOrDefault(x => x.ID == journalId);
                 if (journal.Null())
@@ -53,7 +53,7 @@ namespace Eagle.Server.Services
 
         private void Edit(UpdateJournal updateJournal)
         {
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var journal = monitorContext.Journals.FirstOrDefault(x => x.ID == updateJournal.ID);
                 if (journal.Null())
@@ -76,7 +76,7 @@ namespace Eagle.Server.Services
             journal.ProjectName = updateJournal.ProjectName;
             journal.Path = updateJournal.Path;
             journal.CreateTime = DateTime.Now;
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 monitorContext.Journals.Add(journal);
                 monitorContext.SaveChanges();
@@ -98,7 +98,7 @@ namespace Eagle.Server.Services
 
         public void Delete(List<Guid> journalList)
         {
-            using (var defalutContent = new MonitorContext())
+            using (var defalutContent = new DefaultContext())
             {
                 var journals = defalutContent.Journals.Where(x => journalList.Contains(x.ID));
                 if (!journals.Any())
@@ -116,7 +116,7 @@ namespace Eagle.Server.Services
         {
             string basePath;
             var fileList = new List<string>();
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var journal = monitorContext.Journals.FirstOrDefault(x => x.ID == journalId);
                 if (journal.Null())
@@ -158,7 +158,7 @@ namespace Eagle.Server.Services
         {
             Message = "查找日志文件不存在";
             string basePath;
-            using (var monitorContext = new MonitorContext())
+            using (var monitorContext = new DefaultContext())
             {
                 var journal = monitorContext.Journals.FirstOrDefault(x => x.ID == journalId);
                 if (journal.Null())

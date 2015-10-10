@@ -51,7 +51,6 @@
     <Compile Include="DataContext\DefaultContext.cs" />
     <Compile Include="EFIntercepterLogging.cs" />
     <Compile Include="ExpandContext\AccountContext.cs" />
-    <Compile Include="ExpandContext\EagleContext.cs" />
     <Compile Include="ExpandContext\MonitorContext.cs" />
     <Compile Include="ExpandContext\RestContext.cs" />
     <Compile Include="Map\AccountMap.cs" />

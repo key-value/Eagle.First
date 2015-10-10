@@ -21,7 +21,7 @@ namespace Eagle.Server.Services
             {
                 var a = defaultContext.SystemCards.FirstOrDefault();
             }
-            using (var accountContext = new AccountContext())
+            using (var accountContext = new DefaultContext())
             {
                 var account = accountContext.Accounts.FirstOrDefault(x => x.LoginID == loginID.Trim());
                 if (account == null)
@@ -48,7 +48,7 @@ namespace Eagle.Server.Services
         public List<ShowAccount> GetAccounts(int pageNum)
         {
             var accounts = new List<ShowAccount>();
-            using (var defaultContent = new AccountContext())
+            using (var defaultContent = new DefaultContext())
             {
                 var accountList = defaultContent.Accounts.OrderByDescending(x => x.CreateTime)
                     .Pageing(pageNum, PageSize, ref _pageCount).ToList();
@@ -60,7 +60,7 @@ namespace Eagle.Server.Services
 
         public UpdateAccount GetAccount(Guid id)
         {
-            using (var defaultContent = new AccountContext())
+            using (var defaultContent = new DefaultContext())
             {
                 var account = defaultContent.Accounts.FirstOrDefault(x => x.ID == id);
                 if (account.Null())
@@ -76,7 +76,7 @@ namespace Eagle.Server.Services
 
         public void Add(UpdateAccount updateAccount)
         {
-            using (var defaultContent = new AccountContext())
+            using (var defaultContent = new DefaultContext())
             {
                 var exit = defaultContent.Accounts.Any(x => x.LoginID == updateAccount.LoginID.Trim());
                 if (exit)
@@ -94,7 +94,7 @@ namespace Eagle.Server.Services
 
         public void Edit(UpdateAccount updateAccount)
         {
-            using (var defaultContent = new AccountContext())
+            using (var defaultContent = new DefaultContext())
             {
                 var account = defaultContent.Accounts.FirstOrDefault(x => x.ID == updateAccount.ID);
                 if (account.Null())
@@ -125,7 +125,7 @@ namespace Eagle.Server.Services
 
         public void Delete(List<Guid> accountIdList)
         {
-            using (var defalutContent = new AccountContext())
+            using (var defalutContent = new DefaultContext())
             {
                 var accounts = defalutContent.Accounts.Where(x => accountIdList.Contains(x.ID));
                 if (!accounts.Any())
