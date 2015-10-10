@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\DefaultContext.cs" />
+    <Compile Include="DataContext\ShareContext.cs" />
     <Compile Include="EFIntercepterLogging.cs" />
     <Compile Include="ExpandContext\AccountContext.cs" />
     <Compile Include="ExpandContext\MonitorContext.cs" />
@@ -66,9 +67,11 @@
     <Compile Include="Map\RestaurantStateMap.cs" />
     <Compile Include="Map\RestPaceMap.cs" />
     <Compile Include="Map\SystemCardMap.cs" />
+    <Compile Include="Map\Share\TreeMap.cs" />
     <Compile Include="Map\TreeMap.cs" />
     <Compile Include="Map\WarehouseMap.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Share\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

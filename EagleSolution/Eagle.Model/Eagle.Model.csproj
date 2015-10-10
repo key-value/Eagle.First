@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Share\ShareTree.cs" />
     <Compile Include="商户系统\MonitorCity.cs" />
     <Compile Include="商户系统\MonitorConnectStep.cs" />
     <Compile Include="商户系统\MonitorTable.cs" />

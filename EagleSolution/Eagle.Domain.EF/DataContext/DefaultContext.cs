@@ -25,7 +25,7 @@ namespace Eagle.Domain.EF.DataContext
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
             this.Configuration.ValidateOnSaveEnabled = false;
-            this.Configuration.UseDatabaseNullSemantics = false;
+            //this.Configuration.UseDatabaseNullSemantics = false;
         }
         public void ModifiedModel(IEntity entity)
         {
