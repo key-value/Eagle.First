@@ -65,8 +65,10 @@
     <Compile Include="账户体系\IShowBranch.cs" />
     <Compile Include="账户体系\ShowAccount.cs" />
     <Compile Include="账户体系\ShowBranch.cs" />
+    <Compile Include="账户体系\ShowDepartment.cs" />
     <Compile Include="账户体系\UpdateAccount.cs" />
     <Compile Include="账户体系\UpdateBranch.cs" />
+    <Compile Include="账户体系\UpdateDepartment.cs" />
     <Compile Include="通信记录\ShowLetter.cs" />
     <Compile Include="通信记录\UpdateLetter.cs" />
   </ItemGroup>

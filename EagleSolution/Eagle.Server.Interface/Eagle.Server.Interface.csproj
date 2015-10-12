@@ -55,6 +55,7 @@
     <Compile Include="系统配置\ICardServices.cs" />
     <Compile Include="账户\IAccountServices.cs" />
     <Compile Include="账户\IBranchServices.cs" />
+    <Compile Include="账户\IDepartmentServices.cs" />
     <Compile Include="账户\IJurisdictionServices.cs" />
     <Compile Include="通信记录\ILetterServices.cs" />
   </ItemGroup>

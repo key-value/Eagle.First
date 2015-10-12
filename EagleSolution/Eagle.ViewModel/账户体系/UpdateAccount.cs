@@ -1,19 +1,40 @@
 ﻿using System;
+using Eagle.Infrastructrue;
 using Eagle.Model;
 
 namespace Eagle.ViewModel
 {
     public class UpdateAccount
     {
-        public Guid ID { get; set; }
+        public Guid ID
+        {
+            get; set;
+        }
 
-        public string LoginID { get; set; }
+        public string LoginID
+        {
+            get; set;
+        }
 
-        public string Password { get; set; }
+        public string Password
+        {
+            get; set;
+        }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
-        public bool State { get; set; }
+        public bool State
+        {
+            get; set;
+        }
+
+        public Guid DepartmentId
+        {
+            get; set;
+        }
 
         public Account CreateAccount()
         {
@@ -24,7 +45,7 @@ namespace Eagle.ViewModel
             account.State = true;
             account.CreateTime = DateTime.Now;
             account.LastLoginTime = DateTime.Now;
-            account.SetPassword(Password);
+            account.SetPassword(SystemConst.DefaultPassword);
             return account;
         }
 

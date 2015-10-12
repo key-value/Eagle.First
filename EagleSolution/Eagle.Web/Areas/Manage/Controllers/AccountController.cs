@@ -15,8 +15,9 @@ namespace Eagle.Web.Areas.Manage.Controllers
         // GET: Manage/Account
         public ActionResult Index(int pageNum = 1)
         {
+            var userId = new Guid(User.Identity.Name);
             var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
-            var accountList = accountServices.GetAccounts(pageNum);
+            var accountList = accountServices.GetAccounts(pageNum, userId);
             ViewBag.totalPage = accountServices.PageCount;
             return View(model: new HtmlString(accountList.ToJson()));
         }
@@ -37,6 +38,10 @@ namespace Eagle.Web.Areas.Manage.Controllers
                 updateAccount = accountServices.GetAccount(id.Value);
             }
             ViewBag.UpdateAccount = new HtmlString(updateAccount.ToJson());
+
+            var departmentServices = ServiceLocator.Instance.GetService<IDepartmentServices>();
+            var departments = departmentServices.Get();
+            ViewBag.Departments = new HtmlString(departments.ToJson());
             return PartialView();
         }
 

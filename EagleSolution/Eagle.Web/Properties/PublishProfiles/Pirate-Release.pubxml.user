@@ -45,6 +45,15 @@
     <File Include="Areas/Brand/Views/web.config">
       <publishTime>09/05/2015 17:47:22</publishTime>
     </File>
+    <File Include="Areas/Manage/Controllers/AccountController.cs">
+      <publishTime>09/07/2015 15:58:43</publishTime>
+    </File>
+    <File Include="Areas/Manage/Controllers/BranchController.cs">
+      <publishTime>09/07/2015 15:58:44</publishTime>
+    </File>
+    <File Include="Areas/Manage/Controllers/JurisdictionController.cs">
+      <publishTime>09/07/2015 15:58:45</publishTime>
+    </File>
     <File Include="Areas/Manage/Views/Account/Create.cshtml">
       <publishTime>09/08/2015 17:39:11</publishTime>
     </File>

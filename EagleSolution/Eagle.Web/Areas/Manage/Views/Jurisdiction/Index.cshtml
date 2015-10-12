@@ -111,7 +111,7 @@
                         </tr>
                     </thead>
                     <tbody class="middle-align" data-bind="foreach: AccountBody.AccountList">
-                        <tr data-bind=" click: function(data, event) { AccountBody.SelectAccount(ID())}">
+                        <tr data-bind=" click function(data, event) { AccountBody.SelectAccount(ID())}">
                             <td data-bind="text:$index()+1"></td>
                             <td data-bind="text:LoginID"></td>
                             <td data-bind="text:Name"></td>

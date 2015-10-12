@@ -25,5 +25,15 @@ namespace Eagle.Domain.EF.DataContext
         {
             get; set;
         }
+
+        public DbSet<WorkCard> WorkCards
+        {
+            get; set;
+        }
+
+        public DbSet<Department> Departments
+        {
+            get; set;
+        }
     }
 }

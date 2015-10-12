@@ -13,6 +13,7 @@ namespace Eagle.Infrastructrue
         }
         public static string TimeStyle = "yy-MM-dd HH:mm:ss";
 
+        public static string DefaultPassword = "123456";
 
         public static Dictionary<string, string> CateringSystem = new Dictionary<string, string>()
         {

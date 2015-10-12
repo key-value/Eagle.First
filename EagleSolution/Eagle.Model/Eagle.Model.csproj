@@ -56,7 +56,9 @@
     <Compile Include="账户\ActionButton.cs" />
     <Compile Include="账户\Branch.cs" />
     <Compile Include="账户\Account.cs" />
+    <Compile Include="账户\Department.cs" />
     <Compile Include="账户\Jurisdiction.cs" />
+    <Compile Include="账户\WorkCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eagle.Domain.Core\Eagle.Domain.Core.csproj">

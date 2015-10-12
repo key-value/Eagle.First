@@ -66,6 +66,7 @@
     <Compile Include="Services\系统配置\CardServices.cs" />
     <Compile Include="Services\账户\BranchServices.cs" />
     <Compile Include="Services\账户\AccountServices.cs" />
+    <Compile Include="Services\账户\DepartmentServices.cs" />
     <Compile Include="Services\账户\JurisdictionServices.cs" />
     <Compile Include="Services\通信记录\LetterServices.cs" />
     <Compile Include="SockCommand\BaseCommand.cs" />

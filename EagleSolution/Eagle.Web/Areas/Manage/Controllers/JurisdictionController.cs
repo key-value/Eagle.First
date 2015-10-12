@@ -13,8 +13,9 @@ namespace Eagle.Web.Areas.Manage.Controllers
         // GET: Manage/Jurisdiction
         public ActionResult Index(int pageNum = 1)
         {
+            var userId = new Guid(User.Identity.Name);
             var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
-            var account = accountServices.GetAccounts(pageNum);
+            var account = accountServices.GetAccounts(pageNum, userId);
             ViewBag.totalPage = accountServices.PageCount;
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             ViewBag.branchs = new HtmlString(branchServices.GetBranches().ToJson());

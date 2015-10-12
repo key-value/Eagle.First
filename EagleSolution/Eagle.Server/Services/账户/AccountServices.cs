@@ -44,14 +44,68 @@ namespace Eagle.Server.Services
             }
         }
 
+        public List<ShowAccount> GetAccountsByDepartment(Guid departmentId)
+        {
+            var showAccounts = new List<ShowAccount>();
 
-        public List<ShowAccount> GetAccounts(int pageNum)
+            using (var defaultContent = new DefaultContext())
+            {
+                var accountList = from account in defaultContent.Accounts
+                                  join workCard in defaultContent.WorkCards on account.ID equals workCard.AccountId
+                                  where workCard.DepartmentId == departmentId
+                                  select account;
+
+                showAccounts.AddRange(accountList.ToList().Select(ShowAccount.CreateShowAccount));
+            }
+            return showAccounts;
+        }
+
+        public List<ShowAccount> GetAccounts(int pageNum, Guid accountId)
         {
             var accounts = new List<ShowAccount>();
             using (var defaultContent = new DefaultContext())
             {
-                var accountList = defaultContent.Accounts.OrderByDescending(x => x.CreateTime)
-                    .Pageing(pageNum, PageSize, ref _pageCount).ToList();
+                var account = defaultContent.Accounts.SingleOrDefault(x => x.ID == accountId);
+                if (account.Null())
+                {
+                    return new List<ShowAccount>();
+                }
+                var accountList = new List<Account>();
+                if ((account.AccountType & AccountType.Admin) != 0)
+                {
+                    accountList = defaultContent.Accounts.OrderByDescending(x => x.CreateTime)
+                        .Pageing(pageNum, PageSize, ref _pageCount).ToList();
+                }
+                else
+                {
+                    accountList = defaultContent.Accounts.Where(x => (x.AccountType & AccountType.Admin) == 0).OrderByDescending(x => x.CreateTime)
+                        .Pageing(pageNum, PageSize, ref _pageCount).ToList();
+                }
+
+                accounts.AddRange(accountList.Select(ShowAccount.CreateShowAccount));
+            }
+            return accounts;
+        }
+
+        public List<ShowAccount> GetAccounts(Guid accountId)
+        {
+            var accounts = new List<ShowAccount>();
+            using (var defaultContent = new DefaultContext())
+            {
+                var account = defaultContent.Accounts.SingleOrDefault(x => x.ID == accountId);
+                if (account.Null())
+                {
+                    return new List<ShowAccount>();
+                }
+                var accountList = new List<Account>();
+                if ((account.AccountType & AccountType.Admin) != 0)
+                {
+                    accountList = defaultContent.Accounts.OrderByDescending(x => x.CreateTime).ToList();
+                }
+                else
+                {
+                    accountList = defaultContent.Accounts.Where(x => (x.AccountType & AccountType.Admin) == 0).OrderByDescending(x => x.CreateTime).ToList();
+                }
 
                 accounts.AddRange(accountList.Select(ShowAccount.CreateShowAccount));
             }
@@ -69,6 +123,12 @@ namespace Eagle.Server.Services
                     return null;
                 }
                 var updateAccount = ViewModel.UpdateAccount.CreateUpdateAccount(account);
+                var workCards = defaultContent.WorkCards.Where(x => x.AccountId == id).ToList();
+                if (workCards.Count() == 1)
+                {
+                    var workCard = workCards.FirstOrDefault();
+                    updateAccount.DepartmentId = workCard.DepartmentId;
+                }
                 Flag = true;
                 return updateAccount;
             }
@@ -87,6 +147,11 @@ namespace Eagle.Server.Services
                 }
                 var account = updateAccount.CreateAccount();
                 defaultContent.Accounts.Add(account);
+                var workCard = new WorkCard();
+                workCard.ID = Guid.NewGuid();
+                workCard.DepartmentId = updateAccount.DepartmentId;
+                workCard.AccountId = account.ID;
+                defaultContent.WorkCards.Add(workCard);
                 defaultContent.SaveChanges();
                 Flag = true;
             }
@@ -106,6 +171,21 @@ namespace Eagle.Server.Services
                 account.LoginID = updateAccount.LoginID;
                 account.Name = updateAccount.Name;
                 defaultContent.ModifiedModel(account);
+                var workCards = defaultContent.WorkCards.Where(x => x.AccountId == updateAccount.ID).ToList();
+                if (workCards.Count() == 1)
+                {
+                    var workCard = workCards.FirstOrDefault();
+                    workCard.DepartmentId = updateAccount.DepartmentId;
+                    defaultContent.ModifiedModel(workCard);
+                }
+                if (!workCards.Any())
+                {
+                    var workCard = new WorkCard();
+                    workCard.ID = Guid.NewGuid();
+                    workCard.AccountId = updateAccount.ID;
+                    workCard.DepartmentId = updateAccount.DepartmentId;
+                    defaultContent.WorkCards.Add(workCard);
+                }
                 defaultContent.SaveChanges();
             }
             Flag = true;
