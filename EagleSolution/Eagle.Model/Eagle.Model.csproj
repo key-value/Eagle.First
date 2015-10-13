@@ -46,6 +46,11 @@
     <Compile Include="商户系统\MonitorTable.cs" />
     <Compile Include="商户系统\RestaurantState.cs" />
     <Compile Include="商户系统\RestPace.cs" />
+    <Compile Include="工作日志\WeekComment.cs" />
+    <Compile Include="工作日志\WeekSummary.cs" />
+    <Compile Include="工作日志\WeekTarget.cs" />
+    <Compile Include="工作日志\WorkComment.cs" />
+    <Compile Include="工作日志\WorkRecord.cs" />
     <Compile Include="系统配置\SystemCard.cs" />
     <Compile Include="系统配置\Warehouse.cs" />
     <Compile Include="信件记录\Letter.cs" />

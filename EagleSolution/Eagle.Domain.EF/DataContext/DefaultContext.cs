@@ -1,14 +1,21 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
+using System.Data.Entity.ModelConfiguration;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Eagle.Domain.Core.Model;
 using Eagle.Domain.EF.Map;
+using Eagle.Domain.EF.Map.Default;
 using Eagle.Model;
 
 namespace Eagle.Domain.EF.DataContext
 {
     public partial class DefaultContext : DbContext
     {
+        private const string nameSpace = "Eagle.Domain.EF.Map.Default";
+
         static DefaultContext()
         {
 
@@ -52,7 +59,13 @@ namespace Eagle.Domain.EF.DataContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.AddFromAssembly(Assembly.GetAssembly(typeof(AccountMap)));
+            var defaultAssembly = GetType().Assembly.ExportedTypes.Where(x => x.Namespace == nameSpace).Where(type => type.BaseType.IsGenericType
+    && type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
+            foreach (var exportedType in defaultAssembly)
+            {
+                dynamic configurationInstance = Activator.CreateInstance(exportedType);
+                modelBuilder.Configurations.Add(configurationInstance);
+            }
         }
 
 

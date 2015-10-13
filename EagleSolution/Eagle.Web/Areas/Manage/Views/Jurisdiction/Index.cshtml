@@ -98,7 +98,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 用户列表
-                <div class=" pull-right"><button data-bind="click:AccountBody.Distribution" class="btn btn-black">保存</button></div>
+                <div class="pull-right"><button data-bind="click:AccountBody.Distribution" class="btn btn-black">保存</button></div>
             </div>
             <div class="panel-body">
                 <table id="AccountTable" class="table table-hover">
@@ -111,7 +111,7 @@
                         </tr>
                     </thead>
                     <tbody class="middle-align" data-bind="foreach: AccountBody.AccountList">
-                        <tr data-bind=" click function(data, event) { AccountBody.SelectAccount(ID())}">
+                        <tr data-bind="click: function(data, event) { AccountBody.SelectAccount(ID())}">
                             <td data-bind="text:$index()+1"></td>
                             <td data-bind="text:LoginID"></td>
                             <td data-bind="text:Name"></td>
