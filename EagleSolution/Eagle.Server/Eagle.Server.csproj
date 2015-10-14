@@ -61,6 +61,7 @@
     <Compile Include="Services\商户管理\RestPaceServices.cs" />
     <Compile Include="Services\商户管理\TableServices.cs" />
     <Compile Include="Services\工作日志\WeeklyPlanServices.cs" />
+    <Compile Include="Services\工作日志\WorkRecordServices.cs" />
     <Compile Include="Services\服务器管理\HeartbeatServices.cs" />
     <Compile Include="Services\服务器管理\JournalServices.cs" />
     <Compile Include="Services\服务器管理\TreeServices.cs" />

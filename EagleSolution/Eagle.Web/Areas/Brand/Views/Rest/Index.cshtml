@@ -239,7 +239,6 @@
             TablePage: ko.observable(0),
             totalPage: ko.observable(0),
             PageAction: function (jumpNum) {
-                console.log(jumpNum);
                 var pageNum = MonitorTableBody.TablePage() + jumpNum;
                 var path = window.mainModel.map() + '/Tables';
                 var param = {

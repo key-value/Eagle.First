@@ -51,10 +51,15 @@
     <Compile Include="商户管理\ShowTable.cs" />
     <Compile Include="商户管理\TableRecord.cs" />
     <Compile Include="商户管理\UpdateConnectStep.cs" />
+    <Compile Include="工作日志\ShowWeekComent.cs" />
     <Compile Include="工作日志\ShowWeeklyPlan.cs" />
+    <Compile Include="工作日志\ShowWorkComment.cs" />
+    <Compile Include="工作日志\ShowWorkRecord.cs" />
     <Compile Include="工作日志\UpdateWeekComment.cs" />
     <Compile Include="工作日志\UpdateWeeklyTarget.cs" />
     <Compile Include="工作日志\UpdateWeekSummary.cs" />
+    <Compile Include="工作日志\UpdateWorkComment.cs" />
+    <Compile Include="工作日志\UpdateWorkRecord.cs" />
     <Compile Include="服务器管理\HeartbeatBody.cs" />
     <Compile Include="服务器管理\ShowCpuChart.cs" />
     <Compile Include="服务器管理\ShowJournal.cs" />

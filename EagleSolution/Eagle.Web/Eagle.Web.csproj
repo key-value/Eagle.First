@@ -624,6 +624,13 @@
     <Content Include="Areas\WorkContent\Views\WeeklyPlan\Create.cshtml" />
     <Content Include="Areas\WorkContent\Views\WeeklyPlan\Index.cshtml" />
     <Content Include="Areas\WorkContent\Views\WeeklyPlan\GetSummary.cshtml" />
+    <Content Include="Areas\WorkContent\Views\WeeklyPlan\GetWeekComments.cshtml" />
+    <Content Include="Areas\WorkContent\Views\TodayWork\Create.cshtml" />
+    <Content Include="Areas\WorkContent\Views\TodayWork\Index.cshtml" />
+    <Content Include="Areas\WorkContent\Views\WorkComment\Create.cshtml" />
+    <Content Include="Areas\WorkContent\Views\WorkComment\Index.cshtml" />
+    <Content Include="Areas\WorkContent\Views\UpdateWeeklyPlan\Index.cshtml" />
+    <Content Include="Areas\WorkContent\Views\WorkGroup\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Pirate-Release.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1257,6 +1264,8 @@
     <Compile Include="Areas\WorkContent\Controllers\TodayWorkController.cs" />
     <Compile Include="Areas\WorkContent\Controllers\UpdateWeeklyPlanController.cs" />
     <Compile Include="Areas\WorkContent\Controllers\WeeklyPlanController.cs" />
+    <Compile Include="Areas\WorkContent\Controllers\WorkCommentController.cs" />
+    <Compile Include="Areas\WorkContent\Controllers\WorkGroupController.cs" />
     <Compile Include="Areas\WorkContent\WorkContentAreaRegistration.cs" />
     <Compile Include="Controllers\RiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1366,8 +1375,6 @@
     <Folder Include="Areas\Submarine\Models\" />
     <Folder Include="Areas\Submarine\Views\Shared\" />
     <Folder Include="Areas\WorkContent\Models\" />
-    <Folder Include="Areas\WorkContent\Views\TodayWork\" />
-    <Folder Include="Areas\WorkContent\Views\UpdateWeeklyPlan\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,128 @@
+﻿@model HtmlString
+
+<script>
+
+
+    var WorkRecordBody;
+    $(document).ready(function ($) {
+        $('#record-Detail').hide();
+        $('#comment-Detail').hide();
+        WorkRecordBody = {
+            WorkRecordList: ko.mapping.fromJS(@Model),
+            WorkCommentList: ko.observableArray(),
+            RecordId: ko.observable(),
+            Journal: ko.observable(),
+            Summary: ko.observable(),
+            Plan: ko.observable(),
+            SelectRecordFunc: function (comment) {
+                WorkRecordBody.RecordId(comment.ID());
+                WorkRecordBody.Journal(comment.Journal());
+                WorkRecordBody.Summary(comment.Summary());
+                WorkRecordBody.Plan(comment.Plan());
+                $('#record-Detail').show();
+
+                var path = window.mainModel.map() + '/Details';
+                $.post(path, { id: WorkRecordBody.RecordId() }, function (data) {
+                    WorkRecordBody.WorkCommentList(ko.mapping.fromJS(data)());
+                    $('#comment-Detail').show();
+                });
+
+            },
+            addComment: function (commentId) {
+                var path = window.mainModel.map() + '/Create';
+
+                $.get(path, { id: commentId, recordId: WorkRecordBody.RecordId() }, function (result) {
+                    window.mainModel.dialog(result);
+                    jQuery('#system-dialog').modal('show', { backdrop: 'static' });
+                });
+            }
+        }
+
+        ko.applyBindings(WorkRecordBody, $("#WorkRecord-part")[0]);
+
+        window.mainModel.checkTable('WorkRecordTable');
+    });
+
+
+</script>
+
+
+
+<div id="WorkRecord-part">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="WorkRecordTable" class="table ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Journal</th>
+                                <th>Summary</th>
+                                <th>Plan</th>
+                                <th>CreateTime</th>
+                                <th>名称</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: WorkRecordBody.WorkRecordList">
+                            <tr data-bind="click: WorkRecordBody.SelectRecordFunc.bind($data)">
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:Journal"></td>
+                                <td data-bind="text:Summary"></td>
+                                <td data-bind="text:Plan"></td>
+                                <td data-bind="text:CreateTime"></td>
+                                <td data-bind="text:AccountName"></td>
+                                <td>
+                                    <a href="#"> 详细</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="record-Detail" class="panel panel-default">
+                <div class="panel-body">
+                    <div data-bind="html: WorkRecordBody.Journal"> </div>
+                    <hr />
+                    <div data-bind="html: WorkRecordBody.Summary"> </div>
+                    <hr />
+                    <div data-bind="html: WorkRecordBody.Plan"> </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div id="comment-Detail" class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn btn-secondary" data-bind="click: WorkRecordBody.addComment.bind($data,'')">添加评论</button>
+                </div>
+                <div class="panel-body">
+
+                    <div data-bind="foreach: WorkRecordBody.WorkCommentList">
+                        <div data-bind="html: Description"></div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>

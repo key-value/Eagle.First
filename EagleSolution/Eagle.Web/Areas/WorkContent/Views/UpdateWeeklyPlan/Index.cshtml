@@ -1,0 +1,119 @@
+﻿@model HtmlString
+@{
+    var weekPlan = ViewBag.WeekPlan as HtmlString;
+}
+
+<script>
+
+
+    var WeekTargetBody;
+    $(document).ready(function ($) {
+
+        WeekTargetBody = {
+            WeekComent: ko.observableArray(),
+            WeekTargetList: ko.mapping.fromJS(@Model),
+            currentWeeklyPlan: ko.mapping.fromJS(@weekPlan),
+            icolist: ['fa-user', 'fa-paper-plane-o', 'fa-location-arrow'],
+            colorList: ['cbp_tmicon timeline-bg-gray', 'cbp_tmicon timeline-bg-info', 'cbp_tmicon timeline-bg-success'],
+            SelectTarget: function () {
+                var path = window.mainModel.map() + '/Details';
+                $.post(path, { targetId: WeekTargetBody.currentWeeklyPlan.ID() }, function (result) {
+
+                    WeekTargetBody.WeekComent(ko.mapping.fromJS(result)());
+                });
+            }
+
+        }
+        ko.applyBindings(WeekTargetBody, $("#WeekTarget-part")[0]);
+        window.mainModel.checkTable('WeekTargetTable');
+    });
+
+
+</script>
+
+
+
+<div id="WeekTarget-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="WeekTargetTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>周次</th>
+                                <th>目标</th>
+                                <th>总结</th>
+                                <th>创建时间</th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: WeekTargetBody.WeekTargetList">
+                            <tr data-bind="click: WeekTargetBody.SelectTarget">
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:TargetTime"></td>
+                                <td data-bind="text:Target"></td>
+                                <td data-bind="text:Description"></td>
+                                <td data-bind="text:CreateTime"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 data-bind="html: '周次: '+ WeekTargetBody.currentWeeklyPlan.TargetTime()">Other Blockquote Types</h4>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <blockquote class="blockquote blockquote-success">
+                <p>目标:</p>
+                <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Target"></p>
+            </blockquote>
+        </div>
+        <div class="col-sm-6">
+            <blockquote class="blockquote blockquote-black">
+                <p>总结:</p>
+                <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Description"></p>
+            </blockquote>
+        </div>
+    </div>
+
+
+
+    <ul class="cbp_tmtimeline" data-bind="foreach: WeekTargetBody.WeekComent">
+
+        <li>
+            <time class="cbp_tmtime" data-bind="attr:{datetime: CreateTime}">
+                <span data-bind="html:CreateDay">06:30 PM</span>
+                <span data-bind="html:CreateTime">06:30 PM</span>
+            </time>
+
+            <div data-bind="attr: {class: WeekTargetBody.colorList[ConnectType()]}">
+                <i data-bind="attr: {class: WeekTargetBody.icolist[ConnectType()]}"></i>
+            </div>
+
+            <div class="cbp_tmlabel" data-bind="attr: {  class: ConnectType() == 1 ? 'cbp_tmlabel' :'cbp_tmlabel empty'}">
+                <p data-bind="text: Description"></p>
+            </div>
+
+        </li>
+
+    </ul>
+
+
+</div>
+
+
+<script src="~/Scripts/xenon-custom.js"></script>

@@ -50,6 +50,7 @@
     <Compile Include="商户管理\IRestPaceServices.cs" />
     <Compile Include="商户管理\ITableServices.cs" />
     <Compile Include="工作日志\IWeeklyPlanServices.cs" />
+    <Compile Include="工作日志\IWorkRecordServices.cs" />
     <Compile Include="服务器管理\IHeartbeatServices.cs" />
     <Compile Include="服务器管理\IJournalServices.cs" />
     <Compile Include="服务器管理\ITreeServices.cs" />

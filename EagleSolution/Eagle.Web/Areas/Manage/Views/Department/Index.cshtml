@@ -1,0 +1,123 @@
+﻿
+
+@model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+    var accounts = ViewBag.Accounts as HtmlString;
+    if (accounts == null)
+    {
+        accounts = new HtmlString("");
+    }
+}
+<script>
+
+
+    var DepartmentBody;
+    $(document).ready(function ($) {
+
+        DepartmentBody = {
+            DepartmentList: ko.mapping.fromJS(@Model),
+            TotalPage: ko.observable(@totalPage),
+            Accounts: ko.mapping.fromJS(@accounts),
+            SelectDepartment: function (departmentId) {
+                var path = window.mainModel.map() + '/GetWorkCard';
+
+                $('.branchCheck:checked').each(function (index) {
+                    $(this).prop('checked', false).trigger('change');
+                });
+
+                $.post(path, { id: departmentId }, function (data) {
+                    var checkList = JSON.parse(data);
+                    for (cid in checkList) {
+                        if (checkList.hasOwnProperty(cid)) {
+                            var checkbody = $('#' + checkList[cid])[0];
+                            $(checkbody).prop('checked', true).trigger('change');
+                        }
+                    }
+                });
+            },
+            SaveDepartment: function () {
+
+            }
+
+        }
+
+        ko.applyBindings(DepartmentBody, $("#Department-part")[0]);
+        window.mainModel.totalPage(DepartmentBody.TotalPage());
+        window.mainModel.checkTable('DepartmentTable');
+    });
+
+
+</script>
+
+
+
+<div id="Department-part" class="row">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="DepartmentTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="cbr">
+                                </th>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody class="middle-align" data-bind="foreach: DepartmentBody.DepartmentList">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-bind="value: ID" class="cbr">
+                                </td>
+                                <td data-bind="text:$index()+1"></td>
+                                <td data-bind="text:Name,click:DepartmentBody.SelectDepartment.bind($data,ID)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" data-bind="template:'page-template'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class=" pull-right">@*<button data-bind="click:AccountBody.SaveDepartment" class="btn btn-black">保存</button>*@</div>
+                </div>
+                <div class="panel-body">
+                    <div data-bind="foreach: DepartmentBody.Accounts">
+                        <div class="col-sm-3 ">
+                            <div>
+                                <label>
+                                    <input type="checkbox" class="cbr branchCheck checkbox" data-bind="value:ID,attr:{id:ID}">
+                                    <a data-bind="text: Name"> Default checkbox</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="~/Scripts/xenon-custom.js"></script>
