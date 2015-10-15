@@ -2,7 +2,6 @@
 @{
     var weekPlan = ViewBag.WeekPlan as HtmlString;
 }
-
 <script>
 
 
@@ -15,7 +14,11 @@
             currentWeeklyPlan: ko.mapping.fromJS(@weekPlan),
             icolist: ['fa-user', 'fa-paper-plane-o', 'fa-location-arrow'],
             colorList: ['cbp_tmicon timeline-bg-gray', 'cbp_tmicon timeline-bg-info', 'cbp_tmicon timeline-bg-success'],
-            SelectTarget: function () {
+            SelectTarget: function (data) {
+                WeekTargetBody.currentWeeklyPlan.ID(data.ID());
+                WeekTargetBody.currentWeeklyPlan.Description(data.Description());
+                WeekTargetBody.currentWeeklyPlan.Target(data.Target());
+                WeekTargetBody.currentWeeklyPlan.TargetTime(data.TargetTime());
                 var path = window.mainModel.map() + '/Details';
                 $.post(path, { targetId: WeekTargetBody.currentWeeklyPlan.ID() }, function (result) {
 

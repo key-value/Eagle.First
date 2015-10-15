@@ -147,11 +147,14 @@ namespace Eagle.Server.Services
                 }
                 var account = updateAccount.CreateAccount();
                 defaultContent.Accounts.Add(account);
-                var workCard = new WorkCard();
-                workCard.ID = Guid.NewGuid();
-                workCard.DepartmentId = updateAccount.DepartmentId;
-                workCard.AccountId = account.ID;
-                defaultContent.WorkCards.Add(workCard);
+                if (updateAccount.DepartmentId != Guid.Empty)
+                {
+                    var workCard = new WorkCard();
+                    workCard.ID = Guid.NewGuid();
+                    workCard.DepartmentId = updateAccount.DepartmentId;
+                    workCard.AccountId = account.ID;
+                    defaultContent.WorkCards.Add(workCard);
+                }
                 defaultContent.SaveChanges();
                 Flag = true;
             }

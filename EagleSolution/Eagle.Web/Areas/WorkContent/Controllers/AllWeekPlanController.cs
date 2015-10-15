@@ -10,53 +10,35 @@ using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.WorkContent.Controllers
 {
-    public class UpdateWeeklyPlanController : Controller
+    public class AllWeekPlanController : Controller
     {
-        // GET: WorkContent/UpdateWeeklyPlan
+        // GET: WorkContent/AllWeekPlan
         public ActionResult Index(int pageNum = 1)
         {
-            var userId = new Guid(User.Identity.Name);
             var weeklyPlanServices = ServiceLocator.Instance.GetService<IWeeklyPlanServices>();
-            var weeklyPlanList = weeklyPlanServices.Get(userId, pageNum);
-            var currentWeeklyPlan = weeklyPlanList.FirstOrDefault();
-            if (currentWeeklyPlan.Null())
-            {
-                ViewBag.WeekPlan = new HtmlString(new ShowWeeklyPlan().ToJson());
-            }
-            else
-            {
-                ViewBag.WeekPlan = new HtmlString(currentWeeklyPlan.ToJson());
-            }
+            var weeklyPlanList = weeklyPlanServices.Get(pageNum);
+            ViewBag.WeekPlan = new HtmlString(new ShowWeeklyPlan().ToJson());
             return PartialView(new HtmlString(weeklyPlanList.ToJson()));
         }
 
-        // GET: WorkContent/UpdateWeeklyPlan/Details/5
+        // GET: WorkContent/AllWeekPlan/Details/5
         public ActionResult Details(Guid? targetId)
         {
             var weeklyPlanServices = ServiceLocator.Instance.GetService<IWeeklyPlanServices>();
-            var weeklyPlanList = new List<ShowWeekComent>();
-            var weeklyPlans = weeklyPlanServices.GetShowWeekComents(targetId.GetValueOrDefault());
-            if (weeklyPlans.Any())
-            {
-                weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 0 });
-                weeklyPlanList.AddRange(weeklyPlans);
-                weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 2 });
-            }
-            else
-            {
-                weeklyPlanList.AddRange(weeklyPlans);
-            }
+            var weeklyPlanList = new List<ShowWeekComent>() { new ShowWeekComent() { ConnectType = 0 } };
+            weeklyPlanList.AddRange(weeklyPlanServices.GetShowWeekComents(targetId.GetValueOrDefault()));
+            weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 2 });
 
             return Json(weeklyPlanList);
         }
 
-        // GET: WorkContent/UpdateWeeklyPlan/Create
+        // GET: WorkContent/AllWeekPlan/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: WorkContent/UpdateWeeklyPlan/Create
+        // POST: WorkContent/AllWeekPlan/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -72,13 +54,13 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
             }
         }
 
-        // GET: WorkContent/UpdateWeeklyPlan/Edit/5
+        // GET: WorkContent/AllWeekPlan/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: WorkContent/UpdateWeeklyPlan/Edit/5
+        // POST: WorkContent/AllWeekPlan/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -94,13 +76,13 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
             }
         }
 
-        // GET: WorkContent/UpdateWeeklyPlan/Delete/5
+        // GET: WorkContent/AllWeekPlan/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: WorkContent/UpdateWeeklyPlan/Delete/5
+        // POST: WorkContent/AllWeekPlan/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

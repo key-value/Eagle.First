@@ -38,6 +38,7 @@ namespace Eagle.ViewModel
             weekTarget.DepartmentId = DepartmentId;
             weekTarget.AccountId = AccountId;
             weekTarget.CreateTime = DateTime.Now;
+            weekTarget.Progress = 100;
             weekTarget.WeekNum = weekNum;
             return weekTarget;
         }
@@ -45,7 +46,7 @@ namespace Eagle.ViewModel
         public WeekTarget UpdateWeekTarget(WeekTarget weekTarget)
         {
             weekTarget.Target = Target;
-            weekTarget.Progress = Progress;
+            //weekTarget.Progress = Progress;
             return weekTarget;
         }
 

@@ -43,6 +43,7 @@ namespace Eagle.ViewModel
             account.LoginID = LoginID;
             account.Name = Name;
             account.State = true;
+            account.AccountType = AccountType.Normal;
             account.CreateTime = DateTime.Now;
             account.LastLoginTime = DateTime.Now;
             account.SetPassword(SystemConst.DefaultPassword);

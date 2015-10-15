@@ -8,7 +8,7 @@
 
     var WeekTargetBody;
     $(document).ready(function ($) {
-
+        $('#weekPlanDetail').hide();
         WeekTargetBody = {
             WeekComent: ko.observableArray(),
             WeekTargetList: ko.mapping.fromJS(@Model),
@@ -38,6 +38,7 @@
             },
             SelectTarget: function () {
                 var path = window.mainModel.map() + '/Details';
+                $('#weekPlanDetail').show();
                 $.post(path, { targetId: WeekTargetBody.currentWeeklyPlan.ID() }, function (result) {
 
                     WeekTargetBody.WeekComent(ko.mapping.fromJS(result)());
@@ -98,46 +99,46 @@
             </div>
         </div>
     </div>
+    <div id="weekPlanDetail">
+        <h4 data-bind="html: '周次: '+ WeekTargetBody.currentWeeklyPlan.TargetTime()">Other Blockquote Types</h4>
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <blockquote class="blockquote blockquote-success">
+                    <p>目标:</p>
+                    <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Target"></p>
+                </blockquote>
+            </div>
+            <div class="col-sm-6">
+                <blockquote class="blockquote blockquote-black">
+                    <p>总结:</p>
+                    <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Description"></p>
+                </blockquote>
+            </div>
+        </div>
 
-    <h4 data-bind="html: '周次: '+ WeekTargetBody.currentWeeklyPlan.TargetTime()">Other Blockquote Types</h4>
-    <br />
-    <div class="row">
-        <div class="col-sm-6">
-            <blockquote class="blockquote blockquote-success">
-                <p>目标:</p>
-                <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Target"></p>
-            </blockquote>
-        </div>
-        <div class="col-sm-6">
-            <blockquote class="blockquote blockquote-black">
-                <p>总结:</p>
-                <p data-bind="html: WeekTargetBody.currentWeeklyPlan.Description"></p>
-            </blockquote>
-        </div>
+
+
+        <ul class="cbp_tmtimeline" data-bind="foreach: WeekTargetBody.WeekComent">
+
+            <li>
+                <time class="cbp_tmtime" data-bind="attr:{datetime: CreateTime}">
+                    <span data-bind="html:CreateDay">06:30 PM</span>
+                    <span data-bind="html:CreateTime">06:30 PM</span>
+                </time>
+
+                <div data-bind="attr: {class: WeekTargetBody.colorList[ConnectType()]}">
+                    <i data-bind="attr: {class: WeekTargetBody.icolist[ConnectType()]}"></i>
+                </div>
+
+                <div class="cbp_tmlabel" data-bind="attr: {  class: ConnectType() == 1 ? 'cbp_tmlabel' :'cbp_tmlabel empty'}">
+                    <p data-bind="text: Description"></p>
+                </div>
+
+            </li>
+
+        </ul>
     </div>
-
-
-
-    <ul class="cbp_tmtimeline" data-bind="foreach: WeekTargetBody.WeekComent">
-
-        <li>
-            <time class="cbp_tmtime" data-bind="attr:{datetime: CreateTime}">
-                <span data-bind="html:CreateDay">06:30 PM</span>
-                <span data-bind="html:CreateTime">06:30 PM</span>
-            </time>
-
-            <div data-bind="attr: {class: WeekTargetBody.colorList[ConnectType()]}">
-                <i data-bind="attr: {class: WeekTargetBody.icolist[ConnectType()]}"></i>
-            </div>
-
-            <div class="cbp_tmlabel" data-bind="attr: {  class: ConnectType() == 1 ? 'cbp_tmlabel' :'cbp_tmlabel empty'}">
-                <p data-bind="text: Description"></p>
-            </div>
-
-        </li>
-
-    </ul>
-
 
 </div>
 

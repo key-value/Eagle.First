@@ -7,6 +7,7 @@ using Eagle.Infrastructrue.Aop.Locator;
 using Eagle.Infrastructrue.Utility;
 using Eagle.Server;
 using Eagle.Server.Interface;
+using Eagle.ViewModel;
 
 namespace Eagle.Web.Areas.WorkContent.Controllers
 {
@@ -16,10 +17,13 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
         public ActionResult Index(Guid? depId, int pageNum = 1)
         {
             var departmentServices = ServiceLocator.Instance.GetService<IDepartmentServices>();
-            var departments = departmentServices.Get();
+            var departments = new List<ShowDepartment>();
+            departments.Add(new ShowDepartment() { Name = "全部" });
+            departments.AddRange(departmentServices.Get());
             ViewBag.Department = new HtmlString(departments.ToJson());
             var workRecordServices = ServiceLocator.Instance.GetService<IWorkRecordServices>();
-            var showWorkRecords = workRecordServices.GetAllRecords(pageNum,depId.GetValueOrDefault());
+            var showWorkRecords = workRecordServices.GetAllRecords(pageNum, depId.GetValueOrDefault());
+            ViewBag.DepId = depId.GetValueOrDefault();
             return PartialView(new HtmlString(showWorkRecords.ToJson()));
         }
 

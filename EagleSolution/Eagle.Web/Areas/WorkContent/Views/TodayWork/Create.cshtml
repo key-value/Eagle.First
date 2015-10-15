@@ -16,27 +16,27 @@
                 <div class="row">
 
                     <div class="form-group">
-                        <label for="Journal" class="col-sm-3 control-label">Journal</label>
+                        <label for="Journal" class="col-sm-3 control-label">工作日志</label>
                         <div class="col-md-9">
-                            <input class="form-control" id="Journal" data-bind="value: addWorkRecord.Journal, uniqueName: true">
+                            <textarea class="form-control" rows="7" placeholder="今天一天的工作内容" id="Journal" data-bind="value: addWorkRecord.Journal, uniqueName: true"></textarea>
                         </div>
 
                     </div>
                     <div class="form-group-separator"></div>
 
                     <div class="form-group">
-                        <label for="Summary" class="col-sm-3 control-label">Summary</label>
+                        <label for="Summary" class="col-sm-3 control-label">工作总结</label>
                         <div class="col-md-9">
-                            <input class="form-control" id="Summary" data-bind="value: addWorkRecord.Summary, uniqueName: true">
+                            <textarea class="form-control" rows="7" id="Summary" placeholder="一天工作内容总结下吧"  data-bind="value: addWorkRecord.Summary, uniqueName: true"></textarea>
                         </div>
 
                     </div>
                     <div class="form-group-separator"></div>
 
                     <div class="form-group">
-                        <label for="Plan" class="col-sm-3 control-label">Plan</label>
+                        <label for="Plan" class="col-sm-3 control-label">明日计划</label>
                         <div class="col-md-9">
-                            <input class="form-control" id="Plan" data-bind="value: addWorkRecord.Plan, uniqueName: true">
+                            <textarea class="form-control" rows="7" id="Plan" placeholder="明天的有什么新的计划呢" data-bind="value: addWorkRecord.Plan, uniqueName: true"></textarea>
                         </div>
 
                     </div>
