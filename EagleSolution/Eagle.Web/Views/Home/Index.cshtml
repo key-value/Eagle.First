@@ -217,7 +217,7 @@
                         </a>
                     </li>
 
-                    <li class="dropdown hover-line">
+                    <li class="dropdown hover-line" style="display: none">
                         <a href="#" data-toggle="dropdown">
                             <i class="fa-envelope-o"></i>
                             <span class="badge badge-green">15</span>
@@ -349,7 +349,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown hover-line">
+                    <li class="dropdown hover-line" style="display: none">
                         <a href="#" data-toggle="dropdown">
                             <i class="fa-bell-o"></i>
                             <span class="badge badge-purple">7</span>
@@ -476,23 +476,23 @@
                         </a>
 
                         <ul class="dropdown-menu user-profile-menu list-unstyled">
-                            @*<li>
-                                <a href="#edit-profile">
+                            <li>
+                                <a href="javascrip:(0)" data-bind="click: mainModel.GetPassword">
                                     <i class="fa-edit"></i>
-                                    New Post
+                                    修改密码
                                 </a>
-                            </li>*@
+                            </li>
                             <li class="last">
                                 <a href="~/Rice/Logout">
                                     <i class="fa-lock"></i>
-                                    Logout
+                                    注销
                                 </a>
                             </li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="#" data-toggle="chat">
+                        <a href="#" data-toggle="chat" style="display: none">
                             <i class="fa-comments-o"></i>
                         </a>
                     </li>
@@ -682,6 +682,13 @@
                 buttons: main.buttons,
                 pageNum: ko.observable(1),
                 totalPage: ko.observable(1),
+                GetPassword: function () {
+                    $.get('/home/GetPassword', function (data) {
+                        mainModel.dialog(data);
+                        jQuery('#system-dialog').modal('show', { backdrop: 'static' });
+                    });
+                },
+
                 branchAction: function (ev, two) {
                     mainModel.pageNum(1);
                     mainModel.title(two.Title());

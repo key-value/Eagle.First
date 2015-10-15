@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using Eagle.Domain.EF.DataContext;
 using Eagle.Infrastructrue.Aop.Attribute;
@@ -72,14 +73,16 @@ namespace Eagle.Server.Services
             return showWorkRecords;
         }
 
-        public List<ShowWorkRecord> GetAllRecords(int pageNum, Guid departmentId)
+        public List<ShowWorkRecord> GetAllRecords(DateTime selectTime, Guid departmentId)
         {
             var showWorkRecords = new List<ShowWorkRecord>();
 
             using (var workContext = new DefaultContext())
             {
+                var beginTime = selectTime.Date;
+                var endTime = selectTime.Date.AddDays(1);
                 var workRecords = (
-                                from workRecord in workContext.WorkRecords
+                                from workRecord in workContext.WorkRecords.Where(x => x.CreateTime > beginTime && x.CreateTime < endTime)
                                 join account1 in workContext.Accounts on workRecord.AccountId equals account1.ID
                                 join workCard in workContext.WorkCards on workRecord.AccountId equals workCard.AccountId
                                 where departmentId == Guid.Empty || workCard.DepartmentId == departmentId
@@ -88,9 +91,9 @@ namespace Eagle.Server.Services
                                 {
                                     workRecord,
                                     account1
-                                }).AsNoTracking().Pageing(pageNum, PageSize, ref _pageCount);
+                                }).AsNoTracking();
 
-                showWorkRecords.AddRange(workRecords.Select(x => ShowWorkRecord.CreateWorkRecord(x.workRecord, x.account1)));
+                showWorkRecords.AddRange(workRecords.ToList().Select(x => ShowWorkRecord.CreateWorkRecord(x.workRecord, x.account1)));
 
             }
             return showWorkRecords;

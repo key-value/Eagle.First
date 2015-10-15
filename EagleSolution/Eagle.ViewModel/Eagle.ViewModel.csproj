@@ -70,6 +70,7 @@
     <Compile Include="系统配置\ShowCard.cs" />
     <Compile Include="系统配置\UpdateCard.cs" />
     <Compile Include="账户体系\CardBranch.cs" />
+    <Compile Include="账户体系\ChangeAccount.cs" />
     <Compile Include="账户体系\ILoginAccount.cs" />
     <Compile Include="账户体系\IShowBranch.cs" />
     <Compile Include="账户体系\ShowAccount.cs" />

@@ -1357,6 +1357,7 @@
     <Content Include="Scripts\uikit\less\variables.less" />
     <Content Include="Scripts\wysihtml5\.DS_Store" />
     <Content Include="Scripts\wysihtml5\lib\.DS_Store" />
+    <Content Include="Views\Home\GetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,7 +14,7 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
     public class WorkGroupController : Controller
     {
         // GET: WorkContent/WorkGroup
-        public ActionResult Index(Guid? depId, int pageNum = 1)
+        public ActionResult Index(Guid? depId, DateTime? selectTime)
         {
             var departmentServices = ServiceLocator.Instance.GetService<IDepartmentServices>();
             var departments = new List<ShowDepartment>();
@@ -22,8 +22,13 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
             departments.AddRange(departmentServices.Get());
             ViewBag.Department = new HtmlString(departments.ToJson());
             var workRecordServices = ServiceLocator.Instance.GetService<IWorkRecordServices>();
-            var showWorkRecords = workRecordServices.GetAllRecords(pageNum, depId.GetValueOrDefault());
+            if (selectTime.Null())
+            {
+                selectTime = DateTime.Now;
+            }
+            var showWorkRecords = workRecordServices.GetAllRecords(selectTime.GetValueOrDefault(), depId.GetValueOrDefault());
             ViewBag.DepId = depId.GetValueOrDefault();
+            ViewBag.selectTime = selectTime;
             return PartialView(new HtmlString(showWorkRecords.ToJson()));
         }
 

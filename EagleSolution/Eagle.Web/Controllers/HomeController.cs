@@ -4,6 +4,7 @@ using Eagle.Server.Interface;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using Eagle.ViewModel;
 
 
 namespace Eagle.Web.Controllers
@@ -94,6 +95,22 @@ namespace Eagle.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult GetPassword()
+        {
+            var userId = new Guid(User.Identity.Name);
+            return PartialView(new HtmlString(new ChangeAccount() { ID = userId }.ToJson()));
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(ChangeAccount changeAccount)
+        {
+            var userId = new Guid(User.Identity.Name);
+            changeAccount.ID = userId;
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            accountServices.ChangePassword(changeAccount);
+            var result = accountServices.GetResult();
+            return Json(result);
         }
     }
 }

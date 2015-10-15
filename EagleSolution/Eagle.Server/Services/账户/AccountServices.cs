@@ -17,10 +17,6 @@ namespace Eagle.Server.Services
     {
         public ILoginAccount Login(string loginID, string pwd)
         {
-            using (var defaultContext = new DefaultContext())
-            {
-                var a = defaultContext.SystemCards.FirstOrDefault();
-            }
             using (var accountContext = new DefaultContext())
             {
                 var account = accountContext.Accounts.FirstOrDefault(x => x.LoginID == loginID.Trim());
@@ -218,6 +214,39 @@ namespace Eagle.Server.Services
                 }
                 defalutContent.Accounts.RemoveRange(accounts);
                 defalutContent.SaveChanges();
+                Flag = true;
+            }
+        }
+
+        public void ChangePassword(ChangeAccount changeAccount)
+        {
+
+            using (var accountContext = new DefaultContext())
+            {
+                var account = accountContext.Accounts.FirstOrDefault(x => x.ID == changeAccount.ID);
+                if (account == null)
+                {
+                    Message = "输入账号不存在";
+                    return;
+                }
+                if (!account.State)
+                {
+                    Message = "账号已禁用";
+                    return;
+                }
+                if (account.Password != changeAccount.OldPassword.MD5().ToLower())
+                {
+                    Message = "旧密码错误,请重新输入!";
+                    return;
+                }
+                if (string.IsNullOrEmpty(changeAccount.NewPassword))
+                {
+                    Message = "新密码不能为空,请重新输入!";
+                    return;
+                }
+                account.SetPassword(changeAccount.NewPassword);
+                accountContext.ModifiedModel(account);
+                accountContext.SaveChanges();
                 Flag = true;
             }
         }
