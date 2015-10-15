@@ -23,5 +23,23 @@ namespace Eagle.Infrastructrue.Utility
             }
             return t.Skip(skipCount).Take(pageSize);
         }
+        public static IEnumerable<T> Pageing<T>(this IQueryable<T> t, int pageNumber, ref int pageCount)
+        {
+            if (t == null)
+            {
+                return new List<T>();
+            }
+            pageCount = t.Count();
+            var skipCount = 0;
+            if (pageNumber > 0)
+            {
+                skipCount = (pageNumber - 1);
+            }
+            if (pageNumber > pageCount)
+            {
+                return new List<T>();
+            }
+            return t.Skip(skipCount).Take(1);
+        }
     }
 }

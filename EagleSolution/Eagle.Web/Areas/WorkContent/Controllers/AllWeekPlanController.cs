@@ -18,6 +18,7 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
             var weeklyPlanServices = ServiceLocator.Instance.GetService<IWeeklyPlanServices>();
             var weeklyPlanList = weeklyPlanServices.Get(pageNum);
             ViewBag.WeekPlan = new HtmlString(new ShowWeeklyPlan().ToJson());
+            ViewBag.totalPage = weeklyPlanServices.PageCount;
             return PartialView(new HtmlString(weeklyPlanList.ToJson()));
         }
 
@@ -25,9 +26,14 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
         public ActionResult Details(Guid? targetId)
         {
             var weeklyPlanServices = ServiceLocator.Instance.GetService<IWeeklyPlanServices>();
-            var weeklyPlanList = new List<ShowWeekComent>() { new ShowWeekComent() { ConnectType = 0 } };
-            weeklyPlanList.AddRange(weeklyPlanServices.GetShowWeekComents(targetId.GetValueOrDefault()));
-            weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 2 });
+            var weekComents = weeklyPlanServices.GetShowWeekComents(targetId.GetValueOrDefault());
+            var weeklyPlanList = new List<ShowWeekComent>();
+            if (weekComents.Any())
+            {
+                weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 0 });
+                weeklyPlanList.AddRange(weeklyPlanServices.GetShowWeekComents(targetId.GetValueOrDefault()));
+                weeklyPlanList.Add(new ShowWeekComent() { ConnectType = 2 });
+            }
 
             return Json(weeklyPlanList);
         }

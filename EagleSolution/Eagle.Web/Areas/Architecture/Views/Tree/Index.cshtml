@@ -1,4 +1,11 @@
 ﻿@model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+}
 
 <script>
 
@@ -8,9 +15,11 @@
 
         TreeBody = {
             TreeList: ko.mapping.fromJS(@Model),
+            TotalPage: ko.observable(@totalPage),
             getIndex: function (index) { return index + 1 }
         }
         ko.applyBindings(TreeBody, $("#Tree-part")[0]);
+        window.mainModel.totalPage(TreeBody.TotalPage());
 
         window.mainModel.checkTable('TreeTable');
     });

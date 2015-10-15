@@ -21,6 +21,7 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
             var weeklyPlanList = weeklyPlanServices.Get(userId, pageNum);
             var currentWeeklyPlan = weeklyPlanServices.GetLastWeekPlan(userId);
             ViewBag.WeekPlan = new HtmlString(currentWeeklyPlan.ToJson());
+            ViewBag.totalPage = weeklyPlanServices.PageCount;
             return PartialView(new HtmlString(weeklyPlanList.ToJson()));
         }
 

@@ -35,7 +35,6 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
         // GET: WorkContent/WorkGroup/Details/5
         public ActionResult Details(Guid? id)
         {
-            var userId = new Guid(User.Identity.Name);
             var workRecordServices = ServiceLocator.Instance.GetService<IWorkRecordServices>();
             var workComments = workRecordServices.GetWorkComments(id.GetValueOrDefault());
             return Json(workComments);

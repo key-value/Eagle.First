@@ -1,6 +1,11 @@
 ﻿@model HtmlString
 @{
     var weekPlan = ViewBag.WeekPlan as HtmlString;
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
 }
 
 <script>
@@ -10,6 +15,7 @@
     $(document).ready(function ($) {
         $('#weekPlanDetail').hide();
         WeekTargetBody = {
+            TotalPage: ko.observable(@totalPage),
             WeekComent: ko.observableArray(),
             WeekTargetList: ko.mapping.fromJS(@Model),
             currentWeeklyPlan: ko.mapping.fromJS(@weekPlan),
@@ -47,6 +53,7 @@
 
         }
         ko.applyBindings(WeekTargetBody, $("#WeekTarget-part")[0]);
+        window.mainModel.totalPage(WeekTargetBody.TotalPage());
         window.mainModel.checkTable('WeekTargetTable');
     });
 

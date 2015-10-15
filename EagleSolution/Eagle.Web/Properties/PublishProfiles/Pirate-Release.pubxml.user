@@ -10,13 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/Architecture/Views/CpuChart/Index.cshtml">
-      <publishTime>10/15/2015 15:15:40</publishTime>
+      <publishTime>10/15/2015 15:40:39</publishTime>
     </File>
     <File Include="Areas/Architecture/Views/Diary/Index.cshtml">
-      <publishTime>08/31/2015 15:04:32</publishTime>
+      <publishTime>10/15/2015 17:55:31</publishTime>
     </File>
     <File Include="Areas/Architecture/Views/Journal/Create.cshtml">
-      <publishTime>09/08/2015 17:37:27</publishTime>
+      <publishTime>10/15/2015 16:59:20</publishTime>
     </File>
     <File Include="Areas/Architecture/Views/Journal/Index.cshtml">
       <publishTime>08/30/2015 13:23:45</publishTime>
@@ -25,7 +25,7 @@
       <publishTime>09/08/2015 17:39:12</publishTime>
     </File>
     <File Include="Areas/Architecture/Views/Tree/Index.cshtml">
-      <publishTime>09/21/2015 14:13:31</publishTime>
+      <publishTime>10/15/2015 17:57:24</publishTime>
     </File>
     <File Include="Areas/Architecture/Views/web.config">
       <publishTime>08/05/2015 09:39:25</publishTime>
@@ -58,7 +58,7 @@
       <publishTime>10/12/2015 21:25:48</publishTime>
     </File>
     <File Include="Areas/Manage/Views/Account/Index.cshtml">
-      <publishTime>09/07/2015 19:52:46</publishTime>
+      <publishTime>10/15/2015 17:57:57</publishTime>
     </File>
     <File Include="Areas/Manage/Views/Branch/Create.cshtml">
       <publishTime>09/11/2015 10:42:25</publishTime>
@@ -100,16 +100,16 @@
       <publishTime>09/06/2015 10:32:39</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/AllWeekPlan/Index.cshtml">
-      <publishTime>10/15/2015 12:40:22</publishTime>
+      <publishTime>10/15/2015 18:00:39</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/TodayWork/Create.cshtml">
       <publishTime>10/15/2015 13:29:17</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/TodayWork/Index.cshtml">
-      <publishTime>10/14/2015 20:31:06</publishTime>
+      <publishTime>10/15/2015 18:08:24</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/UpdateWeeklyPlan/Index.cshtml">
-      <publishTime>10/15/2015 12:40:55</publishTime>
+      <publishTime>10/15/2015 18:00:16</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/web.config">
       <publishTime>10/13/2015 10:45:11</publishTime>
@@ -124,22 +124,22 @@
       <publishTime>10/15/2015 13:34:17</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WeeklyPlan/Index.cshtml">
-      <publishTime>10/15/2015 12:34:26</publishTime>
+      <publishTime>10/15/2015 18:01:16</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WorkComment/Create.cshtml">
       <publishTime>10/14/2015 19:31:41</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WorkComment/Index.cshtml">
-      <publishTime>10/15/2015 15:09:37</publishTime>
+      <publishTime>10/15/2015 18:12:02</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WorkGroup/Index.cshtml">
-      <publishTime>10/15/2015 15:16:56</publishTime>
+      <publishTime>10/15/2015 18:02:11</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/15/2015 15:25:13</publishTime>
+      <publishTime>10/15/2015 18:13:18</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/15/2015 15:25:12</publishTime>
+      <publishTime>10/15/2015 18:13:18</publishTime>
     </File>
     <File Include="bin/Client.dll">
       <publishTime>08/12/2015 18:41:32</publishTime>
@@ -163,31 +163,31 @@
       <publishTime>10/15/2015 11:26:06</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.EF.dll">
-      <publishTime>10/15/2015 11:26:08</publishTime>
+      <publishTime>10/15/2015 18:13:11</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.Events.dll">
-      <publishTime>10/15/2015 11:26:07</publishTime>
+      <publishTime>10/15/2015 18:13:11</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.Events.Handles.dll">
       <publishTime>10/15/2015 11:26:06</publishTime>
     </File>
     <File Include="bin/Eagle.Infrastructrue.dll">
-      <publishTime>10/15/2015 11:26:06</publishTime>
+      <publishTime>10/15/2015 18:13:10</publishTime>
     </File>
     <File Include="bin/Eagle.Model.dll">
-      <publishTime>10/15/2015 11:26:07</publishTime>
+      <publishTime>10/15/2015 18:13:10</publishTime>
     </File>
     <File Include="bin/Eagle.Server.dll">
-      <publishTime>10/15/2015 15:25:07</publishTime>
+      <publishTime>10/15/2015 18:13:12</publishTime>
     </File>
     <File Include="bin/Eagle.Server.Interface.dll">
-      <publishTime>10/15/2015 15:25:06</publishTime>
+      <publishTime>10/15/2015 18:13:11</publishTime>
     </File>
     <File Include="bin/Eagle.ViewModel.dll">
-      <publishTime>10/15/2015 13:36:52</publishTime>
+      <publishTime>10/15/2015 18:13:11</publishTime>
     </File>
     <File Include="bin/Eagle.Web.dll">
-      <publishTime>10/15/2015 15:25:07</publishTime>
+      <publishTime>10/15/2015 18:13:13</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>07/10/2015 09:00:07</publishTime>
@@ -718,7 +718,7 @@
       <publishTime>09/07/2015 15:46:07</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/15/2015 15:25:10</publishTime>
+      <publishTime>10/15/2015 18:13:16</publishTime>
     </File>
     <File Include="Scripts/.DS_Store">
       <publishTime>10/02/2014 18:39:48</publishTime>
@@ -3804,8 +3804,11 @@
     <File Include="Scripts/xenon-widgets.js">
       <publishTime>10/01/2014 11:59:56</publishTime>
     </File>
+    <File Include="Views/Home/GetPassword.cshtml">
+      <publishTime>10/15/2015 17:13:34</publishTime>
+    </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/15/2015 15:05:42</publishTime>
+      <publishTime>10/15/2015 16:58:10</publishTime>
     </File>
     <File Include="Views/Rice/Index.cshtml">
       <publishTime>10/15/2015 14:52:13</publishTime>

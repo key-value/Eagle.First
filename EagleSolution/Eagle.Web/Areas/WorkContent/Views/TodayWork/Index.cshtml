@@ -1,6 +1,13 @@
 ﻿
 
 @model HtmlString
+@{
+    var totalPage = ViewBag.totalPage as int?;
+    if (totalPage == null)
+    {
+        totalPage = 1;
+    }
+}
 
 <script>
 
@@ -10,6 +17,7 @@
         $('#record-Detail').hide();
         $('#comment-Detail').hide();
         WorkRecordBody = {
+            TotalPage: ko.observable(@totalPage),
             WorkRecordList: ko.mapping.fromJS(@Model),
             WorkCommentList: ko.observableArray(),
             RecordId: ko.observable(),
@@ -32,6 +40,7 @@
             },
         }
         ko.applyBindings(WorkRecordBody, $("#WorkRecord-part")[0]);
+        window.mainModel.totalPage(WorkRecordBody.TotalPage());
 
         window.mainModel.checkTable('WorkRecordTable');
     });
