@@ -38,6 +38,11 @@
             SelectAccount: function (id) {
                 AccountBody.selectAccountid = id;
                 var path = window.mainModel.map() + '/Details';
+
+                var $state = $("#AccountTable input[type='checkbox']");
+                cbr_replace();
+                $state.trigger('change');
+
                 $('.branchCheck:checked').each(function (index) {
                     //$(this).checked = false;
                     //$(this).parent().parent().attr("class", 'cbr-replaced');
@@ -136,7 +141,7 @@
                 </div>
             </div>*@
 
-        <div class="panel-group panel-group-joined" data-bind='foreach: AccountBody.BranchList'>
+        <div id="AccountTable" class="panel-group panel-group-joined" data-bind='foreach: AccountBody.BranchList'>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">

@@ -26,8 +26,9 @@
             SelectDepartment: function (departmentId) {
                 var path = window.mainModel.map() + '/GetWorkCard';
 
+                var $state = $("#AccountTable input[type='checkbox']");
                 cbr_replace();
-                window.$state.trigger('change');
+                $state.trigger('change');
 
                 $('.branchCheck:checked').each(function (index) {
                     $(this).prop('checked', false).trigger('change');
@@ -77,6 +78,7 @@
                                 </th>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="middle-align" data-bind="foreach: DepartmentBody.DepartmentList">
@@ -85,7 +87,8 @@
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
                                 <td data-bind="text:$index()+1"></td>
-                                <td data-bind="text:Name,click:DepartmentBody.SelectDepartment.bind($data,ID)"></td>
+                                <td data-bind="text:Name"></td>
+                                <td data-bind="click:DepartmentBody.SelectDepartment.bind($data,ID)"> <a href="javascrip:(0)">人员</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -101,10 +104,10 @@
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class=" pull-right">@*<button data-bind="click:AccountBody.SaveDepartment" class="btn btn-black">保存</button>*@</div>
+                    <div class="pull-right">@*<button data-bind="click:AccountBody.SaveDepartment" class="btn btn-black">保存</button>*@</div>
                 </div>
                 <div class="panel-body">
-                    <div data-bind="foreach: DepartmentBody.Accounts">
+                    <div id="AccountTable" data-bind="foreach: DepartmentBody.Accounts">
                         <div class="col-sm-3 ">
                             <div>
                                 <label>
