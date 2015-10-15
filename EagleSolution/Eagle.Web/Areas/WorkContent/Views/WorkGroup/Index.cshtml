@@ -3,6 +3,7 @@
 @model HtmlString
 @{
     var departments = ViewBag.Department as HtmlString;
+    var depId = ViewBag.DepId as Guid?;
 }
 
 <script>
@@ -13,6 +14,7 @@
         $('#record-Detail').hide();
         $('#comment-Detail').hide();
         WorkRecordBody = {
+            DepId: ko.observable('@depId'),
             WorkRecordList: ko.mapping.fromJS(@Model),
             WorkCommentList: ko.observableArray(),
             Departments: ko.mapping.fromJS(@departments),
@@ -50,12 +52,12 @@
 
 <div id="WorkRecord-part" class="row">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div>
                         <div class="list-group list-group-minimal text-center" data-bind="foreach: WorkRecordBody.Departments">
-                            <a href="#" class="list-group-item" data-bind="html:Name,value:ID,click: WorkRecordBody.SelectDepartment.bind($data,ID())">
+                            <a href="#" class="list-group-item" data-bind="html:Name,value:ID,click: WorkRecordBody.SelectDepartment.bind($data,ID()),attr:{class: WorkRecordBody.DepId() == ID() ? 'list-group-item active':'list-group-item'}">
                             </a>
                         </div>
                     </div>
@@ -63,10 +65,10 @@
             </div>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-8  col-lg-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12 ">
                     </div>
                 </div>
                 <div class="panel-body">
@@ -76,10 +78,10 @@
                                 <th>
                                     姓名
                                 </th>
-                                <th>Journal</th>
-                                <th>Summary</th>
-                                <th>Plan</th>
-                                <th>CreateTime</th>
+                                <th>日志</th>
+                                <th>总结</th>
+                                <th>明日计划</th>
+                                <th>创建时间</th>
                                 <th></th>
                             </tr>
                         </thead>
