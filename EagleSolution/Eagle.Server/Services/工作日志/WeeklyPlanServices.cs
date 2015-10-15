@@ -229,6 +229,13 @@ namespace Eagle.Server.Services
                     Message = "修改日志不存在";
                     return;
                 }
+                var dayOfWeek = DateTime.Now.DayOfWeek;
+
+                if (dayOfWeek > DayOfWeek.Monday || DateTime.Now.Hour > 11)
+                {
+                    Message = "日志已经锁定，无法修改";
+                    return;
+                }
                 weekTarget = updateWeeklyTarget.UpdateWeekTarget(weekTarget);
                 workContext.ModifiedModel(weekTarget);
                 workContext.SaveChanges();
@@ -241,6 +248,21 @@ namespace Eagle.Server.Services
         {
             using (var workContext = new DefaultContext())
             {
+                var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.ID == updateWeekSummary.ID);
+                if (weekTarget.Null())
+                {
+                    Message = "总结周记不存在";
+                    return;
+                }
+                var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Now);
+                if (weekNum > weekTarget.WeekNum + 1)
+                {
+                    if (DateTime.Now.Hour > 2 || DateTime.Today.DayOfWeek > DayOfWeek.Monday)
+                    {
+                        Message = "周记已经被锁定无法总结!";
+                        return;
+                    }
+                }
                 var weekSummary = workContext.WeekSummaries.FirstOrDefault(x => x.ID == updateWeekSummary.ID);
                 if (weekSummary.Null())
                 {
@@ -248,19 +270,15 @@ namespace Eagle.Server.Services
                     weekSummary.ID = updateWeekSummary.ID;
                     weekSummary.CreateTime = DateTime.Now;
                     weekSummary.DepartmentId = updateWeekSummary.DepartmentId;
-
-                    var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.ID == updateWeekSummary.ID);
-                    if (!weekTarget.Null())
-                    {
-                        weekSummary.WeekNum = weekTarget.WeekNum;
-                        weekSummary.DepartmentId = weekTarget.DepartmentId;
-                    }
+                    weekSummary.WeekNum = weekTarget.WeekNum;
+                    weekSummary.DepartmentId = weekTarget.DepartmentId;
                     workContext.WeekSummaries.Add(weekSummary);
                 }
                 else
                 {
                     workContext.ModifiedModel(weekSummary);
                 }
+
                 weekSummary.Description = updateWeekSummary.Description;
                 workContext.SaveChanges();
                 Flag = true;
