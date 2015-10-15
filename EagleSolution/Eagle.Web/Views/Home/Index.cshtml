@@ -1,6 +1,7 @@
 ﻿@model List<Eagle.ViewModel.ShowBranch>
 @{
     var show = @ViewBag.show as HtmlString;
+    var account = ViewBag.Account as HtmlString;
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -154,7 +155,7 @@
                     <!-- logo -->
                     <div class="logo">
                         <a href="dashboard-1.html" class="logo-expanded">
-                            <img src="~/images/logo@2x.png" width="80" alt="" />
+                            <img src="~/Content/Images/logo@2x.png" width="100" alt="" />
                         </a>
 
                         <a href="dashboard-1.html" class="logo-collapsed">
@@ -175,7 +176,7 @@
                     </div>
 
                     <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
-                    <div class="settings-icon">
+                    <div class="settings-icon" hidden="">
                         <a href="#" data-toggle="settings-pane" data-animate="true">
                             <i class="linecons-cog"></i>
                         </a>
@@ -465,53 +466,22 @@
                 <!-- Right links for user info navbar -->
                 <ul class="user-info-menu right-links list-inline list-unstyled">
 
-                    <li class="search-form">
-                        <!-- You can add "always-visible" to show make the search input visible -->
-
-                        <form method="get" action="extra-search.html">
-                            <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
-
-                            <button type="submit" class="btn btn-link">
-                                <i class="linecons-search"></i>
-                            </button>
-                        </form>
-
-                    </li>
-
                     <li class="dropdown user-profile">
                         <a href="#" data-toggle="dropdown">
                             <img src="~/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
                             <span>
-                                Arlind Nushi
+                                <label data-bind="text: account.Name"></label>
                                 <i class="fa-angle-down"></i>
                             </span>
                         </a>
 
                         <ul class="dropdown-menu user-profile-menu list-unstyled">
-                            <li>
+                            @*<li>
                                 <a href="#edit-profile">
                                     <i class="fa-edit"></i>
                                     New Post
                                 </a>
-                            </li>
-                            <li>
-                                <a href="#settings">
-                                    <i class="fa-wrench"></i>
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#profile">
-                                    <i class="fa-user"></i>
-                                    Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#help">
-                                    <i class="fa-info"></i>
-                                    Help
-                                </a>
-                            </li>
+                            </li>*@
                             <li class="last">
                                 <a href="~/Rice/Logout">
                                     <i class="fa-lock"></i>
@@ -547,9 +517,9 @@
 
                     <!-- Add your copyright text here -->
                     <div class="footer-text">
-                        &copy; 2014
-                        <strong>Xenon</strong>
-                        More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+                        &copy; 2015
+                        <strong>Pirate</strong>
+
                     </div>
 
 
@@ -696,6 +666,7 @@
             //}
 
             mainModel = {
+                account: ko.mapping.fromJS(@account),
                 title: ko.observable("主页"),
                 description: ko.observable("什么都没留下 =_="),
                 branchs: ko.mapping.fromJS(@show),

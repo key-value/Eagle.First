@@ -17,6 +17,9 @@ namespace Eagle.Web.Controllers
             var userId = new Guid(User.Identity.Name);
             var branchServices = ServiceLocator.Instance.GetService<IBranchServices>();
             var resultBranch = branchServices.GetBranchesByUser(userId);
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            var account = accountServices.GetAccount(userId);
+            ViewBag.Account = new HtmlString(account.ToJson());
             ViewBag.show = new HtmlString(resultBranch.ToJson());
             return View();
         }

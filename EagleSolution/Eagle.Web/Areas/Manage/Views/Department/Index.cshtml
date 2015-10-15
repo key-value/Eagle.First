@@ -26,6 +26,9 @@
             SelectDepartment: function (departmentId) {
                 var path = window.mainModel.map() + '/GetWorkCard';
 
+                cbr_replace();
+                window.$state.trigger('change');
+
                 $('.branchCheck:checked').each(function (index) {
                     $(this).prop('checked', false).trigger('change');
                 });

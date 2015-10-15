@@ -70,7 +70,7 @@
       <publishTime>10/12/2015 22:43:10</publishTime>
     </File>
     <File Include="Areas/Manage/Views/Department/Index.cshtml">
-      <publishTime>10/12/2015 21:52:37</publishTime>
+      <publishTime>10/15/2015 14:04:52</publishTime>
     </File>
     <File Include="Areas/Manage/Views/Jurisdiction/Index.cshtml">
       <publishTime>10/13/2015 10:55:36</publishTime>
@@ -136,10 +136,10 @@
       <publishTime>10/15/2015 10:41:12</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/15/2015 13:36:59</publishTime>
+      <publishTime>10/15/2015 14:56:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/15/2015 13:36:59</publishTime>
+      <publishTime>10/15/2015 14:56:29</publishTime>
     </File>
     <File Include="bin/Client.dll">
       <publishTime>08/12/2015 18:41:32</publishTime>
@@ -187,7 +187,7 @@
       <publishTime>10/15/2015 13:36:52</publishTime>
     </File>
     <File Include="bin/Eagle.Web.dll">
-      <publishTime>10/15/2015 13:36:53</publishTime>
+      <publishTime>10/15/2015 14:26:22</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>07/10/2015 09:00:07</publishTime>
@@ -538,7 +538,7 @@
       <publishTime>10/13/2014 17:09:15</publishTime>
     </File>
     <File Include="Content/Images/logo%402x.png">
-      <publishTime>09/29/2014 15:36:40</publishTime>
+      <publishTime>10/15/2015 14:46:02</publishTime>
     </File>
     <File Include="Content/Images/logo-collapsed%402x.png">
       <publishTime>09/29/2014 16:56:48</publishTime>
@@ -547,13 +547,13 @@
       <publishTime>08/28/2014 20:39:42</publishTime>
     </File>
     <File Include="Content/Images/logo-white-bg%402x.png">
-      <publishTime>09/29/2014 15:37:10</publishTime>
+      <publishTime>10/15/2015 14:39:31</publishTime>
     </File>
     <File Include="Content/Images/logo-white-bg.png">
-      <publishTime>09/07/2014 16:03:02</publishTime>
+      <publishTime>10/15/2015 14:39:35</publishTime>
     </File>
     <File Include="Content/Images/logo.png">
-      <publishTime>07/21/2014 18:33:02</publishTime>
+      <publishTime>10/15/2015 14:46:01</publishTime>
     </File>
     <File Include="Content/Images/news-image-widget-2.png">
       <publishTime>10/13/2014 17:08:34</publishTime>
@@ -658,7 +658,7 @@
       <publishTime>10/13/2014 17:09:15</publishTime>
     </File>
     <File Include="Images/logo%402x.png">
-      <publishTime>09/29/2014 15:36:40</publishTime>
+      <publishTime>10/15/2015 14:46:02</publishTime>
     </File>
     <File Include="Images/logo-collapsed%402x.png">
       <publishTime>09/29/2014 16:56:48</publishTime>
@@ -667,13 +667,13 @@
       <publishTime>08/28/2014 20:39:42</publishTime>
     </File>
     <File Include="Images/logo-white-bg%402x.png">
-      <publishTime>09/29/2014 15:37:10</publishTime>
+      <publishTime>10/15/2015 14:39:31</publishTime>
     </File>
     <File Include="Images/logo-white-bg.png">
-      <publishTime>09/07/2014 16:03:02</publishTime>
+      <publishTime>10/15/2015 14:39:35</publishTime>
     </File>
     <File Include="Images/logo.png">
-      <publishTime>07/21/2014 18:33:02</publishTime>
+      <publishTime>10/15/2015 14:46:01</publishTime>
     </File>
     <File Include="Images/news-image-widget-2.png">
       <publishTime>10/13/2014 17:08:34</publishTime>
@@ -718,7 +718,7 @@
       <publishTime>09/07/2015 15:46:07</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/15/2015 13:36:57</publishTime>
+      <publishTime>10/15/2015 14:56:27</publishTime>
     </File>
     <File Include="Scripts/.DS_Store">
       <publishTime>10/02/2014 18:39:48</publishTime>
@@ -3805,10 +3805,10 @@
       <publishTime>10/01/2014 11:59:56</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/15/2015 10:35:54</publishTime>
+      <publishTime>10/15/2015 14:56:13</publishTime>
     </File>
     <File Include="Views/Rice/Index.cshtml">
-      <publishTime>09/08/2015 17:46:02</publishTime>
+      <publishTime>10/15/2015 14:52:13</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>07/07/2015 18:00:34</publishTime>
