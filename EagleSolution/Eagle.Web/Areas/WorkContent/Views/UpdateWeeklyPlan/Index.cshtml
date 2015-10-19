@@ -66,8 +66,8 @@
                             <tr data-bind="click: WeekTargetBody.SelectTarget">
                                 <td data-bind="text:$index()+1"></td>
                                 <td data-bind="text:TargetTime"></td>
-                                <td data-bind="text:Target"></td>
-                                <td data-bind="text:Description"></td>
+                                <td data-bind="text:  Target() ?  Target().substr(0, 14) :Target"></td>
+                                <td data-bind="text:  Description() ?  Description().substr(0, 14) :Description"></td>
                                 <td data-bind="text:CreateTime"></td>
                             </tr>
                         </tbody>

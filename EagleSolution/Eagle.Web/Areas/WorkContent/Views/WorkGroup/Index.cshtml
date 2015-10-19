@@ -112,9 +112,9 @@
                             <tr data-bind="click: WorkRecordBody.SelectRecordFunc.bind($data)">
 
                                 <td data-bind="text:AccountName"></td>
-                                <td data-bind="text:Journal"></td>
-                                <td data-bind="text:Summary"></td>
-                                <td data-bind="text:Plan"></td>
+                                <td data-bind="text:  Journal() ?  Journal().substr(0, 14) :Journal"></td>
+                                <td data-bind="text: Summary() ? Summary().substr(0, 14) :Summary "></td>
+                                <td data-bind="text: Plan() ?  Plan().substr(0, 14) :Plan"></td>
                                 <td data-bind="text: CreateTime"></td>
                                 <td>
                                     <a href="#"> 详细</a>

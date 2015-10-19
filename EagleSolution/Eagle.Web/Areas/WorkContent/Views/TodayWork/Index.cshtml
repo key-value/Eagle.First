@@ -67,10 +67,10 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>#</th>
-                                <th>Journal</th>
-                                <th>Summary</th>
-                                <th>Plan</th>
-                                <th>CreateTime</th>
+                                <th>日志</th>
+                                <th>总结</th>
+                                <th>计划</th>
+                                <th>创建时间</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -80,9 +80,9 @@
                                     <input type="checkbox" data-bind="value: ID" class="cbr">
                                 </td>
                                 <td data-bind="text:$index()+1,click: WorkRecordBody.SelectRecordFunc.bind($data)"></td>
-                                <td data-bind="text:Journal"></td>
-                                <td data-bind="text:Summary"></td>
-                                <td data-bind="text:Plan"></td>
+                                <td data-bind="text:  Journal() ?  Journal().substr(0, 14) :Journal"></td>
+                                <td data-bind="text: Summary() ? Summary().substr(0, 14) :Summary"></td>
+                                <td data-bind="text: Plan() ?  Plan().substr(0, 14) :Plan "></td>
                                 <td data-bind="text:CreateTime"></td>
                                 <td>
                                     <button class="btn btn-secondary" data-bind="click: WorkRecordBody.SelectRecordFunc.bind($data)">详细</button>
