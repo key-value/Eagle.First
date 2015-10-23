@@ -95,34 +95,37 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <table id="WorkRecordTable" class="table ">
-                        <thead>
-                            <tr>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>日志</th>
-                                <th>总结</th>
-                                <th>明日计划</th>
-                                <th>创建时间</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="middle-align" data-bind="foreach: WorkRecordBody.WorkRecordList">
-                            <tr data-bind="click: WorkRecordBody.SelectRecordFunc.bind($data)">
 
-                                <td data-bind="text:AccountName"></td>
-                                <td data-bind="text:  Journal() ?  Journal().substr(0, 14) :Journal"></td>
-                                <td data-bind="text: Summary() ? Summary().substr(0, 14) :Summary "></td>
-                                <td data-bind="text: Plan() ?  Plan().substr(0, 14) :Plan"></td>
-                                <td data-bind="text: CreateTime"></td>
-                                <td>
-                                    <a href="#"> 详细</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="WorkRecordTable" class="table ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>日志</th>
+                                    <th>总结</th>
+                                    <th>明日计划</th>
+                                    <th>创建时间</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="middle-align" data-bind="foreach: WorkRecordBody.WorkRecordList">
+                                <tr data-bind="click: WorkRecordBody.SelectRecordFunc.bind($data)">
 
+                                    <td data-bind="text:AccountName"></td>
+                                    <td data-bind="text:  Journal() ?  Journal().substr(0, 14) :Journal"></td>
+                                    <td data-bind="text: Summary() ? Summary().substr(0, 14) :Summary "></td>
+                                    <td data-bind="text: Plan() ?  Plan().substr(0, 14) :Plan"></td>
+                                    <td data-bind="text: CreateTime"></td>
+                                    <td>
+                                        <a href="#"> 详细</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>

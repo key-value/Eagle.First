@@ -76,32 +76,34 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <table id="WeekTargetTable" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>周次</th>
-                                <th>目标</th>
-                                <th>总结</th>
-                                <th>创建时间</th>
-                            </tr>
-                        </thead>
-                        <tbody class="middle-align" data-bind="foreach: WeekTargetBody.WeekTargetList">
-                            <tr data-bind="click: WeekTargetBody.SelectTarget">
-                                <td data-bind="text:$index()+1"></td>
-                                <td data-bind="text:TargetTime"></td>
-                                <td data-bind="text:Target() ?  Target().substr(0, 14) :Target"></td>
-                                <td data-bind="text:  Description() ?  Description().substr(0, 14) :Description"></td>
-                                <td data-bind="text:CreateTime"></td>
-                            </tr>
-                        </tbody>
-                    </table>
 
-                    <div class="row">
-                        <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                    <div class="table-responsive">
+                        <table id="WeekTargetTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>周次</th>
+                                    <th>目标</th>
+                                    <th>总结</th>
+                                    <th>创建时间</th>
+                                </tr>
+                            </thead>
+                            <tbody class="middle-align" data-bind="foreach: WeekTargetBody.WeekTargetList">
+                                <tr data-bind="click: WeekTargetBody.SelectTarget">
+                                    <td data-bind="text:$index()+1"></td>
+                                    <td data-bind="text:TargetTime"></td>
+                                    <td data-bind="text:Target() ?  Target().substr(0, 14) :Target"></td>
+                                    <td data-bind="text:  Description() ?  Description().substr(0, 14) :Description"></td>
+                                    <td data-bind="text:CreateTime"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
