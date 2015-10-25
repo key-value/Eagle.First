@@ -1,0 +1,100 @@
+﻿@{
+    var updateTrackPlan = @ViewBag.UpdateTrackPlan as HtmlString;
+}
+
+
+<div class="modal-dialog" id="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">标题</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-horizontal">
+                <div class="row">
+
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label">Name</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Name" data-bind="value: addTrackPlan.Name, uniqueName: true">
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group">
+                        <label for="BeginTime" class="col-sm-3 control-label">BeginTime</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input id="BeginTime" type="text" data-bind="value: addTrackPlan.BeginTime" class="form-control" data-format="D, dd MM yyyy">
+
+                                <div class="input-group-addon">
+                                    <a href="#"><i class="linecons-calendar"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group">
+                        <label for="EndTime" class="col-sm-3 control-label">EndTime</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input id="EndTime" type="text" data-bind="value: addTrackPlan.EndTime, uniqueName: true" class="form-control" data-format="D, dd MM yyyy">
+                                <div class="input-group-addon">
+                                    <a href="#"><i class="linecons-calendar"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group-separator"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info" data-bind="click: SaveData">Save changes</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/daterangepicker/daterangepicker.js"></script>
+<script src="~/Scripts/datepicker/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="~/Scripts/daterangepicker/daterangepicker-bs3.css">
+<script>
+    var TrackPlanbody = {
+        addTrackPlan: ko.mapping.fromJS(@updateTrackPlan),
+        SaveData: function () {
+            var path = window.mainModel.map() + '/Edit';
+            $.post(path, ko.mapping.toJS(TrackPlanbody.addTrackPlan), function (result) {
+                window.mainModel.Alert(result);
+                jQuery('#system-dialog').modal('hide');
+                window.mainModel.ReloadBranch();
+            });
+        }
+    };
+
+    $(document).ready(function () {
+        ko.applyBindings(TrackPlanbody, $("#modal-dialog")[0]);
+        $('#BeginTime').daterangepicker({
+            singleDatePicker: true,
+            startDate: new Date(TrackPlanbody.addTrackPlan.BeginTime())
+        });
+        $('#EndTime').daterangepicker({
+            singleDatePicker: true,
+            startDate: new Date(TrackPlanbody.addTrackPlan.EndTime())
+        });
+        console.log(TrackPlanbody.addTrackPlan);
+    });
+
+
+</script>

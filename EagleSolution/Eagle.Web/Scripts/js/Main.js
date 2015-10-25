@@ -3,7 +3,6 @@
 
     // Here is just a sample how to open chat conversation box
     $(document).ready(function ($) {
-
         var $chatConversation = $(".chat-conversation");
 
         $(".chat-group a").on('click', function (ev) {
@@ -22,7 +21,7 @@
 
     var sysbtnClick = function (mainbody, branch, btn) {
         var randomNum = Math.random();
-        var path = mainbody.map() + '/' + btn.ActionName + '?r=' + randomNum;
+        var path = mainbody.map() + '/' + btn.ActionName;//+ '?r=' + randomNum;
         var callBack = function (data) {
             if (data.Flag || !btn.Callback) {
                 alertClass.Alert(data);
@@ -31,6 +30,7 @@
                 }
                 return;
             }
+            mainbody.dialog('');
             mainbody.dialog(data);
             jQuery('#system-dialog').modal('show', { backdrop: 'static' });
         };
@@ -56,7 +56,7 @@
 
         $.ajax({
             url: path,
-            data: { id: id },
+            data: { id: id, r: new Date().getTime() },
             type: btn.Post ? 'POST' : 'GET',
             success: function (data) {
                 callBack(data);

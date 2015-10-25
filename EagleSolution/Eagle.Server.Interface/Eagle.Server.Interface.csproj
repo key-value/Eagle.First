@@ -51,6 +51,8 @@
     <Compile Include="商户管理\ITableServices.cs" />
     <Compile Include="工作日志\IWeeklyPlanServices.cs" />
     <Compile Include="工作日志\IWorkRecordServices.cs" />
+    <Compile Include="数据统计\ITrackPlanServices.cs" />
+    <Compile Include="数据统计\ITrackTargetServices.cs" />
     <Compile Include="服务器管理\IHeartbeatServices.cs" />
     <Compile Include="服务器管理\IJournalServices.cs" />
     <Compile Include="服务器管理\ITreeServices.cs" />

@@ -6,6 +6,7 @@
     {
         totalPage = 1;
     }
+    var weekNum = ViewBag.WeekNum as int?;
 }
 <script>
 
@@ -49,6 +50,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="col-xs-12">
+                        <div class="panel-title">本周周次:&nbsp; @weekNum</div>
                     </div>
                 </div>
                 <div class="panel-body">

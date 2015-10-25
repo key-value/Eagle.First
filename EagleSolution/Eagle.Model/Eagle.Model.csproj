@@ -51,6 +51,9 @@
     <Compile Include="工作日志\WeekTarget.cs" />
     <Compile Include="工作日志\WorkComment.cs" />
     <Compile Include="工作日志\WorkRecord.cs" />
+    <Compile Include="数据统计\TrackPlan.cs" />
+    <Compile Include="数据统计\TrackRecord.cs" />
+    <Compile Include="数据统计\TrackTarget.cs" />
     <Compile Include="系统配置\SystemCard.cs" />
     <Compile Include="系统配置\Warehouse.cs" />
     <Compile Include="信件记录\Letter.cs" />
@@ -75,9 +78,7 @@
       <Name>Eagle.Infrastructrue</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="数据统计\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

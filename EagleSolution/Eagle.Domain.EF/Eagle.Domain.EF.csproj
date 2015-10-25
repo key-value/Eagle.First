@@ -68,6 +68,9 @@
     <Compile Include="Map\Default\MonitorTableMap.cs" />
     <Compile Include="Map\Default\RestaurantStateMap.cs" />
     <Compile Include="Map\Default\RestPaceMap.cs" />
+    <Compile Include="Map\Default\TrackPlanMap.cs" />
+    <Compile Include="Map\Default\TrackRecordMap.cs" />
+    <Compile Include="Map\Default\TrackTargetMap.cs" />
     <Compile Include="Map\Default\SystemCardMap.cs" />
     <Compile Include="Map\Share\TreeMap.cs" />
     <Compile Include="Map\Default\TreeMap.cs" />

@@ -141,9 +141,9 @@
                             argumentField: "HourNum"
                         },
                         series: [
-							{ valueField: "MaxNum", name: "最高值", color: "#cc3f44" },
-							{ valueField: "AvgNum", name: "平均值", color: "#40bbea" },
-							//{ valueField: "africa", name: "Africa", color: "#8dc63f" }
+                            { valueField: "MaxNum", name: "最高值", color: "#cc3f44" },
+                            { valueField: "AvgNum", name: "平均值", color: "#40bbea" },
+                            //{ valueField: "africa", name: "Africa", color: "#8dc63f" }
                         ],
                         argumentAxis: {
                             grid: {
@@ -175,22 +175,22 @@
                         },
 
                         series: [
-											{
-											    valueField: "AvgMemory", name: "平均值", label: {
-											        visible: true,
-											        customizeText: function () {
-											            return this.valueText + " G";
-											        }
-											    }, color: "#40bbea"
-											},
-											{
-											    valueField: "MaxMemory", name: "最大值", label: {
-											        visible: true,
-											        customizeText: function () {
-											            return this.valueText + " G";
-											        }
-											    }, color: "#cc3f44"
-											}
+                                            {
+                                                valueField: "AvgMemory", name: "平均值", label: {
+                                                    visible: true,
+                                                    customizeText: function () {
+                                                        return this.valueText + " G";
+                                                    }
+                                                }, color: "#40bbea"
+                                            },
+                                            {
+                                                valueField: "MaxMemory", name: "最大值", label: {
+                                                    visible: true,
+                                                    customizeText: function () {
+                                                        return this.valueText + " G";
+                                                    }
+                                                }, color: "#cc3f44"
+                                            }
                         ],
                         legend: {
                             verticalAlignment: "bottom",

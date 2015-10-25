@@ -6,6 +6,7 @@
     {
         totalPage = 1;
     }
+    var weekNum = ViewBag.WeekNum as int?;
 }
 
 <script>
@@ -42,13 +43,17 @@
                     jQuery('#system-dialog').modal('show', { backdrop: 'static' });
                 });
             },
-            SelectTarget: function () {
-                var path = window.mainModel.map() + '/Details';
+            SelectTarget: function (data) {
                 $('#weekPlanDetail').show();
-                $.post(path, { targetId: WeekTargetBody.currentWeeklyPlan.ID() }, function (result) {
+                WeekTargetBody.currentWeeklyPlan.ID(data.ID());
+                WeekTargetBody.currentWeeklyPlan.Description(data.Description());
+                WeekTargetBody.currentWeeklyPlan.Target(data.Target());
+                WeekTargetBody.currentWeeklyPlan.TargetTime(data.TargetTime());
+                //var path = window.mainModel.map() + '/Details';
+                //$.post(path, { targetId: WeekTargetBody.currentWeeklyPlan.ID() }, function (result) {
 
-                    WeekTargetBody.WeekComent(ko.mapping.fromJS(result)());
-                });
+                //    WeekTargetBody.WeekComent(ko.mapping.fromJS(result)());
+                //});
             }
 
         }
@@ -57,22 +62,22 @@
         window.mainModel.checkTable('WeekTargetTable');
     });
 
-
 </script>
-
-
-
 <div id="WeekTarget-part" class="row">
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="col-xs-12">
-                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.Edit">编辑日志</button>
+                    <div class="col-sm-12">
+                        <div class="panel-title">本周周次:&nbsp; @weekNum</div>
+                    </div>
+                    <hr/>
+                    <div class="col-sm-12">
+                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.Edit">编辑本周目标</button>
 
-                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.EditSummary">编写总结</button>
+                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.EditSummary">编写本周总结</button>
 
-                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.EditComment.bind($data,'')">编写本日总结</button>
+                        <button class="btn btn-secondary" data-bind="click: WeekTargetBody.EditComment.bind($data,'')">编写本日进度</button>
                     </div>
                 </div>
                 <div class="panel-body">

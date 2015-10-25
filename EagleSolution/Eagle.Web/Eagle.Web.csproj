@@ -632,6 +632,10 @@
     <Content Include="Areas\WorkContent\Views\UpdateWeeklyPlan\Index.cshtml" />
     <Content Include="Areas\WorkContent\Views\WorkGroup\Index.cshtml" />
     <Content Include="Areas\WorkContent\Views\AllWeekPlan\Index.cshtml" />
+    <Content Include="Areas\Architecture\Views\TrackPlan\Index.cshtml" />
+    <Content Include="Areas\Architecture\Views\TrackPlan\Create.cshtml" />
+    <Content Include="Areas\Architecture\Views\TrackTarget\Create.cshtml" />
+    <Content Include="Areas\Architecture\Views\TrackTarget\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Pirate-Release.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1244,6 +1248,8 @@
     <Compile Include="Areas\Architecture\Controllers\DiaryController.cs" />
     <Compile Include="Areas\Architecture\Controllers\HeartbeatController.cs" />
     <Compile Include="Areas\Architecture\Controllers\JournalController.cs" />
+    <Compile Include="Areas\Architecture\Controllers\TrackPlanController.cs" />
+    <Compile Include="Areas\Architecture\Controllers\TrackTargetController.cs" />
     <Compile Include="Areas\Architecture\Controllers\TreeController.cs" />
     <Compile Include="Areas\Brand\BrandAreaRegistration.cs" />
     <Compile Include="Areas\Brand\Controllers\BrandController.cs" />

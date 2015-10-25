@@ -97,7 +97,7 @@ namespace Eagle.Server.Services
         public List<ShowWeeklyPlan> Get(int pageNum)
         {
             var showWeeklyPlans = new List<ShowWeeklyPlan>();
-            int weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Now);
+
             using (var workContext = new DefaultContext())
             {
                 var preWeeklyPalns = (from target in workContext.WeekTargets
@@ -231,7 +231,7 @@ namespace Eagle.Server.Services
                 }
                 var dayOfWeek = DateTime.Now.DayOfWeek;
 
-                if (dayOfWeek > DayOfWeek.Monday || DateTime.Now.Hour > 11)
+                if ((dayOfWeek > DayOfWeek.Monday || (dayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11)))
                 {
                     Message = "日志已经锁定，无法修改";
                     return;

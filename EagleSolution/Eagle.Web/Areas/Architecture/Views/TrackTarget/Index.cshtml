@@ -1,0 +1,66 @@
+﻿@model HtmlString
+
+<script>
+
+
+    var TrackTargetBody;
+    $(document).ready(function ($) {
+
+        TrackTargetBody = {
+            TrackTargetList: ko.mapping.fromJS(@Model),
+        }
+        ko.applyBindings(TrackTargetBody, $("#TrackTarget-part")[0]);
+
+        window.mainModel.checkTable('TrackTargetTable');
+    });
+
+
+</script>
+
+
+
+<div id="TrackTarget-part" class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-xs-12">
+                        <div class="btn-group" data-bind="template:'sysbtn-Group-template'"></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="TrackTargetTable" class="table ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" class="cbr">
+                                    </th>
+                                    <th>#</th>
+                                    <th>NiceName</th>
+                                    <th>统计项目</th>
+                                </tr>
+                            </thead>
+                            <tbody class="middle-align" data-bind="foreach: TrackTargetBody.TrackTargetList">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" data-bind="value: ID" class="cbr">
+                                    </td>
+                                    <td data-bind="text:$index()+1"></td>
+                                    <td data-bind="text:NiceName"></td>
+                                    <td data-bind="text:PlanName"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-12 text-center" data-bind="template:'page-template'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/xenon-custom.js"></script>
