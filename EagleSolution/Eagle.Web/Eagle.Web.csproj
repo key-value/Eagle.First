@@ -1416,7 +1416,7 @@
       <Name>Eagle.Server.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eagle.Server\Eagle.Server.csproj">
-      <Project>{09B9EA4C-79D1-4953-8CDC-480EA39D74B8}</Project>
+      <Project>{09b9ea4c-79d1-4953-8cdc-480ea39d74b8}</Project>
       <Name>Eagle.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eagle.ViewModel\Eagle.ViewModel.csproj">

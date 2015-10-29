@@ -136,7 +136,7 @@
       <publishTime>10/15/2015 13:34:17</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WeeklyPlan/Index.cshtml">
-      <publishTime>10/27/2015 20:23:22</publishTime>
+      <publishTime>10/27/2015 20:27:23</publishTime>
     </File>
     <File Include="Areas/WorkContent/Views/WorkComment/Create.cshtml">
       <publishTime>10/14/2015 19:31:41</publishTime>
@@ -148,10 +148,10 @@
       <publishTime>10/23/2015 10:15:23</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/27/2015 20:23:37</publishTime>
+      <publishTime>10/25/2015 21:30:53</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/27/2015 20:23:37</publishTime>
+      <publishTime>10/25/2015 21:30:53</publishTime>
     </File>
     <File Include="bin/Client.dll">
       <publishTime>08/12/2015 18:41:32</publishTime>
@@ -172,34 +172,34 @@
       <publishTime>08/09/2015 16:34:40</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.Core.dll">
-      <publishTime>10/21/2015 21:02:31</publishTime>
+      <publishTime>10/25/2015 21:30:36</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.EF.dll">
-      <publishTime>10/24/2015 13:27:12</publishTime>
+      <publishTime>10/25/2015 21:30:37</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.Events.dll">
-      <publishTime>10/24/2015 13:27:11</publishTime>
+      <publishTime>10/25/2015 21:30:36</publishTime>
     </File>
     <File Include="bin/Eagle.Domain.Events.Handles.dll">
-      <publishTime>10/21/2015 21:02:31</publishTime>
+      <publishTime>10/25/2015 21:30:36</publishTime>
     </File>
     <File Include="bin/Eagle.Infrastructrue.dll">
-      <publishTime>10/24/2015 13:27:10</publishTime>
+      <publishTime>10/25/2015 21:30:36</publishTime>
     </File>
     <File Include="bin/Eagle.Model.dll">
-      <publishTime>10/24/2015 13:27:11</publishTime>
+      <publishTime>10/25/2015 21:30:36</publishTime>
     </File>
     <File Include="bin/Eagle.Server.dll">
-      <publishTime>10/27/2015 19:40:16</publishTime>
+      <publishTime>10/25/2015 21:30:37</publishTime>
     </File>
     <File Include="bin/Eagle.Server.Interface.dll">
-      <publishTime>10/24/2015 13:27:12</publishTime>
+      <publishTime>10/25/2015 21:30:37</publishTime>
     </File>
     <File Include="bin/Eagle.ViewModel.dll">
-      <publishTime>10/24/2015 13:27:11</publishTime>
+      <publishTime>10/25/2015 21:30:37</publishTime>
     </File>
     <File Include="bin/Eagle.Web.dll">
-      <publishTime>10/27/2015 19:40:17</publishTime>
+      <publishTime>10/25/2015 21:30:46</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>07/10/2015 09:00:07</publishTime>
@@ -730,7 +730,7 @@
       <publishTime>09/07/2015 15:46:07</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/27/2015 20:23:35</publishTime>
+      <publishTime>10/25/2015 21:30:50</publishTime>
     </File>
     <File Include="Scripts/.DS_Store">
       <publishTime>10/02/2014 18:39:48</publishTime>
@@ -3829,7 +3829,7 @@
       <publishTime>07/07/2015 18:00:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/15/2015 11:26:16</publishTime>
+      <publishTime>10/25/2015 21:30:48</publishTime>
     </File>
   </ItemGroup>
 </Project>

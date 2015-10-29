@@ -197,32 +197,8 @@ namespace Eagle.Server.Services
                 }
                 updateWeeklyTarget.DepartmentId = workCard.DepartmentId;
                 updateWeeklyTarget.AccountId = userId;
-            }
-            EditTarget(updateWeeklyTarget);
-        }
 
-        private void AddTarget(UpdateWeeklyTarget updateWeeklyTarget)
-        {
-            var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
-            using (var workContext = new DefaultContext())
-            {
-                var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.WeekNum == weekNum && x.DepartmentId == updateWeeklyTarget.DepartmentId);
-                if (!weekTarget.Null())
-                {
-                    Message = "本周已经有日志";
-                    return;
-                }
-                weekTarget = updateWeeklyTarget.CreateWeekTarget(weekNum);
-                workContext.WeekTargets.Add(weekTarget);
-                Flag = true;
-            }
-        }
-
-        private void EditTarget(UpdateWeeklyTarget updateWeeklyTarget)
-        {
-            var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
-            using (var workContext = new DefaultContext())
-            {
+                var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
                 var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.WeekNum == weekNum && x.DepartmentId == updateWeeklyTarget.DepartmentId);
                 if (weekTarget.Null())
                 {
@@ -230,10 +206,10 @@ namespace Eagle.Server.Services
                     return;
                 }
                 var dayOfWeek = DateTime.Now.DayOfWeek;
-
-                if ((dayOfWeek > DayOfWeek.Monday || (dayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11)))
+                if (((dayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11) || dayOfWeek > DayOfWeek.Monday))
                 {
-                    Message = "日志已经锁定，无法修改";
+                    Message = "周计划目标已经锁定，无法修改";
+                    //Message = "周记已经被锁定无法总结";
                     return;
                 }
                 weekTarget = updateWeeklyTarget.UpdateWeekTarget(weekTarget);
@@ -242,6 +218,33 @@ namespace Eagle.Server.Services
                 Flag = true;
             }
         }
+
+        //private void AddTarget(UpdateWeeklyTarget updateWeeklyTarget)
+        //{
+        //    var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
+        //    using (var workContext = new DefaultContext())
+        //    {
+        //        var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.WeekNum == weekNum && x.DepartmentId == updateWeeklyTarget.DepartmentId);
+        //        if (!weekTarget.Null())
+        //        {
+        //            Message = "本周已经有日志";
+        //            return;
+        //        }
+        //        weekTarget = updateWeeklyTarget.CreateWeekTarget(weekNum);
+        //        workContext.WeekTargets.Add(weekTarget);
+        //        Flag = true;
+        //    }
+        //}
+
+        //private void EditTarget(UpdateWeeklyTarget updateWeeklyTarget)
+        //{
+        //    var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
+
+
+        //    using (var workContext = new DefaultContext())
+        //    {
+        //    }
+        //}
 
 
         public void UpdateSummary(UpdateWeekSummary updateWeekSummary)
