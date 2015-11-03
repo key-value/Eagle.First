@@ -132,5 +132,17 @@ namespace Eagle.Web.Areas.Architecture.Controllers
                 return Json(failt);
             }
         }
+
+        [HttpPost]
+        public void Vote(string userKey, Guid targetId)
+        {
+            var trackTargetServices = ServiceLocator.Instance.GetService<ITrackTargetServices>();
+            if (targetId.Null() || userKey.Null())
+            {
+                return;
+            }
+            trackTargetServices.Vote(userKey, targetId);
+
+        }
     }
 }

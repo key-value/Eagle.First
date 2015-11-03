@@ -18,8 +18,8 @@ namespace Eagle.Web.Areas.WorkContent.Controllers
         {
             var userId = new Guid(User.Identity.Name);
             var weeklyPlanServices = ServiceLocator.Instance.GetService<IWeeklyPlanServices>();
-            var weeklyPlanList = weeklyPlanServices.Get(userId, pageNum);
             var currentWeeklyPlan = weeklyPlanServices.GetLastWeekPlan(userId);
+            var weeklyPlanList = weeklyPlanServices.Get(userId, pageNum);
             ViewBag.WeekPlan = new HtmlString(currentWeeklyPlan.ToJson());
             ViewBag.totalPage = weeklyPlanServices.PageCount;
             ViewBag.WeekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);

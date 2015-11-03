@@ -199,13 +199,13 @@ namespace Eagle.Server.Services
                 updateWeeklyTarget.AccountId = userId;
 
                 var weekNum = DateTimeUtility.GetWeekOfYear(DateTime.Today);
+                var dayOfWeek = DateTime.Now.DayOfWeek;
                 var weekTarget = workContext.WeekTargets.FirstOrDefault(x => x.WeekNum == weekNum && x.DepartmentId == updateWeeklyTarget.DepartmentId);
                 if (weekTarget.Null())
                 {
                     Message = "修改日志不存在";
                     return;
                 }
-                var dayOfWeek = DateTime.Now.DayOfWeek;
                 if (((dayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11) || dayOfWeek > DayOfWeek.Monday))
                 {
                     Message = "周计划目标已经锁定，无法修改";

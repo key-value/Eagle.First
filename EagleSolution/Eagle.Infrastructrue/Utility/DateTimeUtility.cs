@@ -14,7 +14,14 @@ namespace Eagle.Infrastructrue.Utility
         {
             GregorianCalendar gc = new GregorianCalendar();
             int weekOfYear = gc.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-            return weekOfYear + dt.Year * 100;
+            var weekNum = weekOfYear + dt.Year * 100;
+
+            var dayOfWeek = DateTime.Now.DayOfWeek;
+            if (dayOfWeek == DayOfWeek.Sunday)
+            {
+                weekNum += 1;
+            }
+            return weekNum;
         }
     }
 }
