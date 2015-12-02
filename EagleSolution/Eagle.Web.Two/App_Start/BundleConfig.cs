@@ -34,7 +34,7 @@ namespace Eagle.Web.Two
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -48,6 +48,16 @@ namespace Eagle.Web.Two
                 "~/Scripts/knockout-3.4.0.js",
                 "~/Scripts/knockout.mapping-latest.js",
                 "~/Scripts/knockout.viewmodel.2.0.3.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/xenon-core").Include(
+                "~/Scripts/xenon/TweenMax.min.js",
+                "~/Scripts/xenon/resizeable.js",
+                "~/Scripts/xenon/xenon-api.js",
+                //"~/Scripts/xenon/xenon-notes.js",
+                "~/Scripts/xenon/xenon-toggles.js",
+                "~/Scripts/xenon/xenon-widgets.js",
+                "~/Scripts/xenon/toastr.min.js",
+                "~/Scripts/xenon/xenon-custom.js"));
         }
     }
 }

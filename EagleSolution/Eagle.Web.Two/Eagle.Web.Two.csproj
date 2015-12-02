@@ -116,15 +116,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="React.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.2.1.1\lib\net40\React.Core.dll</HintPath>
+      <HintPath>..\packages\React.Core.2.1.2\lib\net40\React.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="React.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.2.1.1\lib\net40\React.Web.dll</HintPath>
+      <HintPath>..\packages\React.Web.2.1.2\lib\net40\React.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="React.Web.Mvc4, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.Mvc4.2.1.1\lib\net40\React.Web.Mvc4.dll</HintPath>
+      <HintPath>..\packages\React.Web.Mvc4.2.1.2\lib\net40\React.Web.Mvc4.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -181,7 +181,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="VroomJs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.2.1.1\lib\net40\VroomJs.dll</HintPath>
+      <HintPath>..\packages\React.Core.2.1.2\lib\net40\VroomJs.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
@@ -266,7 +266,9 @@
     <Content Include="Content\themes\xenon\fonts\linecons.eot" />
     <Content Include="Content\themes\xenon\fonts\linecons.ttf" />
     <Content Include="Content\themes\xenon\fonts\linecons.woff" />
-    <Content Include="Modular\Home\Main.jsx" />
+    <Content Include="Modular\Home\Main.jsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -308,6 +310,15 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\showdown.js" />
     <Content Include="Scripts\showdown.min.js" />
+    <Content Include="Scripts\xenon\resizeable.js" />
+    <Content Include="Scripts\xenon\toastr.js" />
+    <Content Include="Scripts\xenon\toastr.min.js" />
+    <Content Include="Scripts\xenon\TweenMax.min.js" />
+    <Content Include="Scripts\xenon\xenon-api.js" />
+    <Content Include="Scripts\xenon\xenon-custom.js" />
+    <Content Include="Scripts\xenon\xenon-notes.js" />
+    <Content Include="Scripts\xenon\xenon-toggles.js" />
+    <Content Include="Scripts\xenon\xenon-widgets.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -320,13 +331,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\xenon\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>

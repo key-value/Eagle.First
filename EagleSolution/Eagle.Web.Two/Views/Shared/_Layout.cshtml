@@ -1,5 +1,4 @@
-﻿using System.Web.Optimization
-@{
+﻿@{
     Layout = null;
     ViewBag.title = "米迹系统";
 }
@@ -95,14 +94,21 @@
     </div>
 
 
-    @*<div class="page-loading-overlay">
-            <div class="loader-2"></div>
-        </div>*@
+    <div id="load-page" class="page-loading-overlay">
+        <div class="loader-2"></div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/reactJs")
-        @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/xenon-core")
+    @Scripts.Render("~/bundles/reactJs")
+    @Scripts.Render("~/bundles/knockout")
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#load-page').addClass('loaded');
+        });
+    </script>
+
     @RenderSection("PageScript", required: false)
 </body>
 
