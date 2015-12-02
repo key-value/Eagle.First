@@ -23,5 +23,19 @@ namespace Eagle.Infrastructrue.Utility
             }
             return weekNum;
         }
+
+
+        public static void GetWeekDays(int targetWeek, out DateTime beginTime, out DateTime endTime)
+        {
+            var year = targetWeek / 100;
+            var weekNum = targetWeek % 100 - 1;
+
+            DateTime mDatetime = new DateTime(year, 1, 1);//year为要求的那一年
+            int firstweekfirstday = Convert.ToInt32(mDatetime.DayOfWeek);//一年中第一天是周几
+            var days = (double)(7 - firstweekfirstday);
+            DateTime secondweekfisrtday = mDatetime.AddDays(-days);
+            beginTime = secondweekfisrtday.AddDays(weekNum * 7);//第N周第一天
+            endTime = secondweekfisrtday.AddDays(weekNum * 7 + 6);//第N周最后一天
+        }
     }
 }

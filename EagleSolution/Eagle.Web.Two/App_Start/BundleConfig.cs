@@ -8,6 +8,20 @@ namespace Eagle.Web.Two
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new StyleBundle("~/Content/font").Include(
+                "~/Content/themes/xenon/fonts/font-awesome.min.css",
+                "~/Content/themes/xenon/fonts/linecons.css")
+                );
+
+            bundles.Add(new StyleBundle("~/Content/xenon-core").Include(
+                "~/Content/themes/xenon/xenon-core.css",
+                "~/Content/themes/xenon/xenon-forms.css",
+                "~/Content/themes/xenon/xenon-components.css",
+                "~/Content/themes/xenon/xenon-skins.css",
+                "~/Content/themes/xenon/custom.css")
+                );
+
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -24,13 +38,16 @@ namespace Eagle.Web.Two
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/reactJs").Include(
-                "~/Scripts/react/react-with-addons.min.js").Include(
+            bundles.Add(new ScriptBundle("~/bundles/reactJs").Include(
+                "~/Scripts/react/react-with-addons.min.js",
                 "~/Scripts/react/react-dom.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                "~/Scripts/knockout-3.4.0.js",
+                "~/Scripts/knockout.mapping-latest.js",
+                "~/Scripts/knockout.viewmodel.2.0.3.min.js"));
         }
     }
 }

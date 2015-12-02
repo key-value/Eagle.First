@@ -1,14 +1,33 @@
-﻿@{
-    Layout = null;
+﻿
+@section MainMenu
+{
+    <div id="leftMenu"></div>
+    <ul id="main-menu" class="main-menu">
+        <li>
+            <a data-index="0">
+                <i class="fa-key"></i>
+                <span class="title">主页</span>
+            </a>
+        </li>
+        <li>
+            <a data-index="1">
+                <i class="linecons-shop"></i>
+                <span class="title">代理商管理</span>
+            </a>
+        </li>
+    </ul>
 }
-<html>
-<head>
-    <title>Hello React</title>
-</head>
-<body>
-    <div id="content"></div>
 
-    @Scripts.Render("~/reactJs")
-    @System.Web.Optimization.Scripts.Render("~/React/Tutorial.jsx")
-</body>
-</html>
+
+<div class="page-title">
+    <div class="title-env">
+        <h1 class="title"></h1>
+        <p class="description"></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(parameters) {
+
+    })
+</script>

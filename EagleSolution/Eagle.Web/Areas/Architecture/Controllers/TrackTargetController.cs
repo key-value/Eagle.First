@@ -133,7 +133,7 @@ namespace Eagle.Web.Areas.Architecture.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public void Vote(string userKey, Guid targetId)
         {
             var trackTargetServices = ServiceLocator.Instance.GetService<ITrackTargetServices>();

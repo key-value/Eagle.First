@@ -1,42 +1,109 @@
-﻿<!DOCTYPE html>
+﻿using System.Web.Optimization
+@{
+    Layout = null;
+    ViewBag.title = "米迹系统";
+}
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
+
+    @Styles.Render("~/Content/font")
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/xenon-core")
+    @RenderSection("PageCss", required: false)
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+<body class="page-body">
+    <div class="page-container">
+        <div class="sidebar-menu toggle-others">
+            <div class="sidebar-menu-inner">
+                <header class="logo-env">
+                    <div class="logo">
+                        <a href="javascript:;" class="logo-expanded">
+                            <img src="~/Content/Images/logo@2x.png" width="100" alt="" />
+                        </a>
+                        <a href="javascript:;" class="logo-collapsed">
+                            <img src="~/Content/Images/logo-collapsed@2x.png" width="40" alt="" />
+                        </a>
+                    </div>
+                    <div class="mobile-menu-toggle visible-xs">
+                        <a href="#" data-toggle="mobile-menu">
+                            <i class="fa-bars"></i>
+                        </a>
+                    </div>
+                </header>
+
+                @RenderSection("MainMenu", required: false)
+
+
             </div>
         </div>
+        <div class="main-content">
+            <nav class="navbar user-info-navbar" role="navigation">
+                <ul class="user-info-menu left-links list-inline list-unstyled">
+                    <li class="hidden-sm hidden-xs">
+                        <a href="#" data-toggle="sidebar">
+                            <i class="fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown hover-line" style="min-height: 76px; line-height: 35px">
+                    </li>
+                </ul>
+                <ul class="user-info-menu right-links list-inline list-unstyled">
+                    <li class="dropdown user-profile">
+                        <a href="#" data-toggle="dropdown">
+                            <img src="http://static.chidaoni.com/Content/images/avatar.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
+                            <span>
+
+                                <i class="fa-angle-down"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu user-profile-menu list-unstyled">
+                            <li>
+                                <a href="/operations/Home/ResetPwd">
+                                    <i class="fa-lock"></i>
+                                    修改密码
+                                </a>
+                            </li>
+                            <li class="last">
+                                <a href="javascript:;" id="btnLoginOut">
+                                    <i class="fa-power-off"></i>
+                                    安全退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            @RenderBody()
+            <footer class="main-footer sticky footer-type-1">
+                <div class="footer-inner">
+                    <div class="footer-text">
+                        &copy; @DateTime.Now.Year by <a href="http://www.chidaoni.com" target="_blank">米客</a>
+                    </div>
+                    <div class="go-up">
+                        <a href="#" rel="go-top">
+                            <i class="fa-angle-up"></i>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+
+
+    @*<div class="page-loading-overlay">
+            <div class="loader-2"></div>
+        </div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/reactJs")
+        @Scripts.Render("~/bundles/knockout")
+    @RenderSection("PageScript", required: false)
 </body>
+
 </html>

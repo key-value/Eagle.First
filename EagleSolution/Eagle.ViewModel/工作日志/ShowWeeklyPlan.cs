@@ -46,6 +46,16 @@ namespace Eagle.ViewModel
             get; set;
         }
 
+        public string BeginTime
+        {
+            get; set;
+        }
+
+        public string EndTime
+        {
+            get; set;
+        }
+
         public static ShowWeeklyPlan CreateShowWeeklyPlan(WeekSummary weekSummary, WeekTarget weekTarget, Department department)
         {
             var showWeeklyPlan = new ShowWeeklyPlan();
@@ -66,6 +76,11 @@ namespace Eagle.ViewModel
             {
                 showWeeklyPlan.DepartmentName = department.Name;
             }
+            DateTime beginTime;
+            DateTime endTime;
+            DateTimeUtility.GetWeekDays(showWeeklyPlan.TargetTime, out beginTime, out endTime);
+            showWeeklyPlan.BeginTime = beginTime.ToString("yy-MM-dd");
+            showWeeklyPlan.EndTime = endTime.ToString("yy-MM-dd");
             return showWeeklyPlan;
         }
 
