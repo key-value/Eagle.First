@@ -4,11 +4,12 @@
 }
 
 @section MainMenu{
+    <!-- ko  stopBinding: true-->
     @Html.React("LeftMenu", new
 {
     initialData = Model,
 })
-
+<!-- /ko-->
 }
 
 
@@ -21,6 +22,33 @@
 
 
 @section PageScript{
+    <script>
+        ko.bindingHandlers.stopBinding = {
+            init: function () {
+                return { controlsDescendantBindings: true };
+            }
+        };
+
+        ko.virtualElements.allowedBindings.stopBinding = true;
+        var mainModel = null;
+        $(function () {
+             mainModel = {
+                map: ko.observable(''),
+                branchAction: function (two) {
+                    var self = this;
+                    alert(two.Title);
+
+                    self.map('/' + two.AreaName + '/' + two.ActionName);
+
+                    $.get(self.map() + '/index', { pageNum: self.pageNum }, function (data) {
+
+                    });
+                }
+            };
+            ko.applyBindings(mainModel, $('#MainPart')[0]);
+        });
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/Modular/Home/Main.jsx")
     @Html.ReactInitJavaScript()
 }

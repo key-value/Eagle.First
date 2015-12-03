@@ -10,13 +10,14 @@ namespace Eagle.Web.Two
         {
             bundles.Add(new StyleBundle("~/Content/font").Include(
                 "~/Content/themes/xenon/fonts/font-awesome.min.css",
-                "~/Content/themes/xenon/fonts/linecons.css")
+                "~/Content/themes/xenon/fonts/linecons.css",
+                "~/Content/Site.css")
                 );
 
             bundles.Add(new StyleBundle("~/Content/xenon-core").Include(
-                "~/Content/themes/xenon/xenon-core.css",
+                "~/Content/themes/xenon/xenon-core.min.css",
                 "~/Content/themes/xenon/xenon-forms.css",
-                "~/Content/themes/xenon/xenon-components.css",
+                "~/Content/themes/xenon/xenon-components.min.css",
                 "~/Content/themes/xenon/xenon-skins.css",
                 "~/Content/themes/xenon/custom.css")
                 );

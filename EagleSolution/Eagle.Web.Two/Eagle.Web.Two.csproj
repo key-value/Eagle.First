@@ -260,8 +260,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\themes\xenon\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\themes\xenon\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\themes\xenon\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="Content\themes\xenon\fonts\FontAwesome.otf" />
     <Content Include="Content\themes\xenon\fonts\linecons.eot" />
     <Content Include="Content\themes\xenon\fonts\linecons.ttf" />
