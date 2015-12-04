@@ -12,14 +12,19 @@
 <!-- /ko-->
 }
 
+<!-- ko  stopBinding: true-->
+@Html.React("PageTitle", new
+{
+    title= "主页",
+    description= "什么都没留下 =_=",
+})
+<!-- /ko-->
 
-<div class="page-title">
-    <div class="title-env">
-        <h1 class="title"></h1>
-        <p class="description"></p>
-    </div>
-</div>
-
+<!-- ko  stopBinding: true-->
+@Html.React("MainPage", new
+{
+},containerId:"MainPage")
+<!-- /ko-->
 
 @section PageScript{
     <script>
@@ -30,22 +35,12 @@
         };
 
         ko.virtualElements.allowedBindings.stopBinding = true;
-        var mainModel = null;
+        var mainModel =  {
+            detail: ko.observable('<div >xx</div>')
+        };
         $(function () {
-             mainModel = {
-                map: ko.observable(''),
-                branchAction: function (two) {
-                    var self = this;
-                    alert(two.Title);
 
-                    self.map('/' + two.AreaName + '/' + two.ActionName);
-
-                    $.get(self.map() + '/index', { pageNum: self.pageNum }, function (data) {
-
-                    });
-                }
-            };
-            ko.applyBindings(mainModel, $('#MainPart')[0]);
+             ko.applyBindings(mainModel, $('#MainPart')[0]);
         });
     </script>
 

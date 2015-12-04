@@ -15,9 +15,9 @@ namespace Eagle.Web.Two
                 );
 
             bundles.Add(new StyleBundle("~/Content/xenon-core").Include(
-                "~/Content/themes/xenon/xenon-core.min.css",
+                "~/Content/themes/xenon/xenon-core.css",
                 "~/Content/themes/xenon/xenon-forms.css",
-                "~/Content/themes/xenon/xenon-components.min.css",
+                "~/Content/themes/xenon/xenon-components.css",
                 "~/Content/themes/xenon/xenon-skins.css",
                 "~/Content/themes/xenon/custom.css")
                 );
@@ -42,8 +42,8 @@ namespace Eagle.Web.Two
                       "~/Content/bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/reactJs").Include(
-                "~/Scripts/react/react-with-addons.min.js",
-                "~/Scripts/react/react-dom.min.js"));
+                "~/Scripts/react/react-with-addons.js",
+                "~/Scripts/react/react-dom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-3.4.0.js",
