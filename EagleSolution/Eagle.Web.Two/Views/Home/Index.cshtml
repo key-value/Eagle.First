@@ -9,24 +9,31 @@
 {
     initialData = Model,
 })
-<!-- /ko-->
+    <!-- /ko-->
 }
 
 <!-- ko  stopBinding: true-->
 @Html.React("PageTitle", new
 {
-    title= "主页",
-    description= "什么都没留下 =_=",
+    title = "主页",
+    description = "什么都没留下 =_=",
 })
 <!-- /ko-->
-
 <!-- ko  stopBinding: true-->
 @Html.React("MainPage", new
 {
-},containerId:"MainPage")
+}, containerId: "MainPage")
 <!-- /ko-->
+<input type="button" class="btn btn-black" id="abc" />
 
 @section PageScript{
+    <div class="sidebar" id="dowebok">
+        <div class="sidebar-wrapper" id="sidebar-wrapper">
+            <h4 id="restName"></h4>
+            <ul class="nav" id="nav_ul">111</ul>
+        </div>
+    </div>
+
     <script>
         ko.bindingHandlers.stopBinding = {
             init: function () {
@@ -35,13 +42,17 @@
         };
 
         ko.virtualElements.allowedBindings.stopBinding = true;
-        var mainModel =  {
-            detail: ko.observable('<div >xx</div>')
+        var mainModel = {
+            detail: ko.observable('<div >xx</div>'),
+            PostPath: ko.observable('/Channel/index'),
         };
         $(function () {
 
-             ko.applyBindings(mainModel, $('#MainPart')[0]);
+            ko.applyBindings(mainModel, $('#MainPart')[0]);
         });
+
+        //var sidebar = require(['sidebar']);
+
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Modular/Home/Main.jsx")

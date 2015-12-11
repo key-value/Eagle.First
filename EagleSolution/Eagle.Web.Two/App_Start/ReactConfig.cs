@@ -27,7 +27,8 @@ namespace Eagle.Web.Two
 
 
 			ReactSiteConfiguration.Configuration
-				.AddScript("~/Modular/Home/Main.jsx");
+				.AddScript("~/Modular/Home/Main.jsx")
+				.AddScript("~/Modular/WorkContent/TodayWork.jsx");
 		}
 	}
 }

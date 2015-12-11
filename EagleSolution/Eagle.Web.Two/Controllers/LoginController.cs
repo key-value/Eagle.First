@@ -15,12 +15,24 @@ namespace Eagle.Web.Two.Controllers
         // GET: Login
         public ActionResult Index()
         {
+#if DEBUG
+            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+            var account = accountServices.Login("diao", "123");
+
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, account.ID.ToString(), DateTime.Now, DateTime.Now.AddMinutes(60), false, account.ToJson(), FormsAuthentication.FormsCookiePath);
+            string encTicket = FormsAuthentication.Encrypt(ticket);
+            HttpCookie newCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            Response.Cookies.Add(newCookie);
+           return RedirectToAction("Index", "Home");
+#endif
+
+
             return View();
         }
 
         // GET: Account/Details/5
         [HttpPost]
-        public ActionResult Login(string accountName, string password)
+        public ActionResult In(string accountName, string password)
         {
             var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
             try
@@ -43,8 +55,6 @@ namespace Eagle.Web.Two.Controllers
                 result.Message = ex.Message;
                 return Json(result);
             }
-
-
         }
     }
 }

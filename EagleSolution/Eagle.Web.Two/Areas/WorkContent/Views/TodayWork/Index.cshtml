@@ -1,1 +1,8 @@
-﻿
+﻿@using React.Web.Mvc
+@model List<Eagle.ViewModel.ShowWorkRecord>
+@System.Web.Optimization.Scripts.Render("~/Modular/WorkContent/TodayWork.jsx")
+
+@Html.React("TodayWorkModular", new
+{
+    initialData = Model,
+})

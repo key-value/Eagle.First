@@ -379,6 +379,7 @@
 
     .table-responsive > .table {
         margin-bottom: 0;
+        font-size: 14px
     }
 
     .table-responsive > .table-bordered {

@@ -43,7 +43,8 @@ namespace Eagle.Web.Two
 
             bundles.Add(new ScriptBundle("~/bundles/reactJs").Include(
                 "~/Scripts/react/react-with-addons.js",
-                "~/Scripts/react/react-dom.js"));
+                "~/Scripts/react/react-dom.js",
+                "~/Scripts/react/JSXTransformer-0.13.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-3.4.0.js",

@@ -20,7 +20,7 @@ namespace Eagle.Infrastructrue.Aop.Locator
         {
             _container = new UnityContainer();
             _container.AddNewExtension<Microsoft.Practices.Unity.InterceptionExtension.Interception>();
-            var nameSpaces = new List<string>() { "Eagle.Server", "Eagle.Domain.Events.Handles" };
+            var nameSpaces = new List<string>() { "Eagle.Server", "Eagle.Domain.Events.Handles", "Eagle.Application.Server" };
 
             var interceptor = new InjectionMember[]
                               {
@@ -44,7 +44,7 @@ namespace Eagle.Infrastructrue.Aop.Locator
                         var classBody = customAttributeData.InterfaceName;
                         if (classBody != null)
                         {
-                            _container.RegisterType(customAttributeData.InterfaceName, injectionType, new MvcPerRequestLifetimeManager(), interceptor);
+                            _container.RegisterType(customAttributeData.InterfaceName, injectionType, customAttributeData.AliasName, new MvcPerRequestLifetimeManager(), interceptor);
                         }
                     }
                 }
@@ -72,9 +72,13 @@ namespace Eagle.Infrastructrue.Aop.Locator
         /// <returns>The service instance.</returns>
         public T GetService<T>()
         {
-            return _container.Resolve<T>();
+            return _container.Resolve<T>("Default");
         }
 
+        public T GetService<T>(string name)
+        {
+            return _container.Resolve<T>(name);
+        }
 
         public IEnumerable<T> ResolveAll<T>()
         {

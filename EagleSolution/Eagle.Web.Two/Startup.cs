@@ -1,6 +1,11 @@
-﻿using Owin;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Owin;
+using Owin;
 
-namespace Eagle.Web.Two.App_Start
+[assembly: OwinStartup(typeof(Eagle.Web.Two.Startup))]
+
+namespace Eagle.Web.Two
 {
     public partial class Startup
     {

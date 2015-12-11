@@ -10,6 +10,40 @@
     @Styles.Render("~/Content/font")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/xenon-core")
+
+    <style>
+        .sidebar-wrapper {
+            position: relative;
+            height: 100%;
+            overflow: auto;
+        }
+
+        #dowebok {
+            background-color: #81629f;
+        }
+
+            #dowebok .nav {
+                margin-top: 50px;
+                line-height: 40px;
+                list-style-type: none;
+            }
+
+                #dowebok .nav a {
+                    display: block;
+                    padding: 0 20px;
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                    #dowebok .nav a:hover {
+                        background-color: #fff;
+                        color: #000000;
+                    }
+
+        [data-simplersidebar='active'] {
+            box-shadow: -3px 0 3px 0 rgba(0, 0, 0, 0.5);
+        }
+    </style>
     @RenderSection("PageCss", required: false)
 </head>
 <body class="page-body" id="MainPart">
@@ -102,9 +136,28 @@
     @Scripts.Render("~/bundles/xenon-core")
     @Scripts.Render("~/bundles/reactJs")
     @Scripts.Render("~/bundles/knockout")
+    @*@Scripts.Render("~/scripts/require.js")*@
+    @Scripts.Render("~/scripts/simpler-sidebar.min.js")
     <script type="text/javascript">
         $(window).load(function () {
+            //require.config({
+            //    baseUrl: 'Modular',
+            //    paths: {
+            //        sidebar: 'simpler-sidebar.min'
+            //    }
+            //});
+
             $('#load-page').addClass('loaded');
+
+            var $dowebok = $("#dowebok");
+            $dowebok.simplerSidebar({
+                opener: '#abc',
+                sidebar: {
+                    align: 'right',
+                    width: 250
+                }
+            });
+
         });
     </script>
 

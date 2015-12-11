@@ -1459,13 +1459,6 @@
       <Name>Eagle.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\devexpress-web-14.1\ts\dx.all.d.ts" />
-    <TypeScriptCompile Include="Scripts\devexpress-web-14.1\ts\dx.chartjs.d.ts" />
-    <TypeScriptCompile Include="Scripts\devexpress-web-14.1\ts\dx.webappjs.d.ts" />
-    <TypeScriptCompile Include="Scripts\devexpress-web-14.1\ts\globalize.d.ts" />
-    <TypeScriptCompile Include="Scripts\devexpress-web-14.1\ts\jquery.d.ts" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

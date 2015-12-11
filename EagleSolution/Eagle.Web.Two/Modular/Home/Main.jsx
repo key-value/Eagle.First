@@ -1,4 +1,7 @@
 ﻿
+
+
+
 var MenuModel = {
     componentWillUnmount() {
         ko.cleanNode(ReactDOM.findDOMNode(this));
@@ -21,23 +24,29 @@ var MenuModel = {
             map: ko.observable(''),
             branchAction: function (two) {
                 var self = this;
-                self.map('/Modular/' + two.AreaName + '/' + two.ActionName);
+                self.map( '/Modular/'+two.AreaName + '/' + two.ActionName);
 
-                console.log(self.map() + '/index');
+
                 ReactDOM.unmountComponentAtNode(document.getElementById('MainPage'));
                 $('#scriptHtml').html('');
+
 
                 $.ajax({
                     type: "Get",
                     url: self.map() + '.jsx',
-                    contentType: "application/json",
+                    contentType: "application/text",
                     async: true,
                     success: function(data) {
-                        ReactDOM.unmountComponentAtNode(document.getElementById('MainPage'));
+
+                        //console.log(data);
                         $('#scriptHtml').html(data);
-                        ReactDOM.render(React.createElement(MainPageModular), document.getElementById('MainPage'));
-                    }
+                        var mainEle = <MainPageModular areaName={two.AreaName} actionName={two.ActionName} pageNum="1"/>; //React.createElement(MainPageModular);
+                        //console.log(mainEle);
+                        ReactDOM.render(mainEle, document.getElementById('MainPage'));
+                    },
                 });
+
+
             }
         }
         ko.applyBindings(this.__koModel, ReactDOM.findDOMNode(this));
@@ -133,7 +142,13 @@ var MainPageModel = {
         }
 
         ko.applyBindings(this.__mainPagekoModel, ReactDOM.findDOMNode(this));
-    }
+    },
+
+
+    operationClick() {
+        this.setState({wocuo:2});
+        console.log(111);
+    },
 };
 
 var MainPage = React.createClass({
@@ -141,7 +156,9 @@ var MainPage = React.createClass({
     mixins: [ TitleModel ],
     render: function() {
         return (
-            <div>xxxxx</div>
+            <div>xxxxx
+                <input type="button" onClick={this.operationClick} />
+            </div>
     );
     }
 });

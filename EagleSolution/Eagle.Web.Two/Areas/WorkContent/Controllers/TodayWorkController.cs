@@ -18,7 +18,7 @@ namespace Eagle.Web.Two.Areas.WorkContent.Controllers
             var workRecordServices = ServiceLocator.Instance.GetService<IWorkRecordServices>();
             var showWorkRecords = workRecordServices.Get(userId, pageNum);
             ViewBag.totalPage = workRecordServices.PageCount;
-            return PartialView(new HtmlString(showWorkRecords.ToJson()));
+            return PartialView(showWorkRecords);
         }
     }
 }
