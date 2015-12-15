@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "米迹";
+}
+
+@section MainMenu{
+    <div id="LeftMenu"></div>
+}
+
+
+<div class="page-title">
+    <div class="title-env">
+        <h1 class="title" >主页</h1>
+        <p class="description" >什么都没留下 =_=</p>
+    </div>
+</div>
+
+<div id="RightPart"></div>
+
+@section PageScript{
+
+    <script>
+
+        require.config({
+            baseUrl: 'Modular',
+            paths: {
+                //sidebar: 'simpler-sidebar.min'
+                jquery: './../../scripts/jquery-1.10.2.min'
+            }
+        });
+
+        ko.bindingHandlers.stopBinding = {
+            init: function () {
+                return { controlsDescendantBindings: true };
+            }
+        };
+
+        ko.virtualElements.allowedBindings.stopBinding = true;
+        var mainModel = {
+            detail: ko.observable('<div >xx</div>'),
+            PostPath: ko.observable('/Channel/index'),
+        };
+        $(function () {
+            requirejs([
+                '/Scripts/xenon/TweenMax.min.js',
+                '/Scripts/xenon/resizeable.js',
+                '/Scripts/xenon/xenon-api.js',
+                '/Scripts/xenon/xenon-toggles.js',
+                '/Scripts/xenon/xenon-widgets.js',
+                '/Scripts/xenon/toastr.min.js',
+                '/Scripts/xenon/xenon-custom.js']);
+
+            ko.applyBindings(mainModel, $('#MainPart')[0]);
+        });
+
+
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/Modular/Home/Store.jsx")
+    @Html.ReactInitJavaScript()
+}
+

@@ -282,10 +282,12 @@
     <Content Include="Modular\Home\Main.jsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Modular\WorkContent\TodayWork.jsx">
+    <None Include="Modular\WorkContent\TodayWork.jsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Include="Modular\Home\Store.jsx" />
     <Content Include="NLog.config" />
+    <Content Include="Modular\WorkContent\AllWeekPlan.jsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -315,6 +317,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\pubsub.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\react\JSXTransformer-0.13.1.js" />
     <Content Include="Scripts\react\react-dom-server.js" />
@@ -355,6 +358,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

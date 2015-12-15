@@ -1,12 +1,11 @@
 ﻿@{
     Layout = null;
-    ViewBag.title = "米迹系统";
 }
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/font")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/xenon-core")
@@ -133,31 +132,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/xenon-core")
+    @*@Scripts.Render("~/bundles/xenon-core")*@
     @Scripts.Render("~/bundles/reactJs")
     @Scripts.Render("~/bundles/knockout")
-    @*@Scripts.Render("~/scripts/require.js")*@
-    @Scripts.Render("~/scripts/simpler-sidebar.min.js")
+    @Scripts.Render("~/scripts/require.js")
+    @*@Scripts.Render("~/scripts/simpler-sidebar.min.js")*@
     <script type="text/javascript">
         $(window).load(function () {
-            //require.config({
-            //    baseUrl: 'Modular',
-            //    paths: {
-            //        sidebar: 'simpler-sidebar.min'
-            //    }
-            //});
 
             $('#load-page').addClass('loaded');
-
-            var $dowebok = $("#dowebok");
-            $dowebok.simplerSidebar({
-                opener: '#abc',
-                sidebar: {
-                    align: 'right',
-                    width: 250
-                }
-            });
-
         });
     </script>
 

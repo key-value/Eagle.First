@@ -25,5 +25,10 @@ namespace Eagle.Web.Two.Controllers
             ViewBag.show        = new HtmlString(resultBranch.ToJson());
             return View(resultBranch);
         }
+
+        public ActionResult Details()
+        {
+            return View();
+        }
     }
 }

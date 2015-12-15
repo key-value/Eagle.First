@@ -15,11 +15,11 @@ namespace Eagle.Web.Two
                 );
 
             bundles.Add(new StyleBundle("~/Content/xenon-core").Include(
-                "~/Content/themes/xenon/xenon-core.css",
                 "~/Content/themes/xenon/xenon-forms.css",
                 "~/Content/themes/xenon/xenon-components.css",
                 "~/Content/themes/xenon/xenon-skins.css",
-                "~/Content/themes/xenon/custom.css")
+                "~/Content/themes/xenon/custom.css",
+                "~/Content/themes/xenon/xenon-core.css")
                 );
 
 
