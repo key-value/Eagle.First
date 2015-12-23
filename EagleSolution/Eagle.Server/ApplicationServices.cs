@@ -11,7 +11,7 @@ namespace Eagle.Server
         protected ApplicationServices()
         {
             Flag = false;
-            PageSize = 15;
+            PageSize = 10;
         }
 
         public int Code { get; set; }

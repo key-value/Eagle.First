@@ -1,150 +1,79 @@
-﻿@{
-    Layout = null;
-}
-<html>
+﻿<!doctype html>
+<html class="no-js">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/font")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/xenon-core")
-
-    <style>
-        .sidebar-wrapper {
-            position: relative;
-            height: 100%;
-            overflow: auto;
-        }
-
-        #dowebok {
-            background-color: #81629f;
-        }
-
-            #dowebok .nav {
-                margin-top: 50px;
-                line-height: 40px;
-                list-style-type: none;
-            }
-
-                #dowebok .nav a {
-                    display: block;
-                    padding: 0 20px;
-                    color: #fff;
-                    text-decoration: none;
-                }
-
-                    #dowebok .nav a:hover {
-                        background-color: #fff;
-                        color: #000000;
-                    }
-
-        [data-simplersidebar='active'] {
-            box-shadow: -3px 0 3px 0 rgba(0, 0, 0, 0.5);
-        }
-    </style>
-    @RenderSection("PageCss", required: false)
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>米迹系统</title>
+    @System.Web.Optimization.Styles.Render("~/Content/amazeui")
 </head>
-<body class="page-body" id="MainPart">
-    <div class="page-container">
-        <div class="sidebar-menu toggle-others">
-            <div class="sidebar-menu-inner">
-                <header class="logo-env">
-                    <div class="logo">
-                        <a href="javascript:;" class="logo-expanded">
-                            <img src="~/Content/Images/logo@2x.png" width="100" alt="" />米迹
-                        </a>
-                        <a href="javascript:;" class="logo-collapsed">
-                            米迹
-                        </a>
-                    </div>
-                    <div class="mobile-menu-toggle visible-xs">
-                        <a href="#" data-toggle="mobile-menu">
-                            <i class="fa-bars"></i>
-                        </a>
-                    </div>
-                </header>
+<body>
 
-                @RenderSection("MainMenu", required: false)
+    <header class="am-topbar admin-header">
+        <div class="am-topbar-brand">
+            <strong>米客</strong> <small>米迹系统</small>
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                        <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                        <li><a href="~/Home/Logout"><span class="am-icon-power-off"></span> 退出</a></li>
+                    </ul>
+                </li>
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="am-cf admin-main">
+        <!-- sidebar start -->
+        <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+            <div class="am-offcanvas-bar admin-offcanvas-bar">
+                @RenderSection("LeftMenu", required: false)
+
+
 
 
             </div>
         </div>
-        <div class="main-content">
-            <nav class="navbar user-info-navbar" role="navigation">
-                <ul class="user-info-menu left-links list-inline list-unstyled">
-                    <li class="hidden-sm hidden-xs">
-                        <a href="#" data-toggle="sidebar">
-                            <i class="fa-bars"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown hover-line" style="min-height: 76px; line-height: 35px">
-                    </li>
-                </ul>
-                <ul class="user-info-menu right-links list-inline list-unstyled">
-                    <li class="dropdown user-profile">
-                        <a href="#" data-toggle="dropdown">
-                            <img src="http://static.chidaoni.com/Content/images/avatar.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
-                            <span>
+        <!-- sidebar end -->
+        <!-- content start -->
+        @RenderBody()
 
-                                <i class="fa-angle-down"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu user-profile-menu list-unstyled">
-                            <li>
-                                <a href="/operations/Home/ResetPwd">
-                                    <i class="fa-lock"></i>
-                                    修改密码
-                                </a>
-                            </li>
-                            <li class="last">
-                                <a href="javascript:;" id="btnLoginOut">
-                                    <i class="fa-power-off"></i>
-                                    安全退出
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-
-            @RenderBody()
-            <footer class="main-footer sticky footer-type-1">
-                <div class="footer-inner">
-                    <div class="footer-text">
-                        &copy; @DateTime.Now.Year by <a href="http://www.chidaoni.com" target="_blank">米客</a>
-                    </div>
-                    <div class="go-up">
-                        <a href="#" rel="go-top">
-                            <i class="fa-angle-up"></i>
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        <!-- content end -->
 
     </div>
 
+    <a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+        <span class="am-icon-btn am-icon-th-list"></span>
+    </a>
 
-    <div id="load-page" class="page-loading-overlay">
-        <div class="loader-2"></div>
-    </div>
+    <footer>
+        <hr>
+        <p class="am-padding-left">© @(DateTime.Now.Year) 米客 </p>
+    </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @*@Scripts.Render("~/bundles/xenon-core")*@
-    @Scripts.Render("~/bundles/reactJs")
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/scripts/require.js")
-    @*@Scripts.Render("~/scripts/simpler-sidebar.min.js")*@
-    <script type="text/javascript">
-        $(window).load(function () {
 
-            $('#load-page').addClass('loaded');
-        });
-    </script>
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="/Scripts/Amaze/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
 
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/bundles/knockout")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/layer/layer.js")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Amaze")
     @RenderSection("PageScript", required: false)
 </body>
-
 </html>

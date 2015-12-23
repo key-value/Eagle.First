@@ -3,72 +3,82 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html class="no-js">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>米迹</title>
+    @System.Web.Optimization.Styles.Render("~/Content/amazeui")
 
-    @Styles.Render("~/Content/font")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/xenon-core")
+    <style>
+        .header {
+            text-align: center;
+        }
+
+            .header h1 {
+                font-size: 200%;
+                color: #333;
+                margin-top: 30px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+    </style>
 </head>
-<body class="page-body login-page">
-    <div class="login-container">
-        <div class="row">
-            <div class="col-sm-6">
+<body>
+    <div class="header">
+        <div class="am-g">
+            <h1>米 迹</h1>
+            <p>内测版</p>
+        </div>
+        <hr>
+    </div>
+    <div class="am-g">
+        <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
 
-                <script type="text/javascript">
+            <br>
+            <div class="am-form am-form-horizontal">
+                <form method="post" class="am-form" id="login">
+                    <div class="am-form-group">
+                        <label class="am-u-sm-12 am-u-md-3 am-form-label amu" for="username">账号:</label>
 
-                </script>
-
-                <div class="errors-container">
-
-                </div>
-
-                <form method="post" role="form" id="login" class="login-form fade-in-effect">
-
-                    <div class="login-header">
-                        <a href="#" class="logo">
-                            <img src="~/Content/Images/logo@2x.png" alt="" width="80" />
-                            <span>log in</span>
-                        </a>
-
-                        <p>Dear user, log in to access the admin area!</p>
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <input type="text" name="username" id="username" value="">
+                        </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label" for="username">Username</label>
-                        <input type="text" class="form-control input-dark" name="username" id="username" autocomplete="off" />
+                    <br>
+                    <div class="am-form-group">
+                        <label class="am-u-sm-12 am-u-md-3 am-form-label amu" for="passwd">密码:</label>
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <input type="password" name="passwd" id="passwd" value="">
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="passwd">Password</label>
-                        <input type="password" class="form-control input-dark" name="passwd" id="passwd" autocomplete="off" />
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-dark  btn-block text-left">
-                            <i class="fa-lock"></i>
-                            Log In
-                        </button>
+                    <br>
+                    <div class="am-form-group">
+                        <div class="am-u-sm-12 am-u-md-9 am-u-md-push-3">
+                            <input type="button" value="登 录" id="loginBtn" class="am-btn am-btn-primary  am-btn-block ">
+                        </div>
                     </div>
                 </form>
-
             </div>
+            <hr>
+            <p>© @(DateTime.Now.Year) 米客</p>
         </div>
     </div>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/xenon-core")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Amaze")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.validate.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/layer/layer.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/Init/Main.js")
     <script>
         $(function (parameters) {
-            // Reveal Login form
-            setTimeout(function () { $(".fade-in-effect").addClass('in'); }, 1);
-
-
+            $('#loginBtn').on('click', function () {
+                $("form#login").submit();
+            });
+            var progress = $.AMUI.progress;
             // Validation and Ajax action
             $("form#login").validate({
                 rules: {
@@ -83,17 +93,18 @@
 
                 messages: {
                     username: {
-                        required: 'Please enter your username.'
+                        required: '请输入账号.'
                     },
 
                     passwd: {
-                        required: 'Please enter your password.'
+                        required: '请输入密码.'
                     }
                 },
 
                 // Form Processing via AJAX
                 submitHandler: function (form) {
-                    show_loading_bar(70); // Fill progress bar to 70% (just a given value)
+
+                    progress.start();
 
                     var opts = {
                         "closeButton": true,
@@ -119,21 +130,16 @@
                             password: $(form).find('#passwd').val(),
                         },
                         success: function (resp) {
-                            show_loading_bar({
-                                delay: .5,
-                                pct: 100,
-                                finish: function () {
-
-                                    // Redirect after successful login page (when progress bar reaches 100%)
-                                    if (resp.Flag) {
-                                        window.location.href = '/home/index';
-                                    }
-                                    else {
-                                        toastr.error(resp.Message, "Invalid Login!", opts);
-                                        $('#passwd').select();
-                                    }
-                                }
-                            });
+                            progress.done();
+                            // Redirect after successful login page (when progress bar reaches 100%)
+                            if (resp.Flag) {
+                                mainUtility.alert('登录成功!');
+                                window.location.href = '/home/index';
+                            }
+                            else {
+                                mainUtility.alert(resp.Message);
+                                $('#passwd').select();
+                            }
 
                         }
                     });

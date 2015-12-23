@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Eagle.Web.Two</RootNamespace>
     <AssemblyName>Eagle.Web.Two</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -119,30 +120,16 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="React.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.2.1.2\lib\net40\React.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="React.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.2.1.2\lib\net40\React.Web.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="React.Web.Mvc4, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.Mvc4.2.1.2\lib\net40\React.Web.Mvc4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -184,10 +171,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="VroomJs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.2.1.2\lib\net40\VroomJs.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -204,9 +188,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\ReactConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\One\Controllers\WorkContentController.cs" />
+    <Compile Include="Areas\One\OneAreaRegistration.cs" />
     <Compile Include="Areas\WorkContent\Controllers\TodayWorkController.cs" />
     <Compile Include="Areas\WorkContent\WorkContentAreaRegistration.cs" />
     <Compile Include="Controllers\ChannelController.cs" />
@@ -226,6 +211,10 @@
     <Content Include="Areas\WorkContent\Views\_ViewStart.cshtml" />
     <Content Include="Areas\WorkContent\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\WorkContent\Views\TodayWork\Index.cshtml" />
+    <Content Include="Areas\One\Views\web.config" />
+    <Content Include="Areas\One\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\One\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\One\Views\WorkContent\TodayWork.cshtml" />
     <None Include="ClearScript.V8\ClearScriptV8-32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -248,56 +237,58 @@
     <Content Include="Content\Images\logo-white-bg%402x.png" />
     <Content Include="Content\Images\logo-white-bg.png" />
     <Content Include="Content\Images\logo.png" />
-    <Content Include="Content\knockout.pager.css" />
-    <Content Include="Content\themes\xenon\custom.css" />
-    <Content Include="Content\themes\xenon\fonts\font-awesome.css" />
-    <Content Include="Content\themes\xenon\fonts\font-awesome.min.css" />
-    <Content Include="Content\themes\xenon\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\themes\xenon\fonts\linecons.css" />
-    <Content Include="Content\themes\xenon\fonts\linecons.svg" />
-    <Content Include="Content\themes\xenon\xenon-components.css" />
-    <Content Include="Content\themes\xenon\xenon-core.css" />
-    <Content Include="Content\themes\xenon\xenon-forms.css" />
-    <Content Include="Content\themes\xenon\xenon-skins.css" />
-    <Content Include="Content\themes\xenon\xenon.css" />
+    <Content Include="Content\themes\css\admin.css" />
+    <Content Include="Content\themes\css\amazeui.css" />
+    <Content Include="Content\themes\css\amazeui.flat.css" />
+    <Content Include="Content\themes\css\amazeui.flat.min.css" />
+    <Content Include="Content\themes\css\amazeui.min.css" />
+    <Content Include="Content\themes\css\app.css" />
+    <Content Include="Content\themes\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\themes\i\examples\admin-chrome.png" />
+    <Content Include="Content\themes\i\examples\admin-firefox.png" />
+    <Content Include="Content\themes\i\examples\admin-ie.png" />
+    <Content Include="Content\themes\i\examples\admin-opera.png" />
+    <Content Include="Content\themes\i\examples\admin-safari.png" />
+    <Content Include="Content\themes\i\examples\adminPage.png" />
+    <Content Include="Content\themes\i\examples\blogPage.png" />
+    <Content Include="Content\themes\i\examples\landing.png" />
+    <Content Include="Content\themes\i\examples\landingPage.png" />
+    <Content Include="Content\themes\i\examples\loginPage.png" />
+    <Content Include="Content\themes\i\examples\sidebarPage.png" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\themes\xenon\fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\themes\xenon\fonts\FontAwesome.otf" />
-    <Content Include="Content\themes\xenon\fonts\linecons.eot" />
-    <Content Include="Content\themes\xenon\fonts\linecons.ttf" />
-    <Content Include="Content\themes\xenon\fonts\linecons.woff" />
-    <Content Include="Modular\Home\Main.jsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Modular\WorkContent\TodayWork.jsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Modular\Home\Store.jsx" />
+    <Content Include="Scripts\Init\Main.js" />
     <Content Include="NLog.config" />
-    <Content Include="Modular\WorkContent\AllWeekPlan.jsx" />
+    <Content Include="Content\themes\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\themes\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\themes\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\themes\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\themes\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\sdy-Pirate-Release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.tmpl.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Amaze\amazeui.ie8polyfill.js" />
+    <Content Include="Scripts\Amaze\amazeui.ie8polyfill.min.js" />
+    <Content Include="Scripts\Amaze\amazeui.js" />
+    <Content Include="Scripts\Amaze\amazeui.min.js" />
+    <Content Include="Scripts\Amaze\amazeui.widgets.helper.js" />
+    <Content Include="Scripts\Amaze\amazeui.widgets.helper.min.js" />
+    <Content Include="Scripts\Amaze\app.js" />
+    <Content Include="Scripts\Amaze\handlebars.min.js" />
     <Content Include="Scripts\knockouch.js" />
     <Content Include="Scripts\knockouch.min.js" />
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
@@ -306,43 +297,31 @@
     <Content Include="Scripts\knockout-select2.min.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
-    <Content Include="Scripts\knockout.pager.js" />
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\knockout.viewmodel.2.0.3.js" />
     <Content Include="Scripts\knockout.viewmodel.2.0.3.min.js" />
     <Content Include="Scripts\knockoutReact.js" />
+    <Content Include="Scripts\layer\extend\layer.ext.js" />
+    <Content Include="Scripts\layer\layer.js" />
+    <Content Include="Scripts\layer\skin\default\icon-ext.png" />
+    <Content Include="Scripts\layer\skin\default\icon.png" />
+    <Content Include="Scripts\layer\skin\default\loading-0.gif" />
+    <Content Include="Scripts\layer\skin\default\loading-1.gif" />
+    <Content Include="Scripts\layer\skin\default\loading-2.gif" />
+    <Content Include="Scripts\layer\skin\layer.css" />
+    <Content Include="Scripts\layer\skin\layer.ext.css" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\pubsub.js" />
     <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\react\JSXTransformer-0.13.1.js" />
-    <Content Include="Scripts\react\react-dom-server.js" />
-    <Content Include="Scripts\react\react-dom-server.min.js" />
-    <Content Include="Scripts\react\react-dom.js" />
-    <Content Include="Scripts\react\react-dom.min.js" />
-    <Content Include="Scripts\react\react-with-addons.js" />
-    <Content Include="Scripts\react\react-with-addons.min.js" />
-    <Content Include="Scripts\react\react.js" />
-    <Content Include="Scripts\react\react.min.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\showdown.js" />
     <Content Include="Scripts\showdown.min.js" />
-    <Content Include="Scripts\simpler-sidebar.min.js" />
-    <Content Include="Scripts\xenon\resizeable.js" />
-    <Content Include="Scripts\xenon\toastr.js" />
-    <Content Include="Scripts\xenon\toastr.min.js" />
-    <Content Include="Scripts\xenon\TweenMax.min.js" />
-    <Content Include="Scripts\xenon\xenon-api.js" />
-    <Content Include="Scripts\xenon\xenon-custom.js" />
-    <Content Include="Scripts\xenon\xenon-notes.js" />
-    <Content Include="Scripts\xenon\xenon-toggles.js" />
-    <Content Include="Scripts\xenon\xenon-widgets.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -362,13 +341,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\One\Models\" />
     <Folder Include="Areas\WorkContent\Models\" />
+    <Folder Include="Modular\" />
     <Folder Include="Views\Channel\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>

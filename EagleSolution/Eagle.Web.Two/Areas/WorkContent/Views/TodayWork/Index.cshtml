@@ -1,8 +1,215 @@
-﻿@using React.Web.Mvc
-@model List<Eagle.ViewModel.ShowWorkRecord>
-@System.Web.Optimization.Scripts.Render("~/Modular/WorkContent/TodayWork.jsx")
+﻿
+<script>
+    var workRecordModel;
+    var workRecordPop;
 
-@Html.React("TodayWorkModular", new
-{
-    initialData = Model,
-})
+    function WorkRecordBody() {
+        var workSelf = this;
+        workSelf.ID = ko.observable(''),
+        workSelf.Plan = ko.observable(''),
+        workSelf.Journal = ko.observable(''),
+        workSelf.Summary = ko.observable(''),
+        workSelf.Create = function () {
+            var id = workRecordPop.ID();
+            if (id != '') {
+                workRecordPop.ID('');
+                workRecordPop.Journal('');
+                workRecordPop.Summary('');
+                workRecordPop.Plan('');
+            }
+            $('#todayWork-popup').modal({ closeViaDimmer: 0 });
+        }
+        workSelf.Sumbit = function (dataSelf) {
+            mainUtility.ajax( { entity: ko.toJSON(dataSelf), pageNum: workRecordModel.CurrentPage() }, function (data) {
+                if (data.Flag) {
+                    mainUtility.alert('操作成功');
+                    workRecordModel.UpdateList(data, workRecordModel.CurrentPage());
+                    $('#todayWork-popup').modal('close');
+                    workRecordPop.ID('');
+                    workRecordPop.Journal('');
+                    workRecordPop.Summary('');
+                    workRecordPop.Plan('');
+                } else {
+                    mainUtility.alert(data.Message);
+                }
+            }, 1);
+        },
+        workSelf.SelectRecordFunc = function (comment) {
+            workRecordPop.ID(comment.ID);
+            workRecordPop.Journal(comment.Journal);
+            workRecordPop.Summary(comment.Summary);
+            workRecordPop.Plan(comment.Plan);
+
+        }
+    }
+    function WorkRecordModul() {
+        var self = this;
+        self.WorkRecordList = ko.observableArray(),
+            self.PageCount = ko.observable(1),
+            self.CurrentPage = ko.observable(1),
+            self.PageCode = ko.observableArray(),
+        self.InitData = function (pageNum) {
+            $.post(mainUtility.postUrl, {
+                AreaName: 'WorkContent',
+                ActionName: 'TodayWork',
+                dic: {
+                    pageNum: pageNum,
+                }
+            }, function (data) {
+                if (data.Flag) {
+                    self.UpdateList(data, pageNum);
+                }
+            });
+        },
+        self.UpdateList = function (data, pageNum) {
+            self.WorkRecordList(data.Fruit);
+            self.PageCount(data.PageCount);
+            self.CurrentPage(pageNum);
+            var s = mainUtility.getPageCode(workRecordModel.CurrentPage(), workRecordModel.PageCount());
+            self.PageCode(s);
+        }
+        self.init = function () {
+            self.InitData(1);
+        }
+    };
+    $(document).ready(function ($) {
+        workRecordModel = new WorkRecordModul();
+        workRecordPop = new WorkRecordBody();
+        ko.applyBindings(workRecordModel, $("#WorkRecord-part")[0]);
+        ko.applyBindings(workRecordPop, $("#todayWork-popup")[0]);
+        workRecordModel.init();
+
+        mainUtility.initModal('closeModal', 'todayWork-popup');
+
+        $('#UpdateSystemBtn').on('click', function () {
+            mainUtility.leftMenuClose();
+            $('#todayWork-popup').modal({ closeViaDimmer: 0 });
+        });
+
+        $('#DeleteSystemBtn').on('click', function () {
+
+            $('#Delete-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function (options) {
+
+                    mainUtility.ajax( { entity: ko.toJSON(workRecordPop), pageNum: workRecordModel.CurrentPage() }, function (data) {
+                        if (data.Flag) {
+                            mainUtility.alert('操作成功');
+                            workRecordModel.UpdateList(data, workRecordModel.CurrentPage());
+                        } else {
+                            mainUtility.alert(data.Message);
+                        }
+                        mainUtility.leftMenuClose();
+                    }, 3);
+                },
+                // closeOnConfirm: false,
+                onCancel: function () {
+                    mainUtility.leftMenuClose();
+                }
+            });
+
+        });
+    });
+</script>
+
+
+
+<div id="WorkRecord-part" class="">
+    <br />
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <button type="button" class="am-btn am-btn-default js-modal-open" data-bind="click: workRecordPop.Create"><i class="am-icon-plus"></i>新增</button>
+
+        </div>
+    </div>
+    <br />
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <table id="WorkRecordTable" class="am-table am-table-striped am-table-hover table-main ">
+                <thead>
+                    <tr>
+                        <th class="am-hide-sm-only">#</th>
+                        <th>日志</th>
+                        <th class="am-hide-sm-only">总结</th>
+                        <th class="am-hide-sm-only">计划</th>
+                        <th>创建时间</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="middle-align" data-bind="foreach : workRecordModel.WorkRecordList">
+                    <tr>
+                        <td class="am-hide-sm-only" data-bind="text:$index()+1"></td>
+                        <td data-bind="text: mainUtility.truncation(Journal)"></td>
+                        <td class="am-hide-sm-only" data-bind="text: mainUtility.truncation(Summary) "></td>
+                        <td class="am-hide-sm-only " data-bind="text: mainUtility.truncation(Plan) "></td>
+                        <td data-bind="text:CreateTime"></td>
+                        <td>
+                            <button class="am-btn am-btn-primary" data-bind="click: mainUtility.leftMenuAction.bind($data, workRecordPop.SelectRecordFunc ,$data)">
+                                <i class="am-icon-cog"></i>
+                                操作
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="am-cf" data-bind="if: workRecordModel.PageCount() > 1">
+                共 <!-- ko text: PageCount --> <!-- /ko --> 页
+                <div class="am-fr">
+                    <ul class="am-pagination">
+                        <li data-bind="attr : { class:  workRecordModel.CurrentPage() == 1 ? 'am-disabled':''}, click: workRecordModel.InitData.bind($data,1)"><a href="#">«</a></li>
+                        <!-- ko foreach: PageCode() -->
+                        <li data-bind="attr : { class: $data == workRecordModel.CurrentPage() ? 'am-active':''}, click: workRecordModel.InitData"><a href="#" data-bind="text: $data"></a></li>
+                        <!-- /ko -->
+                        <li data-bind="attr : { class:  workRecordModel.CurrentPage() == workRecordModel.PageCount() ? 'am-disabled':''}, click: workRecordModel.InitData.bind($data,workRecordModel.PageCount()) , clickBubble: false"><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p data-bind="text: '注 : '+ rootModel.description()"></p>
+        </div>
+    </div>
+</div>
+
+<div class="am-popup" tabindex="-1" id="todayWork-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title"> 写日志 </h4>
+            <span data-am-modal-close="" class="am-close">×</span>
+        </div>
+        <div class="am-popup-bd ">
+            <div class="am-form am-form-horizontal">
+
+                <div class="am-form-group">
+                    <label for="Journal" class="am-u-sm-12 am-u-md-3 am-form-label amu">工作日志</label>
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <textarea class="form-control" rows="6" placeholder="今天一天的工作内容" id="Journal" data-bind="value: workRecordPop.Journal"></textarea>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="Summary" class="am-u-sm-12 am-u-md-3 am-form-label">工作总结</label>
+                    <div class="am-u-sm-12  am-u-md-9">
+                        <textarea class="form-control" rows="6" id="Summary" placeholder="一天工作内容总结下吧" data-bind="value: workRecordPop.Summary"></textarea>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="Plan" class="am-u-sm-12 am-u-md-3 am-form-label">明日计划</label>
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <textarea class="form-control" rows="6" id="Plan" placeholder="明天的有什么新的计划呢" data-bind="value: workRecordPop.Plan"></textarea>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-12 am-u-md-9  am-u-sm-push-3">
+                        <button type="button" id="closeModal" class="am-btn am-btn-default">放弃</button>
+                        &nbsp;
+                        <button type="button" id="saveBtn" data-bind="click: workRecordPop.Sumbit" class="am-btn am-btn am-btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

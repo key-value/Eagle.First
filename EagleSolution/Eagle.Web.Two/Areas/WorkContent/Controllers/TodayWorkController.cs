@@ -12,13 +12,9 @@ namespace Eagle.Web.Two.Areas.WorkContent.Controllers
     public class TodayWorkController : Controller
     {
         // GET: WorkContent/TodayWork
-        public ActionResult Index(int pageNum = 1)
+        public ActionResult Index()
         {
-            var userId = new Guid("85860B7B-4019-4E49-A98D-7FE287D09CDC");
-            var workRecordServices = ServiceLocator.Instance.GetService<IWorkRecordServices>();
-            var showWorkRecords = workRecordServices.Get(userId, pageNum);
-            ViewBag.totalPage = workRecordServices.PageCount;
-            return PartialView(showWorkRecords);
+            return PartialView();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Eagle.Infrastructrue.Utility
             {
                 return JsonConvert.DeserializeObject<T>(str);
             }
-            catch
+            catch(JsonException ex)
             {
                 return default(T);
             }

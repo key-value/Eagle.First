@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Eagle.Infrastructrue.Utility
@@ -11,16 +12,17 @@ namespace Eagle.Infrastructrue.Utility
             {
                 return new List<T>();
             }
-            pageCount = (t.Count() + pageSize - 1) / pageSize;
+            var _pageCount = t.Count();
             var skipCount = 0;
             if (pageNumber > 0)
             {
                 skipCount = (pageNumber - 1) * pageSize;
             }
-            if (pageNumber > pageCount)
+            if (skipCount > _pageCount)
             {
                 return new List<T>();
             }
+            pageCount = (int)Math.Ceiling((decimal)_pageCount / pageSize);
             return t.Skip(skipCount).Take(pageSize);
         }
         public static IEnumerable<T> Pageing<T>(this IQueryable<T> t, int pageNumber, ref int pageCount)

@@ -25,18 +25,18 @@ namespace Eagle.Infrastructrue.Utility
             {
                 return false;
             }
-            var type = typeof(T);
-            if (type.IsGenericType)
-            {
-                type = type.GetGenericArguments()[0];
-            }
-            var tryParse = type.GetMethod("TryParse", BindingFlags.Public | BindingFlags.Static, Type.DefaultBinder,
-                                   new[] { typeof(string), type.MakeByRefType() },
-                                   new[] { new ParameterModifier(2) });
-            var parameters = new[] { dictionary[paramName], Activator.CreateInstance(type) };
-            bool success = (bool)tryParse.Invoke(null, parameters);
-            result = (T)parameters[1];
-            return success;
+            //var type = typeof(T);
+            //if (type.IsGenericType)
+            //{
+            //    type = type.GetGenericArguments()[0];
+            //}
+            //var tryParse = type.GetMethod("TryParse", BindingFlags.Public | BindingFlags.Static, Type.DefaultBinder,
+            //                       new[] { typeof(string), type.MakeByRefType() },
+            //                       new[] { new ParameterModifier(2) });
+            //var parameters = new[] { dictionary[paramName], Activator.CreateInstance(type) };
+            //bool success = (bool)tryParse.Invoke(null, parameters);
+            //result = (T)parameters[1];
+            return System.Enum.TryParse(dictionary[paramName], out result);
         }
         public static bool Verification<T>(this Dictionary<string, string> dictionary, string paramName, ref T result) where T : class
         {

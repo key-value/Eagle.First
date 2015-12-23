@@ -48,6 +48,10 @@ namespace Eagle.ViewModel
         {
             Fruit = fruit;
         }
+        public Cells( T fruit , int pageCount) : base(true, null, 0, pageCount)
+        {
+            Fruit = fruit;
+        }
 
         public Cells(bool flag, string message, int code, T fruit, int pageCount) : base(flag, message, code, pageCount)
         {

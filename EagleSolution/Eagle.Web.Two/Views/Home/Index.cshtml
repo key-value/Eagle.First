@@ -1,60 +1,142 @@
-﻿@model List<Eagle.ViewModel.ShowBranch>
-@{
-    ViewBag.title = "米迹";
-}
+﻿
+@section LeftMenu{
+    <ul class="am-list admin-sidebar-list" data-bind="foreach: {data: rootModel.branchs,as: 'one'}">
+        <li class="admin-parent">
+            <a class="am-cf am-collapsed" data-bind="attr:{ 'data-am-collapse': '{target: \'#collapse-nav'+$index() +'\' }'}">
+                <span class="am-icon-file"></span>
+                <!-- ko text: Title --> data-am-collapse="{target: '#collapse-nav'}" <!-- /ko -->
+                <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul data-bind="foreach: {data: Branches ,as: 'two'}, attr:{ id : 'collapse-nav'+$index() }" class="am-list admin-sidebar-sub am-collapse">
+                <li>
+                    <a data-bind="click: rootModel.branchAction.bind(two)">
+                        <span class="am-icon-bug"></span>
+                        <!-- ko text: Title --> <!-- /ko -->
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
-@section MainMenu{
-    <!-- ko  stopBinding: true-->
-    @Html.React("LeftMenu", new
-{
-    initialData = Model,
-})
-    <!-- /ko-->
-}
+    <div data-bind="if :rootModel.title" class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+            <p>
+                <span class="am-icon-bookmark"></span>
+                <!-- ko text: rootModel.title --> <!-- /ko -->
+            </p>
 
-<!-- ko  stopBinding: true-->
-@Html.React("PageTitle", new
-{
-    title = "主页",
-    description = "什么都没留下 =_=",
-})
-<!-- /ko-->
-<!-- ko  stopBinding: true-->
-@Html.React("MainPage", new
-{
-}, containerId: "MainPage")
-<!-- /ko-->
-<input type="button" class="btn btn-black" id="abc" />
-
-@section PageScript{
-    <div class="sidebar" id="dowebok">
-        <div class="sidebar-wrapper" id="sidebar-wrapper">
-            <h4 id="restName"></h4>
-            <ul class="nav" id="nav_ul">111</ul>
         </div>
     </div>
+}
 
+
+<div class="admin-content">
+
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf">
+            <strong class="am-text-primary am-text-lg">首页</strong>
+            <!-- ko if: rootModel.title-->
+            /<small data-bind="text: rootModel.title">一些常用模块</small>
+            <!-- /ko -->
+        </div>
+    </div>
+    <small class="am-u-sm-10" data-bind="text: rootModel.description"></small>
+
+    <div data-bind="html: rootModel.details"></div>
+
+</div>
+
+<div id="left-Canvas" class="am-offcanvas ">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <!-- 你的内容 -->
+        <br/>
+        <br />
+        <br />
+        <br />
+        <br/>
+        <input type="hidden" id="hideParam" />
+        <ul class="am-list am-list-border" data-bind="foreach: rootModel.selectBtns()">
+            <li style="background-color: black">
+                <a data-bind="attr: {id: Id }" href="javascript:;">
+                    <i class="am-icon-cog"></i>
+                    <!-- ko text:Name --> <!-- /ko -->
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="Delete-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">米迹</div>
+        <div class="am-modal-bd">
+            你，确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+
+@section PageScript{
+    @System.Web.Optimization.Scripts.Render("~/Scripts/Init/Main.js")
     <script>
-        ko.bindingHandlers.stopBinding = {
-            init: function () {
-                return { controlsDescendantBindings: true };
+        var rootModel = null;
+        function HomeModel() {
+            var self = this;
+            self.pageNum = ko.observable(1);
+            self.branchs = ko.observableArray();
+            self.map = ko.observable(),
+            self.selectBtns = ko.observableArray(),
+            self.title = ko.observable("主页"),
+            self.description = ko.observable("什么都没留下 =_="),
+            self.details = ko.observable(),
+            self.init = function() {
+                $.post(mainUtility.postUrl, {
+                    AreaName: 'Init',
+                    ActionName: 'LeftMenu'
+                }, function(data) {
+                    if (data.Flag) {
+                        self.branchs(data.Fruit);
+                    }
+                });
+            };
+            self.branchAction = function(two) {
+                self.pageNum(1);
+                self.title(two.Title);
+                self.description(two.Description || '什么都没留下 =_=');
+                self.selectBranch = two;
+                var pageBtns = JSON.parse(two.ActionButtons);
+                self.selectBtns([]);
+                var i = 0;
+                while (i < pageBtns.length) {
+                    var operatBtn = mainUtility.buttons[pageBtns[i]];
+                    if (operatBtn.Sider) {
+                        self.selectBtns.push(operatBtn);
+                    }
+                    i++;
+                }
+
+                self.details('');
+                self.map('/' + two.AreaName + '/' + two.ActionName);
+
+                $.get(self.map() + '/index', { pageNum: self.pageNum }, function(data) {
+                    self.details('');
+                    self.details(data);
+                });
             }
-        };
+        }
 
-        ko.virtualElements.allowedBindings.stopBinding = true;
-        var mainModel = {
-            detail: ko.observable('<div >xx</div>'),
-            PostPath: ko.observable('/Channel/index'),
-        };
-        $(function () {
-
-            ko.applyBindings(mainModel, $('#MainPart')[0]);
+        $(function() {
+            rootModel = new HomeModel();
+            rootModel.init();
+            mainUtility.init();
+            ko.applyBindings(rootModel);
         });
-
-        //var sidebar = require(['sidebar']);
-
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/Modular/Home/Main.jsx")
-    @Html.ReactInitJavaScript()
+
+
 }

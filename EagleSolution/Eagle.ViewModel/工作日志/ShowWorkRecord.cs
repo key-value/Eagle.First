@@ -6,7 +6,7 @@ namespace Eagle.ViewModel
     public class ShowWorkRecord
     {
 
-        public Guid ID
+        public Guid? ID
         {
             get; set;
         }

@@ -139,7 +139,7 @@ namespace Eagle.Server.Services
                     Message = "被修改日志不存在!";
                     return;
                 }
-                if (workRecord.CreateTime.Date.AddHours(27) <DateTime.Now)
+                if (workRecord.CreateTime.Date.AddHours(27) < DateTime.Now)
                 {
                     Message = "日志已经被锁定无法修改!";
                     return;
@@ -238,6 +238,18 @@ namespace Eagle.Server.Services
                 var workComment = workContext.WorkComments.FirstOrDefault(x => x.ID == updateWorkComment.ID);
                 workComment = updateWorkComment.Update(workComment);
                 workContext.ModifiedModel(workComment);
+                workContext.SaveChanges();
+                Flag = true;
+            }
+        }
+
+
+        public void Delete(UpdateWorkRecord updateWorkRecord)
+        {
+            using (var workContext = new DefaultContext())
+            {
+                var workRecord = workContext.WorkRecords.FirstOrDefault(x => x.ID == updateWorkRecord.ID);
+                workContext.WorkRecords.Remove(workRecord);
                 workContext.SaveChanges();
                 Flag = true;
             }

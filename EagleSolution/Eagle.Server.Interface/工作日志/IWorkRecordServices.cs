@@ -15,5 +15,6 @@ namespace Eagle.Server
         void UpdateComment(UpdateWorkComment updateWorkComment, Guid accountId);
         List<ShowWorkRecord> GetAllRecords(DateTime selectTime, Guid departmentId);
         List<ShowWorkComment> GetWorkComments(Guid recordId);
+        void Delete(UpdateWorkRecord updateWorkRecord);
     }
 }

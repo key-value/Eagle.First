@@ -16,14 +16,14 @@ namespace Eagle.Web.Two.Controllers
         public ActionResult Index()
         {
 #if DEBUG
-            var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
-            var account = accountServices.Login("diao", "123");
+           // var accountServices = ServiceLocator.Instance.GetService<IAccountServices>();
+           // var account = accountServices.Login("diao", "123");
 
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, account.ID.ToString(), DateTime.Now, DateTime.Now.AddMinutes(60), false, account.ToJson(), FormsAuthentication.FormsCookiePath);
-            string encTicket = FormsAuthentication.Encrypt(ticket);
-            HttpCookie newCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-            Response.Cookies.Add(newCookie);
-           return RedirectToAction("Index", "Home");
+           // FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, account.ID.ToString(), DateTime.Now, DateTime.Now.AddMinutes(60), false, account.ToJson(), FormsAuthentication.FormsCookiePath);
+           // string encTicket = FormsAuthentication.Encrypt(ticket);
+           // HttpCookie newCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+           // Response.Cookies.Add(newCookie);
+           //return RedirectToAction("Index", "Home");
 #endif
 
 

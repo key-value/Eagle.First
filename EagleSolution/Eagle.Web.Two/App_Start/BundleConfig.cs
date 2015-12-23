@@ -8,19 +8,6 @@ namespace Eagle.Web.Two
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/Content/font").Include(
-                "~/Content/themes/xenon/fonts/font-awesome.min.css",
-                "~/Content/themes/xenon/fonts/linecons.css",
-                "~/Content/Site.css")
-                );
-
-            bundles.Add(new StyleBundle("~/Content/xenon-core").Include(
-                "~/Content/themes/xenon/xenon-forms.css",
-                "~/Content/themes/xenon/xenon-components.css",
-                "~/Content/themes/xenon/xenon-skins.css",
-                "~/Content/themes/xenon/custom.css",
-                "~/Content/themes/xenon/xenon-core.css")
-                );
 
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -41,25 +28,21 @@ namespace Eagle.Web.Two
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/reactJs").Include(
-                "~/Scripts/react/react-with-addons.js",
-                "~/Scripts/react/react-dom.js",
-                "~/Scripts/react/JSXTransformer-0.13.1.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-3.4.0.js",
                 "~/Scripts/knockout.mapping-latest.js",
                 "~/Scripts/knockout.viewmodel.2.0.3.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/xenon-core").Include(
-                "~/Scripts/xenon/TweenMax.min.js",
-                "~/Scripts/xenon/resizeable.js",
-                "~/Scripts/xenon/xenon-api.js",
-                //"~/Scripts/xenon/xenon-notes.js",
-                "~/Scripts/xenon/xenon-toggles.js",
-                "~/Scripts/xenon/xenon-widgets.js",
-                "~/Scripts/xenon/toastr.min.js",
-                "~/Scripts/xenon/xenon-custom.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Amaze").Include(
+                "~/Scripts/Amaze/amazeui.min.js").Include(
+                "~/Scripts/Amaze/app.js"));
+
+
+            bundles.Add(new StyleBundle("~/Content/amazeui").Include(
+                      "~/Content/themes/css/amazeui.min.css").Include(
+                      "~/Content/themes/css/admin.css"));
+
+
         }
     }
 }

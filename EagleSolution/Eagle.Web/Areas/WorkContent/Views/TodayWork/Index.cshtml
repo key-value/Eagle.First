@@ -81,7 +81,7 @@
                                         <input type="checkbox" data-bind="value: ID" class="cbr">
                                     </td>
                                     <td data-bind="text:$index()+1,click: WorkRecordBody.SelectRecordFunc.bind($data)"></td>
-                                    <td data-bind="text:  Journal() ?  Journal().substr(0, 14) :Journal"></td>
+                                    <td data-bind="text: Journal() ?  Journal().substr(0, 14) :Journal"></td>
                                     <td data-bind="text: Summary() ? Summary().substr(0, 14) :Summary"></td>
                                     <td data-bind="text: Plan() ?  Plan().substr(0, 14) :Plan "></td>
                                     <td data-bind="text:CreateTime"></td>
