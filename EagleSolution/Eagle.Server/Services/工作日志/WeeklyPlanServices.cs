@@ -58,7 +58,7 @@ namespace Eagle.Server.Services
             }
         }
 
-        public List<ShowWeeklyPlan> Get(Guid weekPlanId, int pageNum)
+        public List<ShowWeeklyPlan> Get(Guid accountId, int pageNum)
         {
             var showWeeklyPlans = new List<ShowWeeklyPlan>();
             using (var workContext = new DefaultContext())
@@ -66,7 +66,7 @@ namespace Eagle.Server.Services
                 var workCard = (
                                from card in workContext.WorkCards
                                join department in workContext.Departments on card.DepartmentId equals department.ID
-                               where card.AccountId == weekPlanId
+                               where card.AccountId == accountId
                                select new
                                {
                                    card,

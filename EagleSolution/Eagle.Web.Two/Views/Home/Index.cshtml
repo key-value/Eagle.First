@@ -36,7 +36,7 @@
         <div class="am-fl am-cf">
             <strong class="am-text-primary am-text-lg">首页</strong>
             <!-- ko if: rootModel.title-->
-            /<small data-bind="text: rootModel.title">一些常用模块</small>
+            /<small data-bind="text: rootModel.title"></small>
             <!-- /ko -->
         </div>
     </div>
@@ -49,11 +49,11 @@
 <div id="left-Canvas" class="am-offcanvas ">
     <div class="am-offcanvas-bar am-offcanvas-bar-flip">
         <!-- 你的内容 -->
-        <br/>
         <br />
         <br />
         <br />
-        <br/>
+        <br />
+        <br />
         <input type="hidden" id="hideParam" />
         <ul class="am-list am-list-border" data-bind="foreach: rootModel.selectBtns()">
             <li style="background-color: black">
@@ -66,7 +66,6 @@
 
     </div>
 </div>
-
 <div class="am-modal am-modal-confirm" tabindex="-1" id="Delete-confirm">
     <div class="am-modal-dialog">
         <div class="am-modal-hd">米迹</div>
@@ -89,7 +88,7 @@
             self.pageNum = ko.observable(1);
             self.branchs = ko.observableArray();
             self.map = ko.observable(),
-            self.selectBtns = ko.observableArray(),
+            self.selectBtns = ko.observableArray([]),
             self.title = ko.observable("主页"),
             self.description = ko.observable("什么都没留下 =_="),
             self.details = ko.observable(),
@@ -103,14 +102,19 @@
                     }
                 });
             };
-            self.branchAction = function(two) {
+            self.branchAction = function (two) {
+                mainUtility.load();
                 self.pageNum(1);
                 self.title(two.Title);
                 self.description(two.Description || '什么都没留下 =_=');
                 self.selectBranch = two;
+
+                self.details('');
+                self.map('/One/' + two.AreaName + '/' + two.ActionName);
+
                 var pageBtns = JSON.parse(two.ActionButtons);
-                self.selectBtns([]);
                 var i = 0;
+                self.selectBtns([]);
                 while (i < pageBtns.length) {
                     var operatBtn = mainUtility.buttons[pageBtns[i]];
                     if (operatBtn.Sider) {
@@ -119,9 +123,6 @@
                     i++;
                 }
 
-                self.details('');
-                self.map('/' + two.AreaName + '/' + two.ActionName);
-
                 $.get(self.map() + '/index', { pageNum: self.pageNum }, function(data) {
                     self.details('');
                     self.details(data);
@@ -129,6 +130,7 @@
             }
         }
 
+        var layer_index;
         $(function() {
             rootModel = new HomeModel();
             rootModel.init();

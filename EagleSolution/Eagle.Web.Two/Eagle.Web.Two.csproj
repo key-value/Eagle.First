@@ -215,6 +215,7 @@
     <Content Include="Areas\One\Views\_ViewStart.cshtml" />
     <Content Include="Areas\One\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\One\Views\WorkContent\TodayWork.cshtml" />
+    <Content Include="Areas\One\Views\WorkContent\UpdateWeeklyPlan.cshtml" />
     <None Include="ClearScript.V8\ClearScriptV8-32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

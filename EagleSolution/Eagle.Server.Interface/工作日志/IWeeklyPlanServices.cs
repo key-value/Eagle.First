@@ -6,7 +6,7 @@ namespace Eagle.Server
 {
     public interface IWeeklyPlanServices : IAppServices
     {
-        List<ShowWeeklyPlan> Get(Guid weekPlanId, int pageNum);
+        List<ShowWeeklyPlan> Get(Guid accountId, int pageNum);
         void Update(UpdateWeeklyTarget updateWeeklyTarget, Guid userId);
         void UpdateSummary(UpdateWeekSummary updateWeekSummary);
         void UpdateComment(UpdateWeekComment updateWeekComment, Guid accountId);

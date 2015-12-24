@@ -12,7 +12,6 @@ namespace Eagle.Domain.EF.Map.Default
         {
             this.HasKey(x => x.ID);
             this.Ignore(x => x.ActionButtons);
-
         }
     }
 }
